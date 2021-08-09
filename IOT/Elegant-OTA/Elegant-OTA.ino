@@ -31,7 +31,7 @@ AsyncWebServer server(80);
 void setup(void) {
   Serial.begin(115200);
   WiFi.mode(WIFI_STA);
-  IPAddress ip(192,168,8,99);
+  IPAddress ip(192,168,8,3);
   IPAddress gateway(192,168,8,1);
   IPAddress subnet(255,255,255,0);
 
@@ -50,7 +50,7 @@ void setup(void) {
 //  Serial.println(myIP);
   Serial.println("");
   Serial.print("Connected to ");
-  Serial.println(ssid);
+  Serial.println(ssidC);
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
