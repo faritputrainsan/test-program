@@ -24,10 +24,10 @@ void setup() {
   lc.shutdown(2, false);
   lc.shutdown(3, false);
   /* Set the brightness to a medium values */
-  lc.setIntensity(0, 2);
-  lc.setIntensity(1, 2);
-  lc.setIntensity(2, 2);
-  lc.setIntensity(3, 2);
+  lc.setIntensity(0, 6);
+  lc.setIntensity(1, 6);
+  lc.setIntensity(2, 6);
+  lc.setIntensity(3, 6);
   /* and clear the display */
   lc.clearDisplay(0);
   lc.clearDisplay(1);
@@ -75,32 +75,32 @@ void scrollDigits() {
     lc.setRow(0, 6, i);
     lc.setRow(0, 7, i);
     
-//    lc.setDigit(1, 0, i, false);
-//    lc.setDigit(1, 1, i, false);
-//    lc.setDigit(1, 2, i, false);
-//    lc.setDigit(1, 3, i, false);
-//    lc.setDigit(1, 4, i, false);
-//    lc.setDigit(1, 5, i, false);
-//    lc.setDigit(1, 6, i, false);
-//    lc.setDigit(1, 7, i, false);
-//
-//    lc.setDigit(2, 0, i, false);
-//    lc.setDigit(2, 1, i, false);
-//    lc.setDigit(2, 2, i, false);
-//    lc.setDigit(2, 3, i, false);
-//    lc.setDigit(2, 4, i, false);
-//    lc.setDigit(2, 5, i, false);
-//    lc.setDigit(2, 6, i, false);
-//    lc.setDigit(2, 7, i, false);
-//
-//    lc.setDigit(3, 0, i, false);
-//    lc.setDigit(3, 1, i, false);
-//    lc.setDigit(3, 2, i, false);
-//    lc.setDigit(3, 3, i, false);
-//    lc.setDigit(3, 4, i, false);
-//    lc.setDigit(3, 5, i, false);
-//    lc.setDigit(3, 6, i, false);
-//    lc.setDigit(3, 7, i, false);
+    lc.setDigit(1, 0, i, false);
+    lc.setDigit(1, 1, i, false);
+    lc.setDigit(1, 2, i, false);
+    lc.setDigit(1, 3, i, false);
+    lc.setDigit(1, 4, i, false);
+    lc.setDigit(1, 5, i, false);
+    lc.setDigit(1, 6, i, false);
+    lc.setDigit(1, 7, i, false);
+
+    lc.setDigit(2, 0, i, false);
+    lc.setDigit(2, 1, i, false);
+    lc.setDigit(2, 2, i, false);
+    lc.setDigit(2, 3, i, false);
+    lc.setDigit(2, 4, i, false);
+    lc.setDigit(2, 5, i, false);
+    lc.setDigit(2, 6, i, false);
+    lc.setDigit(2, 7, i, false);
+
+    lc.setDigit(3, 0, i, false);
+    lc.setDigit(3, 1, i, false);
+    lc.setDigit(3, 2, i, false);
+    lc.setDigit(3, 3, i, false);
+    lc.setDigit(3, 4, i, false);
+    lc.setDigit(3, 5, i, false);
+    lc.setDigit(3, 6, i, false);
+    lc.setDigit(3, 7, i, false);
     delay(delaytime);
   }
   lc.clearDisplay(0);
