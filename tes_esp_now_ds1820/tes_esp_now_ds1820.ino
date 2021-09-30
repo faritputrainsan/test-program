@@ -12,41 +12,45 @@
 #include <ESP8266WiFi.h>
 #include <espnow.h>
 
+#include <DallasTemperature.h>
+#include <OneWire.h>
 
 // REPLACE WITH THE MAC Address of your receiver
-uint8_t broadcastAddress[] = {0xEC, 0xFA, 0xBC, 0x05, 0x68, 0x4E};
+uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 // Digital pin connected to the DHT sensor
-#define BTNPIN D1
+#define DSPIN D1
 
-byte readPin;
+OneWire oneWire(DSPIN);
 
-bool button;
+DallasTemperature Sensors(&oneWire);
 
 // Define variables to store DHT readings to be sent
 float temperature;
 
-//float humidity;
 
 // Define variables to store incoming readings
 float incomingTemp;
 
+// Updates DHT readings every 10 seconds
+const long interval = 1000;
+unsigned long previousMillis = 0;    // will store last time DHT was updated
+
 // Variable to store if sending data was successful
 String success;
 
+//Structure example to send data
 //Must match the receiver structure
 typedef struct struct_message {
   float temp;
-  //  float hum;
 } struct_message;
 
-//Structure example to send data
-typedef struct struct_send_message {
-  bool btn;
-} struct_send_message;
+typedef struct receive_struct_message {
+  bool button;
+} receive_struct_message;
 
 // Create a struct_message called DHTReadings to hold sensor readings
-struct_send_message btnReadings;
+struct_message DSReadings;
 
 // Create a struct_message to hold incoming sensor readings
 struct_message incomingReadings;
@@ -68,46 +72,37 @@ void OnDataRecv(uint8_t * mac, uint8_t *incomingData, uint8_t len) {
   Serial.print("Bytes received: ");
   Serial.println(len);
   incomingTemp = incomingReadings.temp;
-  //  incomingHum = incomingReadings.hum;
 }
 
 void getReadings() {
 
-  // read button
+  Sensors.requestTemperatures();
 
-  readPin = digitalRead(BTNPIN);
-  
-  if (readPin == HIGH) {
-    antiBounce();
-    button = true;
-    Serial.println(button);
-  }
-  else {
-    button = false;
-  }
+  float temperatureC = Sensors.getTempCByIndex(0);
+  Serial.print (temperatureC);
+  Serial.println ("ºC");
 
-
-  //Read Temperature
-  //  temperature = dht.readTemperature();
-  //Read temperature as Fahrenheit (isFahrenheit = true)
-  //float t = dht.readTemperature(true);
+  // Read Temperature
+  // temperature = dht.readTemperature();
+  // Read temperature as Fahrenheit (isFahrenheit = true)
+  // float t = dht.readTemperature(true);
   //  if (isnan(temperature)){
   //    Serial.println("Failed to read from DHT");
   //    temperature = 0.0;
   //  }
-  //  humidity = dht.readHumidity();
-  //  if (isnan(humidity)){
+  // humidity = dht.readHumidity();
+  // if (isnan(humidity)){
   //    Serial.println("Failed to read from DHT");
   //    humidity = 0.0;
   //  }
 }
 
 void printIncomingReadings() {
-  // Display Readings in Serial Monitor
-  Serial.println("INCOMING READINGS");
-  Serial.print("Temperature: ");
-  Serial.print(incomingTemp);
-  Serial.println(" ºC");
+  //  Display Readings in Serial Monitor
+  //  Serial.println("INCOMING READINGS");
+  //  Serial.print("Temperature: ");
+  //  Serial.print(incomingTemp);
+  //  Serial.println(" ºC");
   //  Serial.print("Humidity: ");
   //  Serial.print(incomingHum);
   //  Serial.println(" %");
@@ -116,7 +111,7 @@ void printIncomingReadings() {
 void setup() {
   // Init Serial Monitor
   Serial.begin(115200);
-
+  Sensors.begin();
 
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
@@ -143,31 +138,22 @@ void setup() {
 }
 
 void loop() {
-  //  unsigned long currentMillis = millis();
-  //  if (currentMillis - previousMillis >= interval) {
-  // save the last time you updated the DHT values
-  //    previousMillis = currentMillis;
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you updated the DHT values
+    previousMillis = currentMillis;
 
-  //Get DHT readings
-  getReadings();
+    //Get DHT readings
+    getReadings();
 
-  //Set values to send
-  btnReadings.btn = button;
-  //  DHTReadings.hum = humidity;
+    //Set values to send
+    DSReadings.temp = temperature;
+    //    DHTReadings.hum = humidity;
 
-  // Send message via ESP-NOW
-    esp_now_send(broadcastAddress, (uint8_t *) &btnReadings, sizeof(btnReadings));
+    // Send message via ESP-NOW
+    esp_now_send(broadcastAddress, (uint8_t *) &DSReadings, sizeof(DSReadings));
 
-  // Print incoming readings
+    // Print incoming readings
     printIncomingReadings();
-  //  }
-}
-
-void antiBounce() {
-
-  while (readPin) {
-    readPin = digitalRead(BTNPIN);
-    
-    delay(100);
   }
 }
