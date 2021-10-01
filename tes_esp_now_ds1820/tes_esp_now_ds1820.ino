@@ -16,7 +16,7 @@
 #include <OneWire.h>
 
 // REPLACE WITH THE MAC Address of your receiver
-uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+uint8_t broadcastAddress[] = {0x3C, 0x71, 0xBF, 0x3A, 0x50, 0x79};
 
 // Digital pin connected to the DHT sensor
 #define DSPIN D1
@@ -28,9 +28,8 @@ DallasTemperature Sensors(&oneWire);
 // Define variables to store DHT readings to be sent
 float temperature;
 
-
 // Define variables to store incoming readings
-float incomingTemp;
+float incomingReq;
 
 // Updates DHT readings every 10 seconds
 const long interval = 1000;
@@ -53,7 +52,7 @@ typedef struct receive_struct_message {
 struct_message DSReadings;
 
 // Create a struct_message to hold incoming sensor readings
-struct_message incomingReadings;
+receive_struct_message incomingReadings;
 
 // Callback when data is sent
 void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
@@ -69,17 +68,18 @@ void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
 // Callback when data is received
 void OnDataRecv(uint8_t * mac, uint8_t *incomingData, uint8_t len) {
   memcpy(&incomingReadings, incomingData, sizeof(incomingReadings));
-  Serial.print("Bytes received: ");
-  Serial.println(len);
-  incomingTemp = incomingReadings.temp;
+  //  Serial.print("Bytes received: ");
+  //  Serial.println(len);
+  incomingReq = incomingReadings.button;
 }
 
 void getReadings() {
 
   Sensors.requestTemperatures();
 
-  float temperatureC = Sensors.getTempCByIndex(0);
-  Serial.print (temperatureC);
+  temperature = Sensors.getTempCByIndex(0);
+  Serial.print ("temperature: ");
+  Serial.print (temperature);
   Serial.println ("ºC");
 
   // Read Temperature
@@ -99,9 +99,9 @@ void getReadings() {
 
 void printIncomingReadings() {
   //  Display Readings in Serial Monitor
-  //  Serial.println("INCOMING READINGS");
-  //  Serial.print("Temperature: ");
-  //  Serial.print(incomingTemp);
+  Serial.println("INCOMING READINGS");
+//  Serial.print("Temperature: ");
+  Serial.print(incomingReq);
   //  Serial.println(" ºC");
   //  Serial.print("Humidity: ");
   //  Serial.print(incomingHum);
@@ -138,10 +138,9 @@ void setup() {
 }
 
 void loop() {
-  unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= interval) {
+
+  if (incomingReq) {
     // save the last time you updated the DHT values
-    previousMillis = currentMillis;
 
     //Get DHT readings
     getReadings();
@@ -152,8 +151,11 @@ void loop() {
 
     // Send message via ESP-NOW
     esp_now_send(broadcastAddress, (uint8_t *) &DSReadings, sizeof(DSReadings));
-
+    
     // Print incoming readings
     printIncomingReadings();
+
+  }
+  else {
   }
 }

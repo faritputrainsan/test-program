@@ -22,6 +22,7 @@ uint8_t broadcastAddress[] = {0xEC, 0xFA, 0xBC, 0x05, 0x68, 0x4E};
 byte readPin;
 
 bool button;
+bool sts;
 
 // Define variables to store DHT readings to be sent
 float temperature;
@@ -35,10 +36,10 @@ float incomingTemp;
 String success;
 
 //Must match the receiver structure
-typedef struct struct_message {
+typedef struct struct_recv_message {
   float temp;
   //  float hum;
-} struct_message;
+} struct_recv_message;
 
 //Structure example to send data
 typedef struct struct_send_message {
@@ -49,24 +50,24 @@ typedef struct struct_send_message {
 struct_send_message btnReadings;
 
 // Create a struct_message to hold incoming sensor readings
-struct_message incomingReadings;
+struct_recv_message incomingReadings;
 
 // Callback when data is sent
 void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
-  Serial.print("Last Packet Send Status: ");
+//  Serial.print("Last Packet Send Status: ");
   if (sendStatus == 0) {
-    Serial.println("Delivery success");
+//    Serial.println("Delivery success");
   }
   else {
-    Serial.println("Delivery fail");
+//    Serial.println("Delivery fail");
   }
 }
 
 // Callback when data is received
 void OnDataRecv(uint8_t * mac, uint8_t *incomingData, uint8_t len) {
   memcpy(&incomingReadings, incomingData, sizeof(incomingReadings));
-  Serial.print("Bytes received: ");
-  Serial.println(len);
+//  Serial.print("Bytes received: ");
+//  Serial.println(len);
   incomingTemp = incomingReadings.temp;
   //  incomingHum = incomingReadings.hum;
 }
@@ -80,11 +81,16 @@ void getReadings() {
   if (readPin == HIGH) {
     antiBounce();
     button = true;
+    sts = true;
     Serial.println(button);
   }
   else {
     button = false;
   }
+  btnReadings.btn = button;
+
+  /////////////////!!!!!!!!!!!    this    !!!!!!!!!!!//////////////////
+    esp_now_send(broadcastAddress, (uint8_t *) &btnReadings, sizeof(btnReadings));
 
 
   //Read Temperature
@@ -144,30 +150,31 @@ void setup() {
 
 void loop() {
   //  unsigned long currentMillis = millis();
-  //  if (currentMillis - previousMillis >= interval) {
+  getReadings();
+ 
+    if (incomingTemp && sts) {
   // save the last time you updated the DHT values
   //    previousMillis = currentMillis;
 
   //Get DHT readings
-  getReadings();
+  
 
   //Set values to send
-  btnReadings.btn = button;
+  
   //  DHTReadings.hum = humidity;
 
   // Send message via ESP-NOW
-    esp_now_send(broadcastAddress, (uint8_t *) &btnReadings, sizeof(btnReadings));
+    sts = false;
 
   // Print incoming readings
     printIncomingReadings();
-  //  }
+    }
 }
 
 void antiBounce() {
 
   while (readPin) {
     readPin = digitalRead(BTNPIN);
-    
     delay(100);
   }
 }
