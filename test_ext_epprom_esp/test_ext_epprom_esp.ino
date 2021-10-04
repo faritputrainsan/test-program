@@ -10,16 +10,10 @@
 void setup() {
 
   Serial.begin(9600);
-
   Wire.begin(pinSDA, pinSCL);
-
   delay(100);
-
-  writeData(0, 12);
+  writeData(1, 12);
   Serial.println(readData( 1));
-
-
-
   // put your setup code here, to run once:
 
 }
@@ -32,7 +26,8 @@ void loop() {
 void writeData(byte address, byte data) {
 
   Wire.beginTransmission(ADD_I2C);
-  Wire.write(address);
+  Wire.write((int)(address >> 8));   //MSB
+  Wire.write((int)(address & 0xFF)); //LSB
   Wire.write(data);
   Serial.print("write Data  ");
   Serial.println(data);
@@ -40,21 +35,23 @@ void writeData(byte address, byte data) {
   delay(5);
 }
 
-
 byte readData(byte address) {
+  
   byte data ;
   Wire.beginTransmission(ADD_I2C);
-  Wire.write(address);
+  Wire.write((int)(address >> 8));   //MSB
+  Wire.write((int)(address & 0xFF));  //LSB
   Wire.endTransmission();
   Wire.requestFrom(ADD_I2C, 1);
-    delay(5);
+  delay(5);
   if (Wire.available()) {
     Serial.print("read data : ");
     data = Wire.read();
     Serial.println(data);
     delay(5);
   }
-  Wire.endTransmission();
-  
   return data;
 }
+
+
+void writeString(const unsigned int, );
