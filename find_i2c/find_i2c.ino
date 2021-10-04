@@ -5,9 +5,12 @@
  */
  
 #include <Wire.h>
- 
+
+
+ #define sda D5
+ #define scl D6
 void setup() {
-    Wire.begin();
+    Wire.begin(sda,scl);
     Serial.begin(9600);
     while(!Serial);
  
