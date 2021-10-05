@@ -1,0 +1,45 @@
+body{
+  font-size:100%;
+} 
+  p{
+    color: rgb(17, 0, 255);
+    text-align: center;
+  }
+  #main{
+    display: table;
+    margin: auto;
+    padding: 0px 5px 0px 5px;
+  }
+  h2{
+    text-align:center;
+    color: aqua;
+  } 
+  #LED_button{ 
+    padding:5px 10px 5px 10px;
+    width:100%;
+    background-color: #9c6d37;
+    font-size: 120%;
+  }
+  #clock{
+    text-align: center;
+    color: rgb(0, 4, 252);
+    font-size: 50px;
+    padding: 0px 5px 0px 5px;
+  }
+  .copyright{
+    font-size: small;
+    text-align: center;
+    color: black;
+  }
+  .navigation{
+    text-align: center;
+  }
+  .homeselection{
+    font-style:normal;
+    font-size: 100%;
+  }
+footer{
+  padding: 20px;
+  color: azure;
+  background-color: rgb(43, 255, 0);
+}
