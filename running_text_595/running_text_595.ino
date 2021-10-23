@@ -13,28 +13,27 @@
  
 // Setting SSID dan Password WiFi (Mode AP)
 
- 
 // Pendeklarasian variabel objek server dan websocket
 
-
- 
 // Penentuan PIN
-byte verticalData = 4;
+byte verticalData = 7;
 byte verticalClock = 5;
-byte horizontalData = 6;
-byte horizontalClock = 7;
-const byte latch = 8;
+
+byte horizontalData = 2;
+byte horizontalClock = 4;
+
+const byte latch = 3;
  
 // Penentuan lebar dan tinggi
-const byte lebar = 24;
+const byte lebar = 120;
 const byte tinggi = 8;
  
 // Penentuan tulisan / running text
 String tulisan = "MENGAPA KENAPa        ";
  
 // Perhitungan jumlah modul untuk dibuatkan array bitmap
-const byte jumlahModul = lebar/8;
-byte bitmap[tinggi][jumlahModul];
+//const byte jumlahModul = lebar/8;
+//byte bitmap[tinggi][jumlahModul];
  
 // Cuma ngetes aja sih
 byte smiley[] = {0x00, 0x04, 0x72, 0x02, 0x02, 0x72, 0x04, 0x00};
@@ -48,11 +47,11 @@ void setup() {
   pinMode(latch, OUTPUT);
  
   // Mengambil data teks EEPROM
-  tulisan = readString();
+//  tulisan = readString();
 }
  
 // Penentuan konfigurasi scrolling dan variabelnya
-int scrollSpeed = 70; // Atur ini untuk mengubah kecepatan
+int scrollSpeed = 60; // Atur ini untuk mengubah kecepatan
 unsigned long scrollTiming = 0;
 int scrollStep = 0;
  
@@ -66,7 +65,7 @@ void scrollingText() {
  
     // Mereset scroll step jika melebihi jumlah lebar karakter (6 kolom + jarak antar karakter)
     // (Scroll step digunakan untuk mengetahui karakter mana yang akan di print berdasarkan sejauh mana pergeseran)
-    if (scrollStep > tulisan.length() * 6) scrollStep = 1;
+    if (scrollStep > tulisan.length() * 6) scrollStep = 0;
     uint8_t charIndexScreen = floor((scrollStep - 1) / 6);  // Indeks karakter dari variabel tulisan
     uint8_t charIndex = tulisan[charIndexScreen] - 32;  // Indeks karakter berdasarkan kode ASCII yang ada di library font5x7
     uint8_t col = (scrollStep - 1) % 6; // Kolom dari setiap karakter yang akan di print (juga berdasarkan pergeseran / scrollstep) pastinya
@@ -76,19 +75,20 @@ void scrollingText() {
     for (int row = 0; row < tinggi; row++) {
  
       // melakukan perulangan setiap modul, agar pada modul 1 dapat bergeser ke modul 2 dst..
-      for (int col = 1; col < jumlahModul; col++) {
-        bitmap[row][col] <<= 1; // Ini gan pergeserannya
-        bitWrite(bitmap[row][col], 0, bitRead(bitmap[row][col-1], 7));
+      for (int cols = 0; cols < jumlahModul; cols++) {
+        bitmap[row][cols] <<= 1; // Ini gan pergeserannya
+        bitmap[row][0] |= bitRead(pgm_read_byte(&Font5x7[charIndex*5+col]), row);
+        bitWrite(bitmap[row][cols], 0, bitRead(bitmap[row][cols-1], 7));
       }
  
       // Menambahkan bit baru untuk huruf baru di kanan
       bitmap[row][0] <<= 1;
-      if (col >= 5) {
-        bitmap[row][0] |= 0; // Jika col lebih dari 5, maka kita gunakan untuk spasi antar huruf
-      }
-      else {
-        bitmap[row][0] |= bitRead(pgm_read_byte(&Font5x7[charIndex*5+col]), row); // Jika tidak, berarti kita tambahkan bit baru tsb..
-      }
+//      if (col >= 5) {
+//        bitmap[row][0] |= 0; // Jika col lebih dari 5, maka kita gunakan untuk spasi antar huruf
+//      }
+//      else {
+//         // Jika tidak, berarti kita tambahkan bit baru tsb..
+//      }
     }
   }
 }
@@ -105,9 +105,10 @@ void refresh() {
     digitalWrite(latch, LOW);
     // menampilkan bitmap berdasarkan baris yang terdapat pada array bitmap
     for (int modul = jumlahModul-1; modul >= 0; modul--){
-      shiftOut(horizontalData, horizontalClock, LSBFIRST, ~bitmap[row][modul]);
+      shiftOut(horizontalData, horizontalClock, LSBFIRST, bitmap[row][modul]);
     }
-    shiftOut(verticalData, verticalClock, MSBFIRST, 1 << row);  // ini gan pergeseran vscan nya
+    byte rows = 1<< row;
+    shiftOut(verticalData, verticalClock, MSBFIRST, ~rows);  // ini gan pergeseran vscan nya
     digitalWrite(latch, HIGH); // setelah semua bit terkirim, ditampilkan ke output led
     delay(1);
   }
