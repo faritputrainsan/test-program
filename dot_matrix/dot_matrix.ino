@@ -80,7 +80,7 @@ int Text_Configure = 2;
 int Param_Configure = 3;
 //---------------------------------------------------------------------
 
-uint16_t DISP_COL_CNT = 152;
+uint16_t DISP_COL_CNT = 15;
 volatile uint8_t DISP_ROW_CNT = 8;
 volatile uint8_t disp_mode = Text_Only;
 volatile uint16_t Scr_Speed = 50;
@@ -307,14 +307,15 @@ void loop()
     if (m != 6)
     {
       data = pgm_read_byte( &(smallFont [((text[chr] - ' ') * 6) + m]));
+    Serial.println(data,HEX);
     }
 
     if ((data & (1 << row)) != 0)
       //kalau nilainya == 1
-      digitalWrite(HC595_COL_DS, LOW);
+      digitalWrite(HC595_COL_DS, HIGH);
     else
       //kalau nilainya == 0
-      digitalWrite(HC595_COL_DS, HIGH);
+      digitalWrite(HC595_COL_DS, LOW);
 
     HC595_Col_Pulse();
 
@@ -487,17 +488,17 @@ void SelectRow(uint8_t rows)
 {
   for (a = 0; a < rows; a++)
   {
-    digitalWrite(HC595_ROW_DS, HIGH);
+    digitalWrite(HC595_ROW_DS, LOW);
     digitalWrite(HC595_ROW_SHCP, HIGH);
     digitalWrite(HC595_ROW_SHCP, LOW);
   }
-  digitalWrite(HC595_ROW_DS, LOW);
+  digitalWrite(HC595_ROW_DS, HIGH);
   digitalWrite(HC595_ROW_SHCP, HIGH);
   digitalWrite(HC595_ROW_SHCP, LOW);
   rows++;
   for (a = rows; a < DISP_ROW_CNT; a++)
   {
-    digitalWrite(HC595_ROW_DS, HIGH);
+    digitalWrite(HC595_ROW_DS, LOW);
     digitalWrite(HC595_ROW_SHCP, HIGH);
     digitalWrite(HC595_ROW_SHCP, LOW);
   }

@@ -11,6 +11,16 @@
 #define lat_row 6
 
 int stepX , stepY;
+byte tinggi = 8;
+int lebar = 152;
+
+
+char textchar;
+int col,row;
+
+int length;
+
+int data;
 
 char text = "Test Running Text";
 
@@ -134,11 +144,20 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
- 
+ textRunning ();
 }
 
 void textRunning () {
- 
+ for(int rows=0;rows <= tinggi; rows++ ){
+    row = 1 << rows;
+    digitalWrite(lat_row,LOW);
+    shiftOut(data_row, clk_row, MSBFIRST, row);
+
+    Serial.println(row);
+    digitalWrite(lat_row, HIGH);
+ }
+
+ data = pgm_read_byte(&(font[]));
 }
 
 void textStatic(char text) {
