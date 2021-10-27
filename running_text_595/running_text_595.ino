@@ -83,7 +83,6 @@ void scrollingText() {
         bitWrite(bitmap[row][cols], 0, bitRead(bitmap[row][cols - 1], 7));
 //        bitmap[row][0] |= bitRead(pgm_read_byte(&Font5x7[charIndex * 5 + col]), row);
 
-
         // Menambahkan bit baru untuk huruf baru di kanan
         bitmap[row][0] <<= 1;
         if (col >= 5) {
@@ -112,8 +111,6 @@ void refresh() {
     // menampilkan bitmap berdasarkan baris yang terdapat pada array bitmap
 //    for (int modul = lebar - 1; modul >= 0; modul--) {
       shiftOut(horizontalData, horizontalClock, LSBFIRST, bitmap[row][modul]);
-    
-    
     
     byte rows = 1 << row;
     shiftOut(verticalData, verticalClock, MSBFIRST, ~rows);  // ini gan pergeseran vscan nya
