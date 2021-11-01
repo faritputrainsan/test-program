@@ -14,16 +14,14 @@ int stepX , stepY;
 byte tinggi = 8;
 int lebar = 152;
 
-
-char textchar;
+#define textChar
 int col,row;
 
 int length;
 
 int data;
 
-char text = "Test Running Text";
-
+char text [textChar]= "Test Running Text";
 
 const unsigned char font[] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // sp
@@ -122,28 +120,25 @@ const unsigned char font[] PROGMEM = {
   0x18, 0x3C, 0x78, 0x3C, 0x18, 0x00,  // {  ini lambang hati
   0xC6, 0xEE, 0xFE, 0xEE, 0xC6, 0x00,  // | ini lambang hourglass
   0x00, 0x06, 0x09, 0x09, 0x06, 0x00,  // } ini lambang derajat
-  0x10, 0x20, 0x10, 0x08, 0x10, 0x00  // ~
+  0x10, 0x20, 0x10, 0x08, 0x10, 0x00   // ~
 };
-
 
 void setup() {
   // put your setup code here, to run once:
-
   Serial.begin(115200);
-  
+
   pinMode(data_col , OUTPUT);
   pinMode(clk_col , OUTPUT);
   pinMode(lat_col , OUTPUT);
-  
+
   pinMode(data_row , OUTPUT);
   pinMode(clk_row , OUTPUT);
   pinMode(lat_row , OUTPUT);
 
-  
+  length = strlen(text);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
  textRunning ();
 }
 
@@ -157,13 +152,14 @@ void textRunning () {
     digitalWrite(lat_row, HIGH);
  }
 
- data = pgm_read_byte(&(font[]));
+ data = pgm_read_byte(&(font[((text[textChar] - ' ' ))]));
+ Serial.println (data);
+ 
 }
 
 void textStatic(char text) {
 
 }
-
 
 void refreshDisplays() {
 

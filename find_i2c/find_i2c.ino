@@ -10,8 +10,8 @@
  #define sda 5
  #define scl 4
 void setup() {
-    Wire.begin(sda,scl);
-    Serial.begin(9600);
+    Wire.begin();
+    Serial.begin(115200);
     while(!Serial);
  
     Serial.println("#============o0o=============#");
