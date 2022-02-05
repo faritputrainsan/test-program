@@ -5,16 +5,19 @@
  */
  
 #include <Wire.h>
- #define sda 13
- #define scl 12
+
+ #define sda 5
+ #define scl 4
 void setup() {
     Wire.begin(sda,scl);
     Serial.begin(115200);
     while(!Serial);
+ 
     Serial.println("#============o0o=============#");
     Serial.println("#         I2C Scanner        #");
     Serial.println("# Explored by Elangsakti.com #");
     Serial.println("#============================#");
+ 
     Cari_Alamat();
 }
  

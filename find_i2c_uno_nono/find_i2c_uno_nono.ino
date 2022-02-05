@@ -5,10 +5,8 @@
  */
  
 #include <Wire.h>
- #define sda 13
- #define scl 12
 void setup() {
-    Wire.begin(sda,scl);
+    Wire.begin();
     Serial.begin(115200);
     while(!Serial);
     Serial.println("#============o0o=============#");
