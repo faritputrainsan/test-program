@@ -81,14 +81,14 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
     //    Serial.println(direction);
     notifyClients(direction);
         notifyStop = true;
-    //    if (direction == "CW") {
-    //      Serial.println("CW");
-    //      stepper.move(steps.toInt());
-    //    }
-    //    else {
-    //      Serial.println("CCW");
-    //      stepper.move(-steps.toInt());
-    //    }
+        if (direction == "CW") {
+          Serial.println("CW");
+          stepper.move(steps.toInt());
+        }
+        else {
+          Serial.println("CCW");
+          stepper.move(-steps.toInt());
+        }
   }
 }
 
