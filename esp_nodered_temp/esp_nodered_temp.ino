@@ -13,10 +13,11 @@ DallasTemperature Sensors(&oneWire);
 
 float temperature;
 
-const char* ssid ="";
-const char* password = "";
 
-const char* mqqt_server = "";
+const char* ssid = "XLGO-75C3";
+const char* password = "46266172";
+
+const char* mqtt_server = "192.168.8.6";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -42,19 +43,21 @@ void loop() {
   delay(1000);
 
   if(!client.connected()){
-//    reconnect();
+    reconnect();
   }
 
   if (!client.loop()){
     client.connect("ESP8266Client");
   }
+  static char temperatures[7];
+  dtostrf(temperature,6,2,temperatures);
+  client.publish("room/temperature",temperatures);
 
-  client.publish();
-  client.publish();
 }
 
 void wifi_init(){
   delay(10);
+  WiFi.begin(ssid,password);
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -85,7 +88,7 @@ void callback(String topic, byte* message, unsigned int length){
 
   for(int i = 0;i<length;i++){
     Serial.print((char)message[i]);
-    meassageTemp += (char)message[i];
+    messageTemp += (char)message[i];
   }
 
   Serial.println();
@@ -101,4 +104,21 @@ void callback(String topic, byte* message, unsigned int length){
     }
   }
   Serial.println();
+}
+
+void reconnect(){
+  while(!client.connected()){
+    Serial.print("Attempting mqtt connection...");
+
+    if(client.connect("ESP8266Client")){
+      Serial.print("connected");
+      client.subscribe("room/lamp");
+    }else{
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println( "try again in 5 seconds");
+      delay(5000);
+    }
+    
+  }
 }
