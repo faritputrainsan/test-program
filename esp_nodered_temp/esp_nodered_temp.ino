@@ -14,10 +14,13 @@ DallasTemperature Sensors(&oneWire);
 float temperature;
 
 
-const char* ssid = "XLGO-75C3";
-const char* password = "46266172";
+//const char* ssid = "XLGO-75C3";
+//const char* password = "46266172";
 
-const char* mqtt_server = "192.168.8.6";
+const char* ssid = "TP-Link_56E2";
+const char* password = "25461824";
+
+const char* mqtt_server = "192.168.1.101";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -33,7 +36,7 @@ void setup() {
   Sensors.begin();
 
   wifi_init();
-  client.setServer(mqtt_server,1883);
+  client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
 }
 
@@ -47,7 +50,7 @@ void loop() {
   }
 
   if (!client.loop()){
-    client.connect("ESP8266Client");
+    client.connect("ESP-4372F1");
   }
   static char temperatures[7];
   dtostrf(temperature,6,2,temperatures);
@@ -110,7 +113,7 @@ void reconnect(){
   while(!client.connected()){
     Serial.print("Attempting mqtt connection...");
 
-    if(client.connect("ESP8266Client")){
+    if(client.connect("ESP-4372F1")){
       Serial.print("connected");
       client.subscribe("room/lamp");
     }else{
@@ -119,6 +122,5 @@ void reconnect(){
       Serial.println( "try again in 5 seconds");
       delay(5000);
     }
-    
   }
 }
