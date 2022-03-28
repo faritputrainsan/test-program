@@ -1,3 +1,17 @@
+/* HUB08 (matrix led) to ARDUINO pin connection
+ * LA / A    -> Digital Pin 4
+ * LB / B    -> Digital Pin 5
+ * LC / C    -> Digital Pin 6
+ * LD / D    -> Digital Pin 7
+ * S / CLK   -> Digital Pin 13
+ * R1 / R    -> Digital Pin 11
+ * OE / EN   -> Digital Pin 3
+ * L / LAT / STB -> Digital Pin 2
+ */
+
+
+
+
 #include <SPI.h>
 #include <avr/pgmspace.h>
 #include "HUB08SPI.h"
@@ -41,3 +55,5 @@ void loop() {
 void runningText(String TEXT){
   
 }
+
+S

@@ -132,7 +132,7 @@ class ronnAnimation {
      * *******************************************************************************************************************
     */
 
-
+    //  continous running
     void scrollChar_LR(byte c, int x, int y, int w, int s) { //char,X,Y,width,speed
       if ( c < min_font || c > max_font)return;
       int pos_font = getFontPosition(c);
@@ -154,6 +154,8 @@ class ronnAnimation {
       delay(s);
       buff.scrollLeft(x, y, w, height_font);
     }
+
+    // running dan berhenti
     void scrollChar_LL(byte c, int x, int y, int w, int s) { //char,X,Y,width,speed
       if ( c < min_font || c > max_font)return;
       int pos_font = getFontPosition(c);
@@ -178,6 +180,8 @@ class ronnAnimation {
       buff.scrollLeft(x, y, w, height_font);
       x_pos--;
     }
+
+
 
 
     /* *******************************************************************************************************************
@@ -236,6 +240,8 @@ class ronnAnimation {
        Big font (16x16) use from HUB08SPI library, check on function printBigText(string,X)
      * *******************************************************************************************************************
     */
+
+    // tapilkan text
     void printText(String text, int x = 0, int y = 0) { //string,X,Y
       x_pos = x;
       char* string = text.c_str();
@@ -245,6 +251,7 @@ class ronnAnimation {
         string++;
       }
     }
+    //tmpilkan text dari kanan
     void printText_R(String text, int x = 0, int y = 0, int s = 10) { //string,X,Y,speed
       x_pos = x;
       char* string = text.c_str();
@@ -254,6 +261,9 @@ class ronnAnimation {
         string++;
       }
     }
+
+
+//    tampilkan dari kiri dengan kursor
     void printText_RC(String text, int x = 0, int y = 0, int s = 10) { //string,X,Y,speed
       x_pos = x;
       char* string = text.c_str();
@@ -263,6 +273,8 @@ class ronnAnimation {
         string++;
       }
     }
+
+    // tampilkan dari kanan
     void printText_L(String text, int x = 0, int y = 0, int s = 10) { //string,X,Y,speed
       char* string = text.c_str();
       x_pos = x + getLastPositionText(string) - 1;
@@ -270,6 +282,7 @@ class ronnAnimation {
         printCharLeft(string[i], y, s, 0);
       }
     }
+    // tampilkan dari kanan dengan cursor
     void printText_LC(String text, int x = 0, int y = 0, int s = 10) { //string,X,Y,speed
       char* string = text.c_str();
       x_pos = x + getLastPositionText(string) - 1;
@@ -278,6 +291,7 @@ class ronnAnimation {
       }
     }
 
+    // scan huruf dari kanan
     void scanText_L(String text, int x = 0, int y = 0, int s = 10) { //string,X,Y,speed
       char* string = text.c_str();
       x_pos = x + getLastPositionText(string) - 1;
@@ -286,6 +300,8 @@ class ronnAnimation {
       }
       printText_RC(text, x, y, s / 4);
     }
+    
+    // scan huruf dari kiri
     void scanText_R(String text, int x = 0, int y = 0, int s = 10) { //string,X,Y,speed
       x_pos = x;
       char* string = text.c_str();
@@ -304,6 +320,7 @@ class ronnAnimation {
           scrollText_D(String string, int x, int y, int w, int s=20)    //String,X,Y,width,speed --> scroll text down
      * *******************************************************************************************************************
     */
+
     void scrollText_U(String string, int x = 0, int y = 0, int w = WIDTH, int s = 20) { //String,X,Y,width,speed
       for (uint16_t row = 0; row < height_font; row++) {
         x_pos = x;
@@ -336,7 +353,6 @@ class ronnAnimation {
       }
     }
 
-
     /* *******************************************************************************************************************
        HORISONTAL SCROLL
      * *******************************************************************************************************************
@@ -352,7 +368,7 @@ class ronnAnimation {
      * *******************************************************************************************************************
     */
 
-    //running left
+    //running left sampai right character
     void scrollText_LR(char* string, int x = 0, int y = 0, int w = WIDTH, int s = 20) { //String,X,Y,width,speed (height auto from font height)
       if (x < 0) return;
       while (*string != '\0') {
@@ -366,7 +382,7 @@ class ronnAnimation {
       }
     }
 
-    //scrol left and stop
+    //scrol left and stop sampai left character
     void scrollText_LL(char* string, int x = 0, int y = 0, int w = WIDTH, int s = 10) { //string,X,Y,width,speed
       if (x < 0) return;
       x_pos = w - 1;
@@ -394,6 +410,7 @@ class ronnAnimation {
        setFont not use in here
      * *******************************************************************************************************************
     */
+
     void printBigChar(byte c, int x, int y) { //char,X,Y
       byte l = pgm_read_byte_near(font_BIG + (c * 33)) + 1; //get pixel width of character
       for (int a = 0; a < 16; a++) {
@@ -409,8 +426,6 @@ class ronnAnimation {
         string++;
       }
     }
-
-
 
     /* *******************************************************************************************************************
        CLEAR ANIMATION
@@ -439,8 +454,6 @@ class ronnAnimation {
      * *******************************************************************************************************************
     */
 
-
-
     // hapus ke kiri
     void clear_L(int x, int y, int w, int h, int m = SCROLL) { //X,Y,width,height,mode(SCROLL,CLEAR)
       for (uint16_t col = x + w; col > x; col--) {
@@ -450,7 +463,6 @@ class ronnAnimation {
         delay(5);
       }//=1+62-1//
     }
-
     uint8_t clear_L(int m = SCROLL) { //mode
       clear_L(0, 0, WIDTH, HEIGHT, m);
     }
@@ -500,7 +512,7 @@ class ronnAnimation {
       clear_U(0, 0, WIDTH, HEIGHT, m);
     }
 
-
+    //
     void clearSlice_L(int x, int y, int w, int h) { //X,Y,width,height
       for (uint16_t col = x; col < x + w + 1; col++) {
         bool bufPixel = 0;
@@ -523,7 +535,6 @@ class ronnAnimation {
     uint8_t clearSlice_L() {
       clearSlice_L(0, 0, WIDTH, HEIGHT);
     }
-
 
     void clearSlice_R(int x, int y, int w, int h) { //X,Y,width,height
       for (uint16_t col = x + w; col > x; col--) {
@@ -574,10 +585,6 @@ class ronnAnimation {
       buff.clear();
     }
 
-
-
-
-
     /* ***********************************************************************************************************************************
        MOVE ANIMATION
      * ***********************************************************************************************************************************
@@ -596,7 +603,6 @@ class ronnAnimation {
           move down 6 pixel --> Parking 500ms --> move left 20 pixel --> move up 2 pixel --> move right 41 pixel
      * ***********************************************************************************************************************************
     */
-
     //geser kiri
     void move_L(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
       //x_pos = x;
@@ -615,7 +621,6 @@ class ronnAnimation {
         delay(sp);
       }
     }
-
     //geser bawah
     void move_D(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
       //y_pos = y;
@@ -628,7 +633,6 @@ class ronnAnimation {
         delay(sp);
       }
     }
-
     //geser atas
     void move_U(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
       //y_pos = y;
@@ -639,18 +643,13 @@ class ronnAnimation {
         delay(sp);
       }
     }
-
-
+    // custom move
     void moveTo(char* moving[], int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //array direction & step,speed,X,Y,width,height
       int i = 0;
       x_pos = x;
       y_pos = y;
       while (checkMove(moving[i], sp, x_pos, y_pos, w, h)) i++;
     }
-
-
-
-
     //END CLASS ///////////////////////////////////////////////////////////////
 };
 
