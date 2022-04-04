@@ -1,6 +1,6 @@
 
 /* *******************************************************************************************************************
- * FONT FROM LIBRARY MD_MAX72xx
+   FONT FROM LIBRARY MD_MAX72xx
  * *******************************************************************************************************************
    FONT INFO in first 5 (0 to 4) array char font --> default from library MD_MAX72xx
    in this case, font info use :
@@ -12,7 +12,7 @@
    You can use "Font Builder.xlsm" create new font (check on "Tool" folder)
    ***this tool is modify from "Parola MD_MAX72xx Font Builder v2.xlsm" in MajicDesigns/MD_MAX72XX library :
       https://github.com/MajicDesigns/MD_MAX72XX/tree/main/Font%20Builder/Excel
-   
+
 
    Exixting font:
    - font_DEFAULT --> default font (5x8) [DO NOT RENAME THIS FONT VARIABLE NAME]
@@ -21,7 +21,7 @@
    - B_STD        --> Big font standart (10x16)
    - S_STD        --> Small font standart (3x5)
  * *******************************************************************************************************************
- */
+*/
 
 const uint8_t font_DEFAULT[] PROGMEM = {
   'F', 0, 0, 255, 8, //-----------------------------------------> THIS IS FONT INFO
@@ -544,7 +544,6 @@ const uint8_t B_7SEGMENT[] PROGMEM = {
   0,    // 255
 };
 
-
 //Big Standart
 const uint8_t B_STD[] PROGMEM = {
   'T', 1, 0, 255, 16,
@@ -806,9 +805,6 @@ const uint8_t B_STD[] PROGMEM = {
   0,    // 255
 };
 
-
-
-
 const uint8_t S_STD[] PROGMEM = {
   'F', 1, 32, 127, 8,
   2, 0, 0,    // 32 - 'Space'
@@ -908,6 +904,287 @@ const uint8_t S_STD[] PROGMEM = {
   3, 6, 2, 3,   // 126 - '~'
   3, 31, 31, 31,    // 127 - 'Full Block'
 };
+
+const uint8_t CUSTOM_7SEG[] PROGMEM = {//Normal 7 segment
+  'T', 1, 46, 58, 16,
+
+  2, 48, 48,    // 46 - '.'
+  0,    // 47 - '/'
+  10, 0, 15, 31, 48, 48, 48, 48, 48, 31, 15,    // 48 - '0'
+  10, 0, 0, 0, 0, 0, 0, 0, 0, 63, 30,   // 49 - '1'
+  10, 0, 15, 31, 48, 48, 48, 48, 48, 16, 0,   // 50 - '2'
+  10, 0, 0, 16, 48, 48, 48, 48, 48, 31, 15,   // 51 - '3'
+  10, 0, 0, 0, 0, 0, 0, 0, 0, 31, 15,   // 52 - '4'
+  10, 0, 0, 16, 48, 48, 48, 48, 48, 31, 15,   // 53 - '5'
+  10, 0, 15, 31, 48, 48, 48, 48, 48, 31, 15,    // 54 - '6'
+  10, 0, 0, 0, 0, 0, 0, 0, 0, 31, 15,   // 55 - '7'
+  10, 0, 15, 31, 48, 48, 48, 48, 48, 31, 15,    // 56 - '8'
+  10, 0, 0, 16, 48, 48, 48, 48, 48, 31, 15,   // 57 - '9'
+  2, 6, 6,    // 58 - ':'
+
+};
+
+const uint8_t font_NEW[] PROGMEM = {
+  'T', 1, 0, 255, 16,
+  0,    // 0 - 'Empty Cell'
+  0,    // 1 - 'Sad Smiley'
+  0,    // 2 - 'Happy Smiley'
+  0,    // 3 - 'Heart'
+  0,    // 4 - 'Diamond'
+  0,    // 5 - 'Clubs'
+  0,    // 6 - 'Spades'
+  0,    // 7 - 'Bullet Point'
+  0,    // 8 - 'Rev Bullet Point'
+  0,    // 9 - 'Hollow Bullet Point'
+  0,    // 10 - 'Rev Hollow BP'
+  0,    // 11 - 'Male'
+  0,    // 12 - 'Female'
+  0,    // 13 - 'Music Note 1'
+  0,    // 14 - 'Music Note 2'
+  0,    // 15 - 'Snowflake'
+  0,    // 16 - 'Right Pointer'
+  0,    // 17 - 'Left Pointer'
+  0,    // 18 - 'UpDown Arrows'
+  0,    // 19 - 'Full Block'
+  0,    // 20 - 'Half Block Bottom'
+  0,    // 21 - 'Half Block LHS'
+  0,    // 22 - 'Half Block RHS'
+  0,    // 23 - 'Half Block Top'
+  0,    // 24 - 'Up Arrow'
+  0,    // 25 - 'Down Arrow'
+  0,    // 26 - 'Right Arrow'
+  0,    // 27 - 'Left Arrow'
+  0,    // 28 - '30% shading'
+  0,    // 29 - '50% shading'
+  0,    // 30 - 'Up Pointer'
+  0,    // 31 - 'Down Pointer'
+  0,    // 32 - 'Space'
+  0,    // 33 - '!'
+  0,    // 34 - '"'
+  0,    // 35 - '#'
+  0,    // 36 - '$'
+  0,    // 37 - '%'
+  0,    // 38 - '&'
+  0,    // 39 - '''
+  0,    // 40 - '('
+  0,    // 41 - ')'
+  0,    // 42 - '*'
+  0,    // 43 - '+'
+  0,    // 44 - ','
+  0,    // 45 - '-'
+  2, 48, 48,    // 46 - '.'
+  0,    // 47 - '/'
+  8, 15, 31, 48, 48, 48, 48, 31, 15,    // 48 - '0'
+  8, 0, 0, 0, 0, 0, 0, 31, 15,    // 49 - '1'
+  8, 15, 31, 48, 48, 48, 48, 16, 0,   // 50 - '2'
+  8, 0, 16, 48, 48, 48, 48, 31, 15,   // 51 - '3'
+  8, 0, 0, 0, 0, 0, 0, 31, 15,    // 52 - '4'
+  8, 0, 16, 48, 48, 48, 48, 31, 15,   // 53 - '5'
+  8, 15, 31, 48, 48, 48, 48, 31, 15,    // 54 - '6'
+  8, 0, 0, 0, 0, 0, 0, 31, 15,    // 55 - '7'
+  8, 15, 31, 48, 48, 48, 48, 31, 15,    // 56 - '8'
+  8, 0, 16, 48, 48, 48, 48, 31, 15,   // 57 - '9'
+  2, 6, 6,    // 58 - ':'
+  0,    // 59 - ';'
+  0,    // 60 - '<'
+  0,    // 61 - '='
+  0,    // 62 - '>'
+  0,    // 63 - '?'
+  0,    // 64 - '@'
+  0,    // 65 - 'A'
+  0,    // 66 - 'B'
+  0,    // 67 - 'C'
+  0,    // 68 - 'D'
+  0,    // 69 - 'E'
+  0,    // 70 - 'F'
+  0,    // 71 - 'G'
+  0,    // 72 - 'H'
+  0,    // 73 - 'I'
+  0,    // 74 - 'J'
+  0,    // 75 - 'K'
+  0,    // 76 - 'L'
+  0,    // 77 - 'M'
+  0,    // 78 - 'N'
+  0,    // 79 - 'O'
+  0,    // 80 - 'P'
+  0,    // 81 - 'Q'
+  0,    // 82 - 'R'
+  0,    // 83 - 'S'
+  0,    // 84 - 'T'
+  0,    // 85 - 'U'
+  0,    // 86 - 'V'
+  0,    // 87 - 'W'
+  0,    // 88 - 'X'
+  0,    // 89 - 'Y'
+  0,    // 90 - 'Z'
+  0,    // 91 - '['
+  0,    // 92 - '\'
+  0,    // 93 - ']'
+  0,    // 94 - '^'
+  0,    // 95 - '_'
+  0,    // 96 - '`'
+  0,    // 97 - 'a'
+  0,    // 98 - 'b'
+  0,    // 99 - 'c'
+  0,    // 100 - 'd'
+  0,    // 101 - 'e'
+  0,    // 102 - 'f'
+  0,    // 103 - 'g'
+  0,    // 104 - 'h'
+  0,    // 105 - 'i'
+  0,    // 106 - 'j'
+  0,    // 107 - 'k'
+  0,    // 108 - 'l'
+  0,    // 109 - 'm'
+  0,    // 110 - 'n'
+  0,    // 111 - 'o'
+  0,    // 112 - 'p'
+  0,    // 113 - 'q'
+  0,    // 114 - 'r'
+  0,    // 115 - 's'
+  0,    // 116 - 't'
+  0,    // 117 - 'u'
+  0,    // 118 - 'v'
+  0,    // 119 - 'w'
+  0,    // 120 - 'x'
+  0,    // 121 - 'y'
+  0,    // 122 - 'z'
+  0,    // 123 - '{'
+  0,    // 124 - '|'
+  0,    // 125 - '}'
+  0,    // 126 - '~'
+  0,    // 127 - 'Hollow Block'
+  0,    // 128 - 'Euro symbol'
+  0,    // 129 - 'Alpha'
+  0,    // 130 - 'Beta'
+  0,    // 131 - 'Gamma'
+  0,    // 132 - 'Pi'
+  0,    // 133 - 'Sigma'
+  0,    // 134 - 'Theta'
+  0,    // 135 - 'mu'
+  0,    // 136 - 'Tau'
+  0,    // 137 - 'Percent 00'
+  0,    // 138 - '3 Bar Equals'
+  0,    // 139 - '>='
+  0,    // 140 - '<='
+  0,    // 141 - 'Top of Integral'
+  0,    // 142 - 'Bot of Integral'
+  0,    // 143 - 'Wavy ='
+  0,    // 144 - 'Degree'
+  0,    // 145 - 'Math Product'
+  0,    // 146 - 'Short Dash'
+  0,    // 147 - 'Square Root'
+  0,    // 148 - 'Superscript n'
+  0,    // 149
+  0,    // 150
+  0,    // 151
+  0,    // 152
+  0,    // 153 - 'Trademark'
+  0,    // 154
+  0,    // 155
+  0,    // 156
+  0,    // 157
+  0,    // 158
+  0,    // 159
+  0,    // 160 - ' Non-breaking space'
+  0,    // 161 - '¡ Inverted Exclamation Mark'
+  0,    // 162 - '¢ Cent sign'
+  0,    // 163 - '£ Pound sign'
+  0,    // 164 - '¤ Currency sign'
+  0,    // 165 - '¥ Yen sign'
+  0,    // 166 - '¦ Broken bar'
+  0,    // 167 - '§ Section sign'
+  0,    // 168 - '¨ Diaeresis (Umlaut)'
+  0,    // 169 - '© Copyright sign'
+  0,    // 170 - 'ª Feminine Ordinal Indicator'
+  0,    // 171 - '« Left-pointing double angle quotation mark'
+  0,    // 172 - '¬ Not sign'
+  0,    // 173 - ' Soft hyphen'
+  2, 0, 0,    // 174 - '® Registered sign'
+  0,    // 175 - '¯ macron'
+  8, 60, 254, 3, 3, 3, 3, 254, 60,    // 176 - '° Degree symbol'
+  8, 0, 0, 0, 0, 0, 0, 254, 60,   // 177 - '± Plus-minus sign'
+  8, 0, 130, 195, 195, 195, 195, 126, 60,   // 178 - '² Superscript two'
+  8, 0, 2, 195, 195, 195, 195, 254, 60,   // 179 - '³ Superscript three'
+  8, 60, 126, 192, 192, 192, 192, 254, 60,    // 180 - '´ Acute accent'
+  8, 60, 126, 195, 195, 195, 195, 130, 0,   // 181 - 'µ Micro sign'
+  8, 60, 254, 195, 195, 195, 195, 130, 0,   // 182 - 'Pilcrow sign'
+  8, 0, 2, 3, 3, 3, 3, 254, 60,   // 183 - '· Middle dot'
+  8, 60, 254, 195, 195, 195, 195, 254, 60,    // 184 - '¸ Cedilla'
+  8, 60, 126, 195, 195, 195, 195, 254, 60,    // 185 - '¹ Superscript one'
+  2, 24, 24,    // 186 - 'º Masculine ordinal indicator'
+  0,    // 187 - '» Right-pointing double angle quotation mark'
+  0,    // 188 - '¼ Vulgar fraction one quarter'
+  0,    // 189 - '½ Vulgar fraction one half'
+  0,    // 190 - '¾ Vulgar fraction three quarters'
+  0,    // 191 - '¿ Inverted Question Mark'
+  0,    // 192 - 'À Latin Capital Letter A with grave'
+  0,    // 193 - 'Á Latin Capital letter A with acute'
+  0,    // 194 - 'Â Latin Capital letter A with circumflex'
+  0,    // 195 - 'Ã Latin Capital letter A with tilde'
+  0,    // 196 - 'Ä Latin Capital letter A with diaeresis'
+  0,    // 197 - 'Å Latin Capital letter A with ring above'
+  0,    // 198 - 'Æ Latin Capital letter Æ'
+  0,    // 199 - 'Ç Latin Capital letter C with cedilla'
+  0,    // 200 - 'È Latin Capital letter E with grave'
+  0,    // 201 - 'É Latin Capital letter E with acute'
+  0,    // 202 - 'Ê Latin Capital letter E with circumflex'
+  0,    // 203 - 'Ë Latin Capital letter E with diaeresis'
+  0,    // 204 - 'Ì Latin Capital letter I with grave'
+  0,    // 205 - 'Í Latin Capital letter I with acute'
+  0,    // 206 - 'Î Latin Capital letter I with circumflex'
+  0,    // 207 - 'Ï Latin Capital letter I with diaeresis'
+  0,    // 208 - 'Ð Latin Capital letter Eth'
+  0,    // 209 - 'Ñ Latin Capital letter N with tilde'
+  0,    // 210 - 'Ò Latin Capital letter O with grave'
+  0,    // 211 - 'Ó Latin Capital letter O with acute'
+  0,    // 212 - 'Ô Latin Capital letter O with circumflex'
+  0,    // 213 - 'Õ Latin Capital letter O with tilde'
+  0,    // 214 - 'Ö Latin Capital letter O with diaeresis'
+  0,    // 215 - '× Multiplication sign'
+  0,    // 216 - 'Ø Latin Capital letter O with stroke'
+  0,    // 217 - 'Ù Latin Capital letter U with grave'
+  0,    // 218 - 'Ú Latin Capital letter U with acute'
+  0,    // 219 - 'Û Latin Capital Letter U with circumflex'
+  0,    // 220 - 'Ü Latin Capital Letter U with diaeresis'
+  0,    // 221 - 'Ý Latin Capital Letter Y with acute'
+  0,    // 222 - 'Þ Latin Capital Letter Thorn'
+  0,    // 223 - 'ß Latin Small Letter sharp S'
+  0,    // 224 - 'à Latin Small Letter A with grave'
+  0,    // 225 - 'á Latin Small Letter A with acute'
+  0,    // 226 - 'â Latin Small Letter A with circumflex'
+  0,    // 227 - 'ã Latin Small Letter A with tilde'
+  0,    // 228 - 'ä Latin Small Letter A with diaeresis'
+  0,    // 229 - 'å Latin Small Letter A with ring above'
+  0,    // 230 - 'æ Latin Small Letter Æ'
+  0,    // 231 - 'ç Latin Small Letter C with cedilla'
+  0,    // 232 - 'è Latin Small Letter E with grave'
+  0,    // 233 - 'é Latin Small Letter E with acute'
+  0,    // 234 - 'ê Latin Small Letter E with circumflex'
+  0,    // 235 - 'ë Latin Small Letter E with diaeresis'
+  0,    // 236 - 'ì Latin Small Letter I with grave'
+  0,    // 237 - 'í Latin Small Letter I with acute'
+  0,    // 238 - 'î Latin Small Letter I with circumflex'
+  0,    // 239 - 'ï Latin Small Letter I with diaeresis'
+  0,    // 240 - 'ð Latin Small Letter Eth'
+  0,    // 241 - 'ñ Latin Small Letter N with tilde'
+  0,    // 242 - 'ò Latin Small Letter O with grave'
+  0,    // 243 - 'ó Latin Small Letter O with acute'
+  0,    // 244 - 'ô Latin Small Letter O with circumflex'
+  0,    // 245 - 'õ Latin Small Letter O with tilde'
+  0,    // 246 - 'ö Latin Small Letter O with diaeresis'
+  0,    // 247 - '÷ Division sign'
+  0,    // 248 - 'ø Latin Small Letter O with stroke'
+  0,    // 249 - 'ù Latin Small Letter U with grave'
+  0,    // 250 - 'ú Latin Small Letter U with acute'
+  0,    // 251 - 'û Latin Small Letter U with circumflex'
+  0,    // 252 - 'ü Latin Small Letter U with diaeresis'
+  0,    // 253 - 'ý Latin Small Letter Y with acute'
+  0,    // 254 - 'þ Latin Small Letter Thorn'
+  0,    // 255 - 'ÿ Latin Small Letter Y with diaeresis'
+};
+
+
 
 
 const uint8_t N_7SEGMENT[] PROGMEM = {//Normal 7 segment
@@ -1189,37 +1466,8 @@ const uint8_t SIZE_8[] PROGMEM = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* *******************************************************************************************************************
- * BIG FONT
+   BIG FONT
  * *******************************************************************************************************************
    Default font from library HUB08 + Buffer
    16*16 pixel font
@@ -1341,31 +1589,31 @@ const PROGMEM  uint8_t font_BIG[] = {
 
 
 /* *******************************************************************************************************************
- * CUSTOM BITMAP
+   CUSTOM BITMAP
  * *******************************************************************************************************************
- * Make using "Monochrome Bitmap to Code Coverter.exe" check on "Tool" folder
- * original library :
- * Monochrome Bitmap to Code Converter Version: 0.1 Date: April 24 2013 Author: Marv aka emgoz
- * https://github.com/emgoz/BufferGraphics/tree/master/Tools
- */
+   Make using "Monochrome Bitmap to Code Coverter.exe" check on "Tool" folder
+   original library :
+   Monochrome Bitmap to Code Converter Version: 0.1 Date: April 24 2013 Author: Marv aka emgoz
+   https://github.com/emgoz/BufferGraphics/tree/master/Tools
+*/
 
 uint8_t logo[128] = {
-   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
-   0xC0, 0x01, 0x00, 0x04, 0x7F, 0x0E, 0x3F, 0x87, 
-   0xC0, 0x01, 0x00, 0x04, 0x3F, 0x0E, 0x1F, 0x87, 
-   0xC7, 0xF1, 0x1F, 0xC4, 0x1F, 0x8E, 0x0F, 0xC7, 
-   0xC7, 0xF1, 0x1F, 0xC4, 0x0F, 0x8E, 0x07, 0xC7, 
-   0xC0, 0x71, 0x1F, 0xC4, 0x07, 0x8E, 0x03, 0xC7, 
-   0xC0, 0x01, 0x1F, 0xC4, 0x03, 0x8E, 0x01, 0xC7, 
-   0xC0, 0x01, 0x1F, 0xC4, 0x01, 0x8E, 0x00, 0xC7, 
-   0xC4, 0x1F, 0x1F, 0xC4, 0x40, 0x8E, 0x20, 0x47, 
-   0xC6, 0x0F, 0x1F, 0xC4, 0x60, 0x4E, 0x30, 0x27, 
-   0xC7, 0x07, 0x0F, 0xC4, 0x70, 0x2E, 0x38, 0x17, 
-   0xC7, 0x83, 0x07, 0xC4, 0x78, 0x1E, 0x3C, 0x0F, 
-   0xC7, 0xC1, 0x83, 0xC4, 0x7C, 0x0E, 0x3E, 0x07, 
-   0xC7, 0xE0, 0xC0, 0x04, 0x7E, 0x06, 0x3F, 0x03, 
-   0xC7, 0xF0, 0x60, 0x04, 0x7F, 0x02, 0x3F, 0x81, 
-   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+  0xC0, 0x01, 0x00, 0x04, 0x7F, 0x0E, 0x3F, 0x87,
+  0xC0, 0x01, 0x00, 0x04, 0x3F, 0x0E, 0x1F, 0x87,
+  0xC7, 0xF1, 0x1F, 0xC4, 0x1F, 0x8E, 0x0F, 0xC7,
+  0xC7, 0xF1, 0x1F, 0xC4, 0x0F, 0x8E, 0x07, 0xC7,
+  0xC0, 0x71, 0x1F, 0xC4, 0x07, 0x8E, 0x03, 0xC7,
+  0xC0, 0x01, 0x1F, 0xC4, 0x03, 0x8E, 0x01, 0xC7,
+  0xC0, 0x01, 0x1F, 0xC4, 0x01, 0x8E, 0x00, 0xC7,
+  0xC4, 0x1F, 0x1F, 0xC4, 0x40, 0x8E, 0x20, 0x47,
+  0xC6, 0x0F, 0x1F, 0xC4, 0x60, 0x4E, 0x30, 0x27,
+  0xC7, 0x07, 0x0F, 0xC4, 0x70, 0x2E, 0x38, 0x17,
+  0xC7, 0x83, 0x07, 0xC4, 0x78, 0x1E, 0x3C, 0x0F,
+  0xC7, 0xC1, 0x83, 0xC4, 0x7C, 0x0E, 0x3E, 0x07,
+  0xC7, 0xE0, 0xC0, 0x04, 0x7E, 0x06, 0x3F, 0x03,
+  0xC7, 0xF0, 0x60, 0x04, 0x7F, 0x02, 0x3F, 0x81,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
 };
 
 
@@ -1396,10 +1644,10 @@ uint8_t logo[128] = {
 
 
 /* *******************************************************************************************************************
- * CUSTOM FONT
+   CUSTOM FONT
  * *******************************************************************************************************************
- * Make using "Font Builder.xlsm" (check on "Tool" folder)
- */
+   Make using "Font Builder.xlsm" (check on "Tool" folder)
+*/
 const uint8_t C_ICON[] PROGMEM = { //custom icon (9x8)
   'F', 1, 48, 57, 8,
   9, 126, 129, 185, 149, 149, 149, 185, 129, 126,   // 48 - '0' --> FONT ICON
