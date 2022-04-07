@@ -2,22 +2,12 @@
 #include <DS3231.h>
 #include <EEPROM.h>
 #include "PrayerTimes.h"
-//#include <IRremote.h>
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#include <DMD3.h>
-//#include <Font4x6.h>
-//#include <font6x9.h>
-////#include <SystemFont5x7.h>
-//#include <SystemFont8x8.h>
-//DMD3 display;
-//
-//void scan() {
-//  display.refresh();
-//}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////PIN I2C DS3231//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#include <SoftwareSerial.h>
+
+
+SoftwareSerial mySerial(2, 3);
+///////////////////////(RX,TX)
+
 DS3231  rtc(SDA, SCL);
 Time  t;
 
@@ -89,6 +79,7 @@ int m_imsak, j_imsak, m_subuh, j_subuh, m_dzuhur, j_dzuhur, m_ashar, j_ashar, m_
 void setup() {
   Wire.begin();
   Serial.begin(9600);
+  mySerial.begin(9600);
 
   rtc.begin();
   rtc.setOutput (OUTPUT_SQW);
@@ -98,11 +89,11 @@ void setup() {
   pinMode( dataPin    , OUTPUT);
   pinMode( clockPin   , OUTPUT);
   pinMode( ampli   , OUTPUT);
-
 }
 
 void loop() {
-  serial();
+//  serial();
+  jdwl();
   jam_mtr();
   tepat();
 }
@@ -112,7 +103,7 @@ void data() {
 }
 
 void jdwl() {
-  
+
   EEPROM.get (addltg, lintang);  //Latitude
   EEPROM.get (addbjr, bujur);   //Longitude
   gmti = EEPROM.read(addgmt);                   //Zona Waktu GMT WIB biasanya 7
@@ -134,152 +125,67 @@ void jdwl() {
   get_prayer_times( t.year, t.mon,  t.date, lintang, bujur, gmti, times);
 
   get_float_time_parts(times[0], hours, minutes);
-  m_sub = minutes + ksbh;
-  if (m_sub < 60) {
-    if (minutes + ksbh < 0) {
-      j_subuh = hours - 1;
-      m_subuh = 60 + (minutes + ksbh);
-    }
-    else {
-      j_subuh = hours;
-      m_subuh = minutes + ksbh;
-    }
-  }
-  else if ( m_sub >= 60) {
-    m_subuh = (minutes + ksbh) % 60;
-    j_subuh = hours + 1;
-  }
+  j_subuh = combine(hours, minutes + ksbh);
 
-  z = m_subuh - 10;
-  if (m_subuh < 10) {
-    m_imsak =  60 + z;
-    if  (z < 0) {
-      j_imsak = j_subuh;
-      j_imsak--;
-    }
-  }
+  j_imsak = j_subuh - 10;
 
-  else if ( m_subuh >= 10 ) {
-    j_imsak = j_subuh;
-    m_imsak = m_subuh - 10;
-  }
-
-  get_float_time_parts(times[1], hours, minutes);
+  //  get_float_time_parts(times[1], hours, minutes);
   get_float_time_parts(times[2], hours, minutes);
-  m_dzu = minutes + kzhr;
-  if (m_dzu < 60) {
-    if (minutes + kzhr < 0) {
-      j_dzuhur = hours - 1;
-      m_dzuhur = 60 + (minutes + kzhr);
-    }
-    else {
-      j_dzuhur = hours ;
-      m_dzuhur = minutes + kzhr;
-    }
-  }
-  else if (m_dzu >= 60) {
-    m_dzuhur = (minutes + kzhr) % 60;
-    j_dzuhur = hours + 1;
-  }
-  get_float_time_parts(times[3], hours, minutes);
-  //
-  m_ash = minutes + kasr;
-  if (m_ash < 60) {
-    if (minutes + kasr < 0) {
-      j_ashar = hours - 1;
-      m_ashar = 60 + (minutes + kasr);
-    }
-    else {
-      j_ashar = hours;
-      m_ashar = minutes + kasr;
-    }
-  }
+  j_dzuhur = combine(hours, minutes + kzhr);
 
-  else if (m_ash >= 60) {
-    m_ashar = (minutes + kasr) % 60;
-    j_ashar = hours + 1;
-  }
+  get_float_time_parts(times[3], hours, minutes);
+  j_ashar = combine(hours, minutes + kasr);
+
 
   get_float_time_parts(times[4], hours, minutes);
-  //
-  m_mag = minutes + kmgr;
-  if (m_mag < 60) {
-    if (minutes + kmgr < 0) {
-      j_maghrib = hours - 1;
-      m_maghrib = 60 + (minutes + kmgr);
-    }
-    else {
-      j_maghrib = hours;
-      m_maghrib = minutes + kmgr;
-    }
-  }
-
-  else if (m_mag >= 60) {
-    m_maghrib = (minutes + kmgr) % 60;
-    j_maghrib = hours + 1;
-  }
+  j_maghrib = combine(hours, minutes + kmgr);
 
   get_float_time_parts(times[6], hours, minutes);
-  //
-  m_isy = minutes + kisy;
-  if (m_isy < 60) {
-    if (minutes + kisy < 0) {
-      j_isya = hours - 1;
-      m_isya = 60 + (minutes + kisy);
-    }
-    else {
-      j_isya = hours;
-      m_isya = minutes + kisy;
-    }
-  }
-  else if (m_isy >= 60) {
-    m_isya = (minutes + kisy) % 60;
-    j_isya = hours + 1;
-  }
+  j_isya = combine(hours, minutes + kisy);
 }
 
 void tepat() {
-  if ((j_subuh == t.hour) && (m_subuh == t.min))
+  if (j_subuh == combine(t.hour,t.min))
   {
     beep();
     display_tepat(0);
-    
+
     iqm(0);
     beep1();
     tunggu(0);
   }
-  else if ((j_dzuhur == t.hour) && (m_dzuhur == t.min))
+  else if (j_dzuhur == combine(t.hour,t.min))
   {
     beep();
     display_tepat(1);
-    
+
     iqm(1);
     beep1();
     tunggu(1);
   }
-  else if ((j_ashar == t.hour) && (m_ashar == t.min))
+  else if (j_ashar == combine(t.hour,t.min))
   {
     beep();
     display_tepat(2);
-    
+
     iqm(2);
     beep1();
     tunggu(2);
   }
-  else if ((j_maghrib == t.hour) && (m_maghrib == t.min))
+  else if (j_maghrib == combine(t.hour,t.min))
   {
     beep();
     display_tepat(3);
-    
+
     iqm(3);
     beep1();
     tunggu(3);
   }
-  else if ((j_isya == t.hour) && (m_isya == t.min))
+  else if (j_isya == combine(t.hour,t.min))
   {
     beep();
     display_tepat(4);
-    
+
     iqm(4);
     beep1();
     tunggu(4);
@@ -393,5 +299,12 @@ void beep1() {
   delay(1000);
   digitalWrite(ampli, 0);
   delay(500);
+
+}
+
+int combine(byte cjam, byte cmin) {
+  int result;
+  result = (cjam * 60) + cmin;
+  return result;
 
 }

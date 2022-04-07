@@ -56,15 +56,15 @@ void runningText(char* TEXT){
   ronn.scrollText_LR(TEXT, 0, 0, WIDTH, 20);delay(3000);
 }
 
-void jadwal(char* imsak ,char* subuh ,char* dhuhur  ,char* asar ,char* maghrib  ,char*isya  ){
+void jadwal(String imsak ,String subuh ,String dhuhur  ,String asar ,String maghrib  ,String isya  ){
     
   ronn.clear_D();
   ronn.setFont(font_NEW);
-  ronn.scrollText_D("", 0, 1 );
+  ronn.scrollText_D(imsak+"    "+subuh+"    "+dhuhur+"    "+asar+"    "+maghrib+"    "+isya, 0, 1 );
   buff.fillRect(40, 0, 1, 16, 1);
   buff.fillRect(83, 0, 1, 16, 1);
 //  ronn.scrollText_D("06:30", 43, 0, 64 - 11);
-  ronn.scrollText_D("06:30", 86, 1, 64 - 11);
+  ronn.scrollText_D(imsak, 86, 1, 64 - 11);
   
   for (int i = 1; i <= 5; i++) {
     delay(400);
@@ -73,4 +73,12 @@ void jadwal(char* imsak ,char* subuh ,char* dhuhur  ,char* asar ,char* maghrib  
     ronn.printText(":", 18, 0);
   }
   ronn.clear_L();delay(1000);
+}
+
+void iqomah(){
+  
+}
+
+void tanggal(){
+  
 }
