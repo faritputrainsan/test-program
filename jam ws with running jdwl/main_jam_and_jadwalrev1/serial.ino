@@ -48,24 +48,27 @@ void serialEvent() {
   }
 }
 
-void sendData(String message, byte state){
+void sendData(char* message, byte state){
 
 // jadwal & tanggal
   if (state == 1){
-    mySerial.print("");
+    mySerial.write("JWL\n");
+    mySerial.write(message);
+    delay(3000);
+    
   }
   
   //set iqomah
   else if(state == 2){
-    mySerial.print("");
+    mySerial.write("");
   }
   //set tunggu
   else if(state == 3){
-    mySerial.print("");
+    mySerial.write("");
   }
   //send data running text
   else if(state == 4){
-    mySerial.print("");
+    mySerial.write("");
   }
 }
 

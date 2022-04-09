@@ -4,7 +4,6 @@
 #include "PrayerTimes.h"
 #include <SoftwareSerial.h>
 
-
 SoftwareSerial mySerial(2, 3);
 ///////////////////////(RX,TX)
 
@@ -28,13 +27,9 @@ int  ksbh, kzhr, kasr, kmgr, kisy, addksbh = 19, addkzhr = 21, addkasr = 23, add
 unsigned long previuMillis = 0;
 unsigned long interval2 = 500;
 
-//const int PIN_SENSOR = 2;
-//IRrecv penerima(PIN_SENSOR);
-//decode_results hasil;
-//unsigned int dtremote;
-
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////variable PIN OUTPUT///////////////////////////////////////////////////////
+
 //int ampli = 14;
 //Pin connected to Strobe (pin 1) of 4094
 #define strobePin A2
@@ -43,6 +38,7 @@ unsigned long interval2 = 500;
 //Pin connected to Clock (pin 3) of 4094
 #define clockPin  A1
 // Init DS3231
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////variable baca serial//////////////////////
 byte ampli = A3;
@@ -94,6 +90,10 @@ void setup() {
 void loop() {
 //  serial();
   jdwl();
+
+
+sendData("04:21,04:31,12:00,15:12,17:30,18:45",1);
+
   jam_mtr();
   tepat();
 }
