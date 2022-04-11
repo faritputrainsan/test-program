@@ -65,7 +65,7 @@ void loop() {
 
 void to_jadwal(String data){
   String imsak = jdwlkonversi("804");
-  String subuh = jdwlkonversi("500");
+  String subuh = jdwlkonversi("100");
   String dhuhur = jdwlkonversi("360");
   String asar = jdwlkonversi("230");
   String maghrib  = jdwlkonversi("1000");
@@ -80,13 +80,27 @@ void to_jadwal(String data){
 }
 
 String jdwlkonversi(String data){
-
+  
   int kon_jam;
   int kon_mnt;
 
   String str;
+  String str_jam;
+  String str_mnt;
+  
   kon_jam = data.toInt()/60;
   kon_mnt = data.toInt()%60;
-  str = String(?kon_jam < 10;"0"+kon_jam+":"+String(kon_mnt);
+  
+  if (kon_jam < 10){
+    str_jam = "0" +String(kon_jam);
+  }else{
+    str_jam = String(kon_jam);
+  }
+  if (kon_mnt < 10){
+    str_mnt = "0"+String(kon_mnt);
+  }else{
+    str_mnt = String(kon_mnt);
+  }
+    str= str_jam +":"+ str_mnt;
   return(str);
 }

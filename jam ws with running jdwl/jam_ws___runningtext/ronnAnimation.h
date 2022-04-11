@@ -25,8 +25,6 @@ class ronnAnimation {
       return pos_font;
     }
 
-
-
     /*
      * *******************************************************************************************************************
        PRINT TEXT
@@ -262,7 +260,6 @@ class ronnAnimation {
       }
     }
 
-
 //    tampilkan dari kiri dengan kursor
     void printText_RC(String text, int x = 0, int y = 0, int s = 10) { //string,X,Y,speed
       x_pos = x;
@@ -399,7 +396,6 @@ class ronnAnimation {
         }
       }
     }
-
 
     /* *******************************************************************************************************************
        BIG FONT PRINT
