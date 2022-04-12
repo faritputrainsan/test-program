@@ -1,29 +1,51 @@
-void serialEvent(){
-  char* rchar;
+void serial() {
+  char rchar;
+  
+  String savemsg;
 
-  rchar =Serial.peek();
-}
-
-void saveText(String message, String message2, String mosque){
-  // Message
-  EEPROM.put(0,message);
-
-  // message 2
-  EEPROM.put(10,message2);
-  // mosque name
-  EEPROM.put(20,mosque);
-}
-
-void getText(byte state){
-  switch (state){
-    case 1 :
-    break;
+  rchar = Serial.peek();
+  Serial.println("serial");
+  if (rchar == 'M') {
+    msg = Serial.readString();
+    savemsg = msg.substring(2,msg.length());
+    Serial.println("OK");
+    
+    //
+    
+    saveText(savemsg);
   }
+  //  Serial.println(msg);
+
+
+
+  delay (1000);
 }
-void setJadwal(){
+
+void saveText(String message) {
+  String Text;
+  Serial.println(message);
+  EEPROM.put(10,message);
+  delay (2000);
+  EEPROM.get(10, name_mosque);
+//   = Text;
+  delay (2000);
+  StaticTxt(name_mosque);
+  Serial.print("this text ");
+   Serial.println(name_mosque);
+  
+  // message 2
+  //  EEPROM.put(10,message);
+  //  // mosque name
+  //  EEPROM.put(20,message);
+}
+
+void getText(byte state) {
+
+}
+void setJadwal() {
   data_jadwal = "";
 }
 
-void setTanggal(){
-  
+void setTanggal() {
+
 }

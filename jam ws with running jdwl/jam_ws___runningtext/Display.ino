@@ -6,8 +6,8 @@ void runningText(char* TEXT) {
 void StaticTxt(String TEXT){
   ronn.setFont(B_STD);
   ronn.clear_D();
-  ronn.scrollText_D(TEXT,(23)/2,0);
-  ronn.clear_D();
+  ronn.scrollText_D(TEXT,0,0);
+//  ronn.clear_D();
   
 }
 

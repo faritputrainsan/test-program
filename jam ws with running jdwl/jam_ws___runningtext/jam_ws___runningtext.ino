@@ -11,7 +11,7 @@
 
 #include <SPI.h>
 #include <EEPROM.h>
-#include <avr/pgmspace.h>
+//#include <avr/pgmspace.h>
 #include "HUB08SPI.h"
 #include "TimerOne.h"
 #include "Buffer.h"
@@ -32,10 +32,11 @@ void refresh() {
 
 String data_jadwal = "";
 
-char* Text = "ABCD";
-char* Text1 = "KLMN";
-
-String name_mosque = "AL-AMIN";
+//char* Text = "ABCD";
+//char* Text1 = "KLMN";
+String msg;
+String name_mosque;
+String Text;
 
 String dates = "";
 
@@ -53,54 +54,69 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   // runningText("Selamat datang disini");
-//  Serial.print(jdwlkonversi("804"));
+  //  Serial.print(jdwlkonversi("804"));
 
-//  delay(5000);
-  to_jadwal(data_jadwal);
-  runningText(Text);
+  //  delay(5000);
+
+    
+  //  EEPROM.get(0,Text);
+  
+  serial();
+  
+  Serial.println("this loop");
+//  EEPROM.get(10, Text);
+  delay(1000);
+  name_mosque = Text;
+  StaticTxt(msg);delay(1000);
+  Serial.println(Text);
+  
+//  Serial.println(name_mosque);
+  //  delay(5000);
+  //  to_jadwal(data_jadwal);
+
   //ronn.setFont(B_STD);
   // ronn.printText("Animation Demo",0,0);delay(500);
   // ronn.clearSlice_R(0,8,64,16);
 }
 
-void to_jadwal(String data){
+void to_jadwal(String data) {
   String imsak = jdwlkonversi("804");
   String subuh = jdwlkonversi("100");
   String dhuhur = jdwlkonversi("360");
   String asar = jdwlkonversi("230");
   String maghrib  = jdwlkonversi("1000");
   String isya = jdwlkonversi("999");
-//  String imsak = jdwlkonversi(data.substring(0,1));
-//  String subuh = jdwlkonversi(data.substring(0,1));
-//  String dhuhur = jdwlkonversi(data.substring(0,1));
-//  String asar = jdwlkonversi(data.substring(0,1));
-//  String maghrib  = jdwlkonversi(data.substring(0,1));
-//  String isya = jdwlkonversi(data.substring(0,1));
-  jadwal(imsak,subuh,dhuhur,asar,maghrib,isya);
+  //  String imsak = jdwlkonversi(data.substring(0,1));
+  //  String subuh = jdwlkonversi(data.substring(0,1));
+  //  String dhuhur = jdwlkonversi(data.substring(0,1));
+  //  String asar = jdwlkonversi(data.substring(0,1));
+  //  String maghrib  = jdwlkonversi(data.substring(0,1));
+  //  String isya = jdwlkonversi(data.substring(0,1));
+  jadwal(imsak, subuh, dhuhur, asar, maghrib, isya);
 }
 
-String jdwlkonversi(String data){
-  
+String jdwlkonversi(String data) {
+
   int kon_jam;
   int kon_mnt;
 
   String str;
   String str_jam;
   String str_mnt;
-  
-  kon_jam = data.toInt()/60;
-  kon_mnt = data.toInt()%60;
-  
-  if (kon_jam < 10){
-    str_jam = "0" +String(kon_jam);
-  }else{
+
+  kon_jam = data.toInt() / 60;
+  kon_mnt = data.toInt() % 60;
+
+  if (kon_jam < 10) {
+    str_jam = "0" + String(kon_jam);
+  } else {
     str_jam = String(kon_jam);
   }
-  if (kon_mnt < 10){
-    str_mnt = "0"+String(kon_mnt);
-  }else{
+  if (kon_mnt < 10) {
+    str_mnt = "0" + String(kon_mnt);
+  } else {
     str_mnt = String(kon_mnt);
   }
-    str= str_jam +":"+ str_mnt;
-  return(str);
+  str = str_jam + ":" + str_mnt;
+  return (str);
 }
