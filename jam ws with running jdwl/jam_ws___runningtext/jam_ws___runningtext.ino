@@ -11,7 +11,7 @@
 
 #include <SPI.h>
 #include <EEPROM.h>
-//#include <avr/pgmspace.h>
+#include <avr/pgmspace.h>
 #include "HUB08SPI.h"
 #include "TimerOne.h"
 #include "Buffer.h"
@@ -35,8 +35,8 @@ String data_jadwal = "";
 //char* Text = "ABCD";
 //char* Text1 = "KLMN";
 String msg;
-String name_mosque;
-String Text;
+String name_mosque = "";
+String Text = "";
 
 String dates = "";
 
@@ -48,6 +48,7 @@ void setup() {
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
+  
 }
 
 
@@ -58,19 +59,17 @@ void loop() {
 
   //  delay(5000);
 
-    
+
   //  EEPROM.get(0,Text);
-  
-  serial();
-  
+
   Serial.println("this loop");
-//  EEPROM.get(10, Text);
-  delay(1000);
-  name_mosque = Text;
-  StaticTxt(msg);delay(1000);
+  //   Text;
+  EEPROM.get(10, Text);
   Serial.println(Text);
-  
-//  Serial.println(name_mosque);
+  StaticTxt(Text); delay(1000);
+  //  Serial.println(Text);
+
+  //  Serial.println(name_mosque);
   //  delay(5000);
   //  to_jadwal(data_jadwal);
 
