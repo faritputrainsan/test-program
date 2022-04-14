@@ -30,15 +30,18 @@ void refresh() {
   display.scan();
 }
 
-String data_jadwal = "";
+String data_jadwal;
 
 //char* Text = "ABCD";
 //char* Text1 = "KLMN";
-String msg;
-String name_mosque = "";
-String Text = "";
+const String msg[100];
+
+const String name_mosque;
+const int adds_mosque = 10;
+const String Text;
 
 String dates = "";
+//String test_text = "Tes ini disini kenapa annoying bangeet epprom e";
 
 void setup() {
 
@@ -48,6 +51,10 @@ void setup() {
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
+  EEPROM.get(adds_mosque, Text);
+  
+//  save();
+  
   
 }
 
@@ -62,9 +69,9 @@ void loop() {
 
   //  EEPROM.get(0,Text);
 
-  Serial.println("this loop");
+//  Serial.println("this loop");
   //   Text;
-  EEPROM.get(10, Text);
+  
   Serial.println(Text);
   StaticTxt(Text); delay(1000);
   //  Serial.println(Text);

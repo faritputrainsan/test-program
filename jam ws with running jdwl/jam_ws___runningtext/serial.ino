@@ -2,15 +2,22 @@ void serialEvent() {
   char rchar;
 
   rchar = Serial.peek();
-  if ((rchar == 'M')|| (rchar == 'T')) {
-    msg = Serial.readString();
-    saveText();
+  if ((rchar == 'M') || (rchar == 'T')) {
+    //    while(){
+    //
+    //    }
+    if (Serial.available()) {
+       msg = Serial.readString();
+      save();
+    }
+
+
   }
 
-  else if(rchar == 'J'){
-    
+  else if (rchar == 'J') {
+
     data_jadwal = "0";
-//    Serial.println(data_jadwal);
+    //    Serial.println(data_jadwal);
   }
   //  Serial.println(msg);
 
@@ -19,13 +26,17 @@ void serialEvent() {
   delay (1000);
 }
 
-void saveText() {
-// use global variable to write to EEPROM
-  EEPROM.put(100, msg);
-  
-  delay (2000);
-//  Serial.println("OK");
-//  getText();
+void save() {
+  // use global variable to write to EEPROM
+ 
+  EEPROM.put(adds_mosque, msg);
+ 
+
+  delay (1000);
+  getText();
+//  Serial.println("")
+//    Serial.println("OK");
+  //  getText();
   // message 2
   //  EEPROM.put(10,message);
   //  // mosque name
@@ -33,16 +44,17 @@ void saveText() {
 }
 
 void getText() {
-  
-  
-  
-  delay (2000);
-//  Serial.print("this text ");
-//  Serial.println(name_mosque);
+
+EEPROM.get(adds_mosque, Text);
+delay (1000);
+
+//  delay (2000);
+  //  Serial.print("this text ");
+  //  Serial.println(name_mosque);
 }
 void setJadwal() {
-  
-  
+
+
 }
 
 void setTanggal() {
