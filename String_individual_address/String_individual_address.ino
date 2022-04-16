@@ -3,9 +3,11 @@
 //int addr = 0;
 
 int text_length = 200;
-int name_addrs = 0;
+int text2length = 100;
 int name_length = 50;
+int name_addrs = 0;
 int text_addrs = name_length + 1;
+int text2addrs = name_length + text_length;
 
 
 void setup() {
@@ -14,15 +16,15 @@ void setup() {
   Serial.println("");
   Serial.println("");
 
-//  Serial.print("Word to write: ");
-//  Serial.println(greeting);
-//  Serial.print("Word length to write: ");
-//  Serial.println(greeting.length());
+  //  Serial.print("Word to write: ");
+  //  Serial.println(greeting);
+  //  Serial.print("Word length to write: ");
+  //  Serial.println(greeting.length());
 
   // Write to EEPROM
-  
 
-//  writeTXT(greeting,addr);
+
+  //  writeTXT(greeting,addr);
 
   Serial.println("");
   Serial.println("Begin reading back the array: ");
@@ -32,13 +34,13 @@ void setup() {
 void loop() {}
 
 
-void serialEvent(){
+void serialEvent() {
   char rchar;
   String msg;
-//  addr = 0;
+  //  addr = 0;
   rchar = Serial.peek();
   if ((rchar == 'M') || (rchar == 'T')) {
-    
+
     if (Serial.available()) {
       msg = Serial.readString();
       writeTXT(msg, name_addrs);
@@ -48,22 +50,24 @@ void serialEvent(){
   }
 
   else if (rchar == 'J') {
-
-    ///
-    //    Serial.println(data_jadwal);
+    if (Serial.available()) {
+      msg = Serial.readString();
+      writeTXT(msg, text_addrs);
+      Serial.println("ok");
+      readTXT(text_addrs);
+    }
   }
 }
-void writeTXT(String msg, int addrs){
+void writeTXT(String msg, int addrs) {
+  Serial.println(msg);
+  Serial.print("panjang: ");
+  Serial.println(msg.length());
+  Serial.print("Address: ");
+  Serial.println(addrs);
 
-  Serial.println(msg); 
-   Serial.print("panjang: "); 
-   Serial.println(msg.length()); 
-  Serial.print("Address: "); 
-  Serial.println(addrs); 
-  
-  for (int index = addrs; index < msg.length(); index++) {
+  for (int index = 0; index < msg.length()-2; index++) {
     EEPROM.update(addrs, msg[index]);
-    
+
     delay(10);
 
     Serial.print("Writing ");
@@ -72,12 +76,12 @@ void writeTXT(String msg, int addrs){
     Serial.println(addrs);
     addrs++;
   }
-  
+
   EEPROM.write(addrs, '\0');
   EEPROM.read(addrs);
 }
 
-void readTXT(int addrs){
+void readTXT(int addrs) {
   char readChar = "";
   String readGreeting = "";
 
@@ -96,7 +100,6 @@ void readTXT(int addrs){
     Serial.print(" in address ");
     Serial.println(addrs);
   }
-
   Serial.print("Final string read from EEPROM: ");
   Serial.println(readGreeting);
 }

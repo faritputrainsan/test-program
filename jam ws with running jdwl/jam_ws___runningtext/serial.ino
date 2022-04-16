@@ -1,5 +1,6 @@
 void serialEvent() {
   char rchar;
+  String msg;
 
   rchar = Serial.peek();
   if ((rchar == 'M') || (rchar == 'T')) {
@@ -7,11 +8,9 @@ void serialEvent() {
     //
     //    }
     if (Serial.available()) {
-       msg = Serial.readString();
+      msg = Serial.readString();
       save();
     }
-
-
   }
 
   else if (rchar == 'J') {
@@ -28,30 +27,66 @@ void serialEvent() {
 
 void save() {
   // use global variable to write to EEPROM
- 
+
   EEPROM.put(adds_mosque, msg);
- 
 
   delay (1000);
   getText();
-//  Serial.println("")
-//    Serial.println("OK");
-  //  getText();
-  // message 2
-  //  EEPROM.put(10,message);
-  //  // mosque name
-  //  EEPROM.put(20,message);
+  
 }
 
 void getText() {
+  EEPROM.get(adds_mosque, Text);
+  delay (1000);
 
-EEPROM.get(adds_mosque, Text);
-delay (1000);
-
-//  delay (2000);
-  //  Serial.print("this text ");
-  //  Serial.println(name_mosque);
 }
+
+void Write_text(String msg, int addrs){
+  Serial.println(msg);
+  Serial.print("panjang: ");
+  Serial.println(msg.length());
+  Serial.print("Address: ");
+  Serial.println(addrs);
+
+  for (int index = 0; index < msg.length()-2; index++) {
+    EEPROM.update(addrs, msg[index]);
+
+    delay(10);
+
+    Serial.print("Writing ");
+    Serial.print(msg[index]);
+    Serial.print(" in address ");
+    Serial.println(addrs);
+    addrs++;
+  }
+
+  EEPROM.write(addrs, '\0');
+  EEPROM.read(addrs);
+}
+
+void read_text(int addrs){
+  char readChar = "";
+  String readGreeting = "";
+
+  while (readChar != '\0') {
+    Serial.print("Reading ");
+
+    readChar = EEPROM.read(addrs);
+    delay(10);
+    if (readChar != '\0') {
+      readGreeting += readChar;
+    }
+
+    addrs++;
+
+    Serial.print(readChar);
+    Serial.print(" in address ");
+    Serial.println(addrs);
+  }
+  Serial.print("Final string read from EEPROM: ");
+  Serial.println(readGreeting);
+}
+
 void setJadwal() {
 
 

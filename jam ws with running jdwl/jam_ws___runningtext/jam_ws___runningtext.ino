@@ -53,9 +53,6 @@ void setup() {
   buff.clear();
   EEPROM.get(adds_mosque, Text);
   
-//  save();
-  
-  
 }
 
 
