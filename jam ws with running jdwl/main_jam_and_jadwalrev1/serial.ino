@@ -43,7 +43,7 @@ void serialEvent() {
       else if (blutot.substring (0, 3) == "SIQ")Siqomah();
       else if (blutot.substring (0, 3) == "STG")Stunggu();
       else if (blutot.substring (0, 3) == "SKS")koreksi();
-      else if (blutot.substring (0, 3) == "SSS")uji();
+//      else if (blutot.substring (0, 3) == "SSS")uji();
     }
   }
 }
@@ -55,26 +55,31 @@ void sendData(char* message, byte state){
     mySerial.write("JWL\n");
     mySerial.write(message);
     delay(3000);
-    
   }
+
   
   //set iqomah
   else if(state == 2){
     mySerial.write("");
   }
+
+  
   //set tunggu
   else if(state == 3){
     mySerial.write("");
   }
+
+  
   //send data running text
   else if(state == 4){
     mySerial.write("");
   }
+  
 }
 
-void uji() {
-  rtc.setTime(blutot.substring (3, 5).toInt(), blutot.substring (5, 7).toInt(), 00);
-}
+//void uji() {
+//  rtc.setTime(blutot.substring (3, 5).toInt(), blutot.substring (5, 7).toInt(), 00);
+//}
 
 void set_jam() {
   rtc.setTime(blutot.substring (3, 5).toInt(), blutot.substring (5, 7).toInt(), blutot.substring (7, 9).toInt());     // Set the time to 12:00:00 (24hr format)
