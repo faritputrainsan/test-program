@@ -19,9 +19,6 @@ void serialEvent() {
     //    Serial.println(data_jadwal);
   }
   //  Serial.println(msg);
-
-
-
   delay (1000);
 }
 
@@ -87,11 +84,18 @@ void read_text(int addrs){
   Serial.println(readGreeting);
 }
 
-void setJadwal() {
+void setJadwal(String message) {
 
-
+  
+   data_jadwal= message;
 }
 
-void setTanggal() {
+void setTanggal(String message) {
+  dates = message;
+  
+}
 
+void ping(){
+  Serial.write("Ping");
+  delay(500);
 }

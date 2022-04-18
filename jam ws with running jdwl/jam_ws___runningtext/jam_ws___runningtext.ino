@@ -30,7 +30,7 @@ void refresh() {
   display.scan();
 }
 
-String data_jadwal;
+String data_jadwal = "";
 
 //char* Text = "ABCD";
 //char* Text1 = "KLMN";
