@@ -34,6 +34,7 @@ void serialEvent() {
       }
     }
   }
+  
   else {
     //    display.clear();
     if (Serial.available()) {
@@ -53,26 +54,32 @@ void sendData(char* message, byte state){
 // jadwal & tanggal
   if (state == 1){
     mySerial.write("JWL\n");
-    mySerial.write(message);
+   Serial.write(message);
     delay(3000);
   }
 
   
   //set iqomah
   else if(state == 2){
-    mySerial.write("");
+    mySerial.write("IQM");
   }
 
   
   //set tunggu
   else if(state == 3){
-    mySerial.write("");
+    mySerial.write("WAT");
   }
 
   
   //send data running text
   else if(state == 4){
-    mySerial.write("");
+    mySerial.write("TXT");
+    
+  }
+
+// send data running text1
+  else if (state == 5){
+    mySerial.write("TX1");
   }
   
 }

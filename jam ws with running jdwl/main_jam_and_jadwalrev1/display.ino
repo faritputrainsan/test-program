@@ -23,7 +23,7 @@ void iqm(byte islt) {
     }
 
     else if (islt == 3) {
-   
+
     }
     else if (islt == 4) {
 
@@ -63,7 +63,7 @@ void tunggu(byte i) {
   else if (i == 4)tggu = EEPROM.read(addisya);
 
 
-  
+
   while (1) {
     if (iqdtk < 0) {
       if (tggu <= 0 ) {
@@ -87,17 +87,21 @@ void jam_mtr() {
 int interval = 10;
 unsigned long previusMillis = 0;
 void run() {
-  unsigned long currenMillis = millis();
-  if (currenMillis - previusMillis >= interval) {
-    previusMillis = currenMillis;
-    digitalWrite(strobePin, LOW);
-    shiftOut(dataPin, clockPin, MSBFIRST, segChar[t.hour / 10]);
-    shiftOut(dataPin, clockPin, MSBFIRST, segChar[t.hour % 10]);
-    shiftOut(dataPin, clockPin, MSBFIRST, segChar[t.min / 10]);
-    shiftOut(dataPin, clockPin, MSBFIRST, segChar[t.min % 10]);
-    digitalWrite(strobePin, HIGH);
+  //  unsigned long currenMillis = millis();
+  //  if (currenMillis - previusMillis >= interval) {
+  //    previusMillis = currenMillis;
+  data_jam();
 
-  }
+  //  }
+}
+
+void data_jam() {
+  digitalWrite(strobePin, LOW);
+  shiftOut(dataPin, clockPin, LSBFIRST, segChar[t.min % 10]);
+  shiftOut(dataPin, clockPin, LSBFIRST, segChar[t.min / 10]);
+  shiftOut(dataPin, clockPin, LSBFIRST, segChar[t.hour % 10]);
+  shiftOut(dataPin, clockPin, LSBFIRST, segChar[t.hour / 10]);
+  digitalWrite(strobePin, HIGH);
 }
 
 void display_tepat (int a) {
@@ -115,7 +119,7 @@ void display_tepat (int a) {
         iqdtk = 59;
       }
     }
-    
+
     iqdtk--;
     delay (1000);
     digitalWrite(strobePin, LOW);
