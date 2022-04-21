@@ -49,12 +49,14 @@ void serialEvent() {
   }
 }
 
-void sendData(char* message, byte state){
+void sendData(String message, byte state){
 
+  
 // jadwal & tanggal
   if (state == 1){
-    mySerial.write("JWL\n");
-   Serial.write(message);
+    sprintf(text, "JWL\n%s",message);
+//    mySerial.write("JWL\n");
+    Serial.print(text);
     delay(3000);
   }
 
