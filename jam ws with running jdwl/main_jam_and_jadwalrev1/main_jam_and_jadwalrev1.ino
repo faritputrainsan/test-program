@@ -54,7 +54,7 @@ char text [200];
 
 int segChar[] = {0xbf, 0x0a, 0xdd, 0x5f, 0x6b, 0x77, 0xf7, 0x1a, 0xff, 0x7f};
 
-String msge = "send meassage test";
+String msge = "120";
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////variable data jam//////////////////////////////////////
@@ -68,9 +68,9 @@ void setup() {
   Serial.begin(9600);
   mySerial.begin(9600);
 
-  rtc.begin();
-  rtc.setOutput (OUTPUT_SQW);
-  rtc.setSQWRate (SQW_RATE_1);
+  //  rtc.begin();
+  //  rtc.setOutput (OUTPUT_SQW);
+  //  rtc.setSQWRate (SQW_RATE_1);
 
   pinMode( strobePin , OUTPUT);
   pinMode( dataPin    , OUTPUT);
@@ -79,16 +79,14 @@ void setup() {
 }
 
 void loop() {
-//  serial();
-//  jdwl();
 
-  sprintf(text, "JWL\n%s",message);
-//    mySerial.write("JWL\n");
-    Serial.print(text);
-    delay(3000);
-  
-//  jam_mtr();
-//  tepat();
+  //  serial();
+  jdwl();
+
+  sendData("String message", 1);
+
+  jam_mtr();
+  tepat();
 }
 
 void data() {
@@ -138,7 +136,7 @@ void jdwl() {
 }
 
 void tepat() {
-  if (j_subuh == combine(t.hour,t.min))
+  if (j_subuh == combine(t.hour, t.min))
   {
     beep();
     display_tepat(0);
@@ -147,7 +145,7 @@ void tepat() {
     beep1();
     tunggu(0);
   }
-  else if (j_dzuhur == combine(t.hour,t.min))
+  else if (j_dzuhur == combine(t.hour, t.min))
   {
     beep();
     display_tepat(1);
@@ -156,7 +154,7 @@ void tepat() {
     beep1();
     tunggu(1);
   }
-  else if (j_ashar == combine(t.hour,t.min))
+  else if (j_ashar == combine(t.hour, t.min))
   {
     beep();
     display_tepat(2);
@@ -165,7 +163,7 @@ void tepat() {
     beep1();
     tunggu(2);
   }
-  else if (j_maghrib == combine(t.hour,t.min))
+  else if (j_maghrib == combine(t.hour, t.min))
   {
     beep();
     display_tepat(3);
@@ -174,7 +172,7 @@ void tepat() {
     beep1();
     tunggu(3);
   }
-  else if (j_isya == combine(t.hour,t.min))
+  else if (j_isya == combine(t.hour, t.min))
   {
     beep();
     display_tepat(4);

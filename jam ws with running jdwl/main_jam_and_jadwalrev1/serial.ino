@@ -34,7 +34,7 @@ void serialEvent() {
       }
     }
   }
-  
+
   else {
     //    display.clear();
     if (Serial.available()) {
@@ -44,46 +44,43 @@ void serialEvent() {
       else if (blutot.substring (0, 3) == "SIQ")Siqomah();
       else if (blutot.substring (0, 3) == "STG")Stunggu();
       else if (blutot.substring (0, 3) == "SKS")koreksi();
-//      else if (blutot.substring (0, 3) == "SSS")uji();
+      //      else if (blutot.substring (0, 3) == "SSS")uji();
     }
   }
 }
 
-void sendData(String message, byte state){
-
-  
-// jadwal & tanggal
-  if (state == 1){
-    sprintf(text, "JWL\n%s",message);
-//    mySerial.write("JWL\n");
-    Serial.print(text);
-    delay(3000);
+void sendData(String message, byte state) {
+  if (state == 1) {
+    sprintf(text, "JWL\n%s", message.c_str());
+    mySerial.write(text);
+//    Serial.print();
+    delay(2000);
   }
 
-  
+
   //set iqomah
-  else if(state == 2){
+  else if (state == 2) {
     mySerial.write("IQM");
   }
 
-  
+
   //set tunggu
-  else if(state == 3){
+  else if (state == 3) {
     mySerial.write("WAT");
   }
 
-  
+
   //send data running text
-  else if(state == 4){
+  else if (state == 4) {
     mySerial.write("TXT");
-    
+
   }
 
-// send data running text1
-  else if (state == 5){
+  // send data running text1
+  else if (state == 5) {
     mySerial.write("TX1");
   }
-  
+
 }
 
 //void uji() {
