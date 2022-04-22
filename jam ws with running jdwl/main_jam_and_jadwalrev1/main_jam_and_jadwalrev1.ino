@@ -87,12 +87,16 @@ void setup() {
 void loop() {
 
   //  serial();
-  jdwl();
+//  jdwl();
 
   sendData("String message", 1);
 
-  jam_mtr();
-  tepat();
+delay (3000);
+  sendData("Message for iqomah", 2);
+  delay(3000);
+
+//  jam_mtr();
+//  tepat();
 }
 
 void data() {

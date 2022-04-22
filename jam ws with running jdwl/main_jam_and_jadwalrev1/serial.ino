@@ -4,8 +4,7 @@ void serialEvent() {
 
   bcar = Serial.peek();
   if ((bcar == 'T') or (bcar == 'L')) {
-    while ((bcar != '\n') and (idx < 80))
-    {
+    while ((bcar != '\n') and (idx < 250)) {
       if (Serial.available()) {
         bcar = (char)Serial.read();
         dchar [idx] = bcar;
@@ -13,8 +12,7 @@ void serialEvent() {
       }
     }
     dchar [idx - 1] = '\0';
-    if (dchar[0] == 'L')
-    {
+    if (dchar[0] == 'L'){
       blutot = String(dchar);
       if (blutot.substring(1, 3).equals("AT"))       {
         EEPROM.put(addltg, blutot.substring(3, blutot.length()).toFloat());
@@ -50,17 +48,18 @@ void serialEvent() {
 }
 
 void sendData(String message, byte state) {
+
   if (state == 1) {
     sprintf(text, "SJW\n%s", message.c_str());
     Serial.write(text);
     delay(2000);
   }
 
-
   //set iqomah
   else if (state == 2) {
     sprintf(iqmn, "SIQ\n%s", message.c_str());
     Serial.write(iqmn);
+    delay(2000);
   }
 
   //set tunggu
@@ -68,7 +67,6 @@ void sendData(String message, byte state) {
     sprintf(text, "STG\n%s", message.c_str());
     Serial.write("");
   }
-
 
   //send data running text
   else if (state == 4) {
@@ -82,7 +80,8 @@ void sendData(String message, byte state) {
     Serial.write(text);
   }
 
-  else if (state == 5) {
+  // send state iqomah
+  else if (state == 6) {
     sprintf(text, "ST1\n%s", message.c_str());
     Serial.write(text);
   }

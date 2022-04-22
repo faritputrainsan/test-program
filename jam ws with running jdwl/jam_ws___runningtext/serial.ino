@@ -3,15 +3,12 @@ void serialEvent() {
   String msg;
 
   rchar = Serial.peek();
-  if ((rchar == 'M') || (rchar == 'T')) {
-    //    while(){
-    //
-    //    }
-    if (Serial.available()) {
-      msg = Serial.readString();
-      save();
+  if (rchar == 'S' ) {
+    while ((rchar != '\n') and (rchar < 250)) {
+      
     }
   }
+
 
   else if (rchar == 'J') {
 
@@ -22,6 +19,10 @@ void serialEvent() {
   delay (1000);
 }
 
+void saveState() {
+
+}
+
 void save() {
   // use global variable to write to EEPROM
 
@@ -29,7 +30,7 @@ void save() {
 
   delay (1000);
   getText();
-  
+
 }
 
 void getText() {
@@ -38,14 +39,14 @@ void getText() {
 
 }
 
-void Write_text(String msg, int addrs){
+void Write_text(String msg, int addrs) {
   Serial.println(msg);
   Serial.print("panjang: ");
   Serial.println(msg.length());
   Serial.print("Address: ");
   Serial.println(addrs);
 
-  for (int index = 0; index < msg.length()-2; index++) {
+  for (int index = 0; index < msg.length() - 2; index++) {
     EEPROM.update(addrs, msg[index]);
 
     delay(10);
@@ -56,12 +57,11 @@ void Write_text(String msg, int addrs){
     Serial.println(addrs);
     addrs++;
   }
-
   EEPROM.write(addrs, '\0');
   EEPROM.read(addrs);
 }
 
-void read_text(int addrs){
+void read_text(int addrs) {
   char readChar = "";
   String readGreeting = "";
 
@@ -85,17 +85,14 @@ void read_text(int addrs){
 }
 
 void setJadwal(String message) {
-
-  
-   data_jadwal= message;
+  data_jadwal = message;
 }
 
 void setTanggal(String message) {
   dates = message;
-  
 }
 
-void ping(){
+void ping() {
   Serial.write("Ping");
   delay(500);
 }
