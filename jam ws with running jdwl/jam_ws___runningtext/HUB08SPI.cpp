@@ -1,8 +1,9 @@
 #include "HUB08SPI.h"
 #include "Arduino.h"
 
-HUB08SPI::HUB08SPI()
-{
+
+HUB08SPI::HUB08SPI(){
+  
 }
 
 void HUB08SPI::begin(uint8_t *displaybuf, uint16_t width, uint16_t height)

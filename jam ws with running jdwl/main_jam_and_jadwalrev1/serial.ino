@@ -51,36 +51,41 @@ void serialEvent() {
 
 void sendData(String message, byte state) {
   if (state == 1) {
-    sprintf(text, "JWL\n%s", message.c_str());
-    mySerial.write(text);
-//    Serial.print();
+    sprintf(text, "SJW\n%s", message.c_str());
+    Serial.write(text);
     delay(2000);
   }
 
 
   //set iqomah
   else if (state == 2) {
-    mySerial.write("IQM");
+    sprintf(iqmn, "SIQ\n%s", message.c_str());
+    Serial.write(iqmn);
   }
-
 
   //set tunggu
   else if (state == 3) {
-    mySerial.write("WAT");
+    sprintf(text, "STG\n%s", message.c_str());
+    Serial.write("");
   }
 
 
   //send data running text
   else if (state == 4) {
-    mySerial.write("TXT");
-
+    sprintf(text, "STX\n%s", message.c_str());
+    Serial.write("TXT");
   }
 
   // send data running text1
   else if (state == 5) {
-    mySerial.write("TX1");
+    sprintf(text, "ST1\n%s", message.c_str());
+    Serial.write(text);
   }
 
+  else if (state == 5) {
+    sprintf(text, "ST1\n%s", message.c_str());
+    Serial.write(text);
+  }
 }
 
 //void uji() {
