@@ -69,7 +69,7 @@ void loop() {
 //  Serial.println("this loop");
   //   Text;
   
-  Serial.println(Text);
+//  Serial.println(Text);
   StaticTxt(Text); delay(1000);
   //  Serial.println(Text);
 

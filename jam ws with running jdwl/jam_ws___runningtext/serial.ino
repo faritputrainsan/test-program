@@ -1,12 +1,17 @@
 void serialEvent() {
   char rchar;
-  String msg;
-
+ 
   rchar = Serial.peek();
   if (rchar == 'S' ) {
     while ((rchar != '\n') and (rchar < 250)) {
       
+      rchar = (char)Serial.read();
+      Serial.println(rchar);
+
+      saveState();
+      
     }
+    
   }
 
 
