@@ -1,4 +1,5 @@
 void serialEvent() {
+  int chr_idx =0;
   char rchar;
  
   rchar = Serial.peek();
@@ -7,13 +8,12 @@ void serialEvent() {
       
       rchar = (char)Serial.read();
       Serial.println(rchar);
-
+//      chr_idx = ;
       saveState();
       
     }
     
   }
-
 
   else if (rchar == 'J') {
 
@@ -39,7 +39,7 @@ void save() {
 }
 
 void getText() {
-  EEPROM.get(adds_mosque, Text);
+//  EEPROM.get(adds_mosque, Text);
   delay (1000);
 
 }

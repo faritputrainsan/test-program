@@ -34,11 +34,14 @@ String data_jadwal = "";
 
 //char* Text = "ABCD";
 //char* Text1 = "KLMN";
-const String msg[100];
+char* msg[100];
+char text[200];
+char text1[100];
+char mosque_name[50];
+
 
 const String name_mosque;
 const int adds_mosque = 10;
-const String Text;
 
 String dates = "";
 //String test_text = "Tes ini disini kenapa annoying bangeet epprom e";
@@ -51,7 +54,7 @@ void setup() {
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
-  EEPROM.get(adds_mosque, Text);
+//  EEPROM.get(adds_mosque, Text);
   
 }
 
@@ -70,7 +73,7 @@ void loop() {
   //   Text;
   
 //  Serial.println(Text);
-  StaticTxt(Text); delay(1000);
+//  StaticTxt(Text); delay(1000);
   //  Serial.println(Text);
 
   //  Serial.println(name_mosque);
