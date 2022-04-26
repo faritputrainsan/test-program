@@ -1,4 +1,5 @@
-/* HUB08 (matrix led) to ARDUINO pin connection
+/****************************
+  HUB08 (matrix led) to ARDUINO pin connection
    LA / A    -> Digital Pin 4
    LB / B    -> Digital Pin 5
    LC / C    -> Digital Pin 6
@@ -7,7 +8,7 @@
    R1 / R    -> Digital Pin 11
    OE / EN   -> Digital Pin 3
    L / LAT / STB -> Digital Pin 2
-*/
+******************************/
 
 #include <SPI.h>
 #include <EEPROM.h>
@@ -34,11 +35,11 @@ String data_jadwal = "";
 
 //char* Text = "ABCD";
 //char* Text1 = "KLMN";
-char* msg[100];
+char prm[260];
+char msg[100];
 char text[200];
 char text1[100];
 char mosque_name[50];
-
 
 const String name_mosque;
 const int adds_mosque = 10;

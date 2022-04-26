@@ -1,22 +1,23 @@
 void serialEvent() {
-  int chr_idx =0;
+  int chr_idx = 0;
   char rchar;
- 
+
   rchar = Serial.peek();
   if (rchar == 'S' ) {
-    while ((rchar != '\n') and (rchar < 250)) {
-      
-      rchar = (char)Serial.read();
-      Serial.println(rchar);
-//      chr_idx = ;
-      saveState();
-      
+    while ((rchar != '\n') and (chr_idx < 201)) {
+      if (Serial.available()) {
+        rchar = (char)Serial.read();
+        Serial.print(rchar);
+        prm[chr_idx] = rchar;
+        chr_idx ++;  
+      }
     }
-    
+
+    prm[chr_idx - 1] = '\0';
+    saveState();
   }
 
   else if (rchar == 'J') {
-
     data_jadwal = "0";
     //    Serial.println(data_jadwal);
   }
@@ -25,7 +26,10 @@ void serialEvent() {
 }
 
 void saveState() {
-
+  String text_srl;
+  if (prm[0] == 'S'){
+    Serial.print (prm[1]);
+  }
 }
 
 void save() {
@@ -39,9 +43,8 @@ void save() {
 }
 
 void getText() {
-//  EEPROM.get(adds_mosque, Text);
+  //  EEPROM.get(adds_mosque, Text);
   delay (1000);
-
 }
 
 void Write_text(String msg, int addrs) {
