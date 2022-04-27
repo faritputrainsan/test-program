@@ -17,7 +17,7 @@
 #include "TimerOne.h"
 #include "Buffer.h"
 
-#define WIDTH  128// panjang led matrix
+#define WIDTH  256// panjang led matrix
 #define HEIGHT 16 // tinggi led matrix
 
 HUB08SPI display;
@@ -51,12 +51,12 @@ void setup() {
 
   Serial.begin(9600);
   display.begin(displaybuf, WIDTH, HEIGHT);
-  Timer1.initialize(250);
+  Timer1.initialize(1000);
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
-//  EEPROM.get(adds_mosque, Text);
-  
+  //  EEPROM.get(adds_mosque, Text);
+
 }
 
 
@@ -70,16 +70,18 @@ void loop() {
 
   //  EEPROM.get(0,Text);
 
-//  Serial.println("this loop");
+  //  Serial.println("this loop");
   //   Text;
-  
-//  Serial.println(Text);
-//  StaticTxt(Text); delay(1000);
+
+  //  Serial.println(Text);
+  //  StaticTxt(Text); delay(1000);
   //  Serial.println(Text);
 
   //  Serial.println(name_mosque);
   //  delay(5000);
-  //  to_jadwal(data_jadwal);
+  StaticTxt(1);
+  to_jadwal(data_jadwal);
+
 
   //ronn.setFont(B_STD);
   // ronn.printText("Animation Demo",0,0);delay(500);

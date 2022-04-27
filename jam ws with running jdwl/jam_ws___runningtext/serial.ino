@@ -28,7 +28,12 @@ void serialEvent() {
 void saveState() {
   String text_srl;
   if (prm[0] == 'S'){
-    Serial.print (prm[1]);
+    text_srl = String(prm);
+    
+    Serial.print (text_srl);
+    delay(100);
+    Write_text(text_srl, 0);
+    
   }
 }
 
@@ -54,7 +59,7 @@ void Write_text(String msg, int addrs) {
   Serial.print("Address: ");
   Serial.println(addrs);
 
-  for (int index = 0; index < msg.length() - 2; index++) {
+  for (int index = 0; index < msg.length() - 1; index++) {
     EEPROM.update(addrs, msg[index]);
 
     delay(10);

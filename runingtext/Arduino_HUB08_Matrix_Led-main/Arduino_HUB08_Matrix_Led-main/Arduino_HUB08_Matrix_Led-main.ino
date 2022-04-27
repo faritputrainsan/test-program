@@ -71,10 +71,10 @@ void setup() {
 }
 
 void loop() {
-    clearDemo();
+//    clearDemo();
   //  showFont();
   //moveDemo();
-//  animationDemo();
+  animationDemo();
   //  ronn.setFont(B_7SEGMENT);
   //  ronn.printText("Animation Demo",0,0);
   //  jam();
