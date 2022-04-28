@@ -4,12 +4,12 @@ void runningText(char* TEXT) {
 }
 
 void StaticTxt(byte state) {
-  String TEXT ="12 DESEMBER 2022";
+  String TEXT ="Masjid Yasmin III Nur Al-Fattah";
   int pjg = TEXT.length()+1;
 //  char TEXT.toCharArray
   ronn.setFont(B_STD);
   ronn.clear_D();
-  ronn.scrollText_D(TEXT, WIDTH -ronn), 1);
+  ronn.scrollText_D(TEXT, 0, 1);
   delay(5000);
   //  ronn.clear_D();
 }

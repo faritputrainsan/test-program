@@ -32,8 +32,18 @@ void refresh() {
 }
 
 String data_jadwal = "";
+String imsak = jdwlkonversi("804");
+String subuh = jdwlkonversi("100");
+String dhuhur = jdwlkonversi("360");
+String asar = jdwlkonversi("230");
+String maghrib  = jdwlkonversi("1000");
+String isya = jdwlkonversi("999");
 
-//char* Text = "ABCD";
+
+char* running1;
+String mn_mosque;
+char* runnings;
+
 //char* Text1 = "KLMN";
 char prm[260];
 char msg[100];
@@ -41,20 +51,25 @@ char text[200];
 char text1[100];
 char mosque_name[50];
 
-const String name_mosque;
-const int adds_mosque = 10;
+int text_add = 51;
+int text1_add = 251;
+int mn_add = 0;
 
 String dates = "";
 //String test_text = "Tes ini disini kenapa annoying bangeet epprom e";
 
+  
 void setup() {
 
   Serial.begin(9600);
   display.begin(displaybuf, WIDTH, HEIGHT);
-  Timer1.initialize(1000);
+  Timer1.initialize(250);
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
+//  delay(100);
+//  read_text(text_add);
+//  delay(1000);
   //  EEPROM.get(adds_mosque, Text);
 
 }
@@ -62,7 +77,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  // runningText("Selamat datang disini");
+  runningText(runnings);
   //  Serial.print(jdwlkonversi("804"));
 
   //  delay(5000);
@@ -89,12 +104,7 @@ void loop() {
 }
 
 void to_jadwal(String data) {
-  String imsak = jdwlkonversi("804");
-  String subuh = jdwlkonversi("100");
-  String dhuhur = jdwlkonversi("360");
-  String asar = jdwlkonversi("230");
-  String maghrib  = jdwlkonversi("1000");
-  String isya = jdwlkonversi("999");
+
   //  String imsak = jdwlkonversi(data.substring(0,1));
   //  String subuh = jdwlkonversi(data.substring(0,1));
   //  String dhuhur = jdwlkonversi(data.substring(0,1));

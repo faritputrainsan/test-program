@@ -7,9 +7,9 @@ void serialEvent() {
     while ((rchar != '\n') and (chr_idx < 201)) {
       if (Serial.available()) {
         rchar = (char)Serial.read();
-        Serial.print(rchar);
+        //        Serial.print(rchar);
         prm[chr_idx] = rchar;
-        chr_idx ++;  
+        chr_idx ++;
       }
     }
 
@@ -27,30 +27,29 @@ void serialEvent() {
 
 void saveState() {
   String text_srl;
-  if (prm[0] == 'S'){
+  int addres;
+  String msges;
+  if (prm[0] == 'S') {
+    if (prm[1] == 'N' and prm[2] == 'M') {
+      addres = mn_add;
+    }
+    else if (prm[1] == 'T' and prm[2] == 'X') {
+      addres = text_add;
+    }
+    else if (prm[1] == 'T' and prm[2] == '1') {
+
+      addres = text1_add;
+    }
     text_srl = String(prm);
-    
-    Serial.print (text_srl);
+    msges = text_srl.substring(3, text_srl.length());
+    Serial.print (msges);
     delay(100);
-    Write_text(text_srl, 0);
-    
+    Write_text(msges, addres);
+    delay (200);
+    read_text(addres);
   }
 }
 
-void save() {
-  // use global variable to write to EEPROM
-
-  EEPROM.put(adds_mosque, msg);
-
-  delay (1000);
-  getText();
-
-}
-
-void getText() {
-  //  EEPROM.get(adds_mosque, Text);
-  delay (1000);
-}
 
 void Write_text(String msg, int addrs) {
   Serial.println(msg);
@@ -84,7 +83,16 @@ void read_text(int addrs) {
     readChar = EEPROM.read(addrs);
     delay(10);
     if (readChar != '\0') {
-      readGreeting += readChar;
+      if (addrs == mn_add){
+        mn_mosque += readChar;
+      }
+      else if(addrs == text_add){
+         runnings = (char*) readGreeting;
+      }
+      else if(addrs == text1_add){
+        running1 += readChar;
+      }
+      
     }
 
     addrs++;
@@ -94,7 +102,7 @@ void read_text(int addrs) {
     Serial.println(addrs);
   }
   Serial.print("Final string read from EEPROM: ");
-  Serial.println(readGreeting);
+  Serial.println(runnings);
 }
 
 void setJadwal(String message) {
