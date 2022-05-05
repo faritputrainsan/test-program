@@ -18,7 +18,7 @@ void serialEvent() {
   }
 
   else if (rchar == 'J') {
-    data_jadwal = "0";
+//    data_jadwal = "0";
     //    Serial.println(data_jadwal);
   }
   //  Serial.println(msg);
@@ -90,43 +90,9 @@ String read_Text(int addrs) {
   return String (readChar);
 }
 
-//void read_text(int addrs) {
-//  char readChar;
-//  String readGreeting;
-//
-//  while (readChar != '\0') {
-//    Serial.print("Reading ");
-//
-//    readChar = EEPROM.read(addrs);
-//    delay(10);
-//
-//    if (readChar != '\0') {
-//      //      readChar.toCharArray(text, 250);
-//    }
-//
-//    addrs++;
-//
-//    Serial.print(readChar);
-//    Serial.print(" in address ");
-//    Serial.println(addrs);
-//  }
-//
-//  if (addrs == mn_add) {
-//    mn_mosque += readChar;
-//  }
-//  else if (addrs == text_add) {
-//    //    runnings = &text;
-//  }
-//  else if (addrs == text1_add) {
-//    running1 += readChar;
-//  }
-//  Serial.print("Final string read from EEPROM: ");
-//  Serial.println(runnings );
+//void setJadwal(String message) {
+//  data_jadwal = message;
 //}
-
-void setJadwal(String message) {
-  data_jadwal = message;
-}
 
 void setTanggal(String message) {
   dates = message;

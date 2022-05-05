@@ -32,25 +32,19 @@ void refresh() {
   display.scan();
 }
 
-String data_jadwal = "";
-String imsak = jdwlkonversi("804");
-String subuh = jdwlkonversi("100");
-String dhuhur = jdwlkonversi("360");
-String asar = jdwlkonversi("230");
-String maghrib  = jdwlkonversi("1000");
-String isya = jdwlkonversi("999");
+//String data_jadwal = "";
+//String imsak = jdwlkonversi("804");
+//String subuh = jdwlkonversi("100");
+//String dhuhur = jdwlkonversi("360");
+//String asar = jdwlkonversi("230");
+//String maghrib  = jdwlkonversi("1000");
+//String isya = jdwlkonversi("999");
 
-
-char* running1;
 String mn_mosque;
-const char* runnings = NULL;
 
 //char* Text1 = "KLMN";
 char prm[260];
-char msg[100];
-char text[200];
-char text1[100];
-char mosque_name[50];
+
 String text_200;
 String text_100;
 
@@ -86,15 +80,6 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-//  int i = 0;
-//
-//  while (i < 10) {
-//    i++;
-//    Serial.println (i);
-//    readChar[i] = EEPROM.read(addrs + 1 + i);
-    //    readChar[addrs] = EEPROM.read(addrs);
-
-//  }
   runningText(text_200);
 //    Serial.print(readeeps);
 
@@ -119,17 +104,6 @@ void loop() {
   //ronn.setFont(B_STD);
   // ronn.printText("Animation Demo",0,0);delay(500);
   // ronn.clearSlice_R(0,8,64,16);
-}
-
-void to_jadwal(String data) {
-
-  //  String imsak = jdwlkonversi(data.substring(0,1));
-  //  String subuh = jdwlkonversi(data.substring(0,1));
-  //  String dhuhur = jdwlkonversi(data.substring(0,1));
-  //  String asar = jdwlkonversi(data.substring(0,1));
-  //  String maghrib  = jdwlkonversi(data.substring(0,1));
-  //  String isya = jdwlkonversi(data.substring(0,1));
-  jadwal(imsak, subuh, dhuhur, asar, maghrib, isya);
 }
 
 String jdwlkonversi(String data) {
