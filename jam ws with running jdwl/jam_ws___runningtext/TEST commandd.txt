@@ -1,8 +1,8 @@
 SNMMasjid Yasmin III Nur Al-Fattah
 
-STX1This text for announcement and ohter for 200 letters
+STXThis text for announcement and ohter for 200 letters
 
-ST10This for other text with 100 letters
+ST1This for other text with 100 letters
 
 
 send from pinging schedule

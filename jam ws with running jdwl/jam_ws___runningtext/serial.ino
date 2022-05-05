@@ -29,6 +29,7 @@ void saveState() {
   String text_srl;
   int addres;
   String msges;
+
   if (prm[0] == 'S') {
     if (prm[1] == 'N' and prm[2] == 'M') {
       addres = mn_add;
@@ -42,14 +43,14 @@ void saveState() {
     }
     text_srl = String(prm);
     msges = text_srl.substring(3, text_srl.length());
-    Serial.print (msges);
+
     delay(100);
     Write_text(msges, addres);
     delay (200);
-    read_text(addres);
+    text_200 = read_Text(text_add);
+
   }
 }
-
 
 void Write_text(String msg, int addrs) {
   Serial.println(msg);
@@ -73,37 +74,55 @@ void Write_text(String msg, int addrs) {
   EEPROM.read(addrs);
 }
 
-void read_text(int addrs) {
-  char readChar = "";
-  String readGreeting = "";
+String read_Text(int addrs) {
+  int strLen = EEPROM.read(addrs);
+  char readChar [strLen];
+  String readGreeting;
+  int i = 0;
 
-  while (readChar != '\0') {
-    Serial.print("Reading ");
+  while (i < strLen) {
+    readChar[i] = EEPROM.read(addrs + i);
+    i++;
 
-    readChar = EEPROM.read(addrs);
-    delay(10);
-    if (readChar != '\0') {
-      if (addrs == mn_add){
-        mn_mosque += readChar;
-      }
-      else if(addrs == text_add){
-         runnings = (char*) readGreeting;
-      }
-      else if(addrs == text1_add){
-        running1 += readChar;
-      }
-      
-    }
-
-    addrs++;
-
-    Serial.print(readChar);
-    Serial.print(" in address ");
-    Serial.println(addrs);
   }
-  Serial.print("Final string read from EEPROM: ");
-  Serial.println(runnings);
+  readChar[strLen] = '\0';
+
+  return String (readChar);
 }
+
+//void read_text(int addrs) {
+//  char readChar;
+//  String readGreeting;
+//
+//  while (readChar != '\0') {
+//    Serial.print("Reading ");
+//
+//    readChar = EEPROM.read(addrs);
+//    delay(10);
+//
+//    if (readChar != '\0') {
+//      //      readChar.toCharArray(text, 250);
+//    }
+//
+//    addrs++;
+//
+//    Serial.print(readChar);
+//    Serial.print(" in address ");
+//    Serial.println(addrs);
+//  }
+//
+//  if (addrs == mn_add) {
+//    mn_mosque += readChar;
+//  }
+//  else if (addrs == text_add) {
+//    //    runnings = &text;
+//  }
+//  else if (addrs == text1_add) {
+//    running1 += readChar;
+//  }
+//  Serial.print("Final string read from EEPROM: ");
+//  Serial.println(runnings );
+//}
 
 void setJadwal(String message) {
   data_jadwal = message;

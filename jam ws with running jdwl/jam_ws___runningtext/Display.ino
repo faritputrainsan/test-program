@@ -1,12 +1,16 @@
-void runningText(char* TEXT) {
+void runningText(String TEXT) {
+
+  const char* readeep;
+//  String TextEep = read_Text(addres);
+  readeep = TEXT.c_str();
   ronn.setFont(B_STD);
-  ronn.scrollText_LR(TEXT, 0, 0, WIDTH, 20); delay(3000);
+  ronn.scrollText_LR(readeep, 0, 0, WIDTH, 20); delay(3000);
 }
 
 void StaticTxt(byte state) {
-  String TEXT ="Masjid Yasmin III Nur Al-Fattah";
-  int pjg = TEXT.length()+1;
-//  char TEXT.toCharArray
+  String TEXT = "Masjid Yasmin III Nur Al-Fattah";
+  int pjg = TEXT.length() + 1;
+  //  char TEXT.toCharArray
   ronn.setFont(B_STD);
   ronn.clear_D();
   ronn.scrollText_D(TEXT, 0, 1);

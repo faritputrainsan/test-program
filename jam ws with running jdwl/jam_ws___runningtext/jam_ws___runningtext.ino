@@ -17,7 +17,8 @@
 #include "TimerOne.h"
 #include "Buffer.h"
 
-#define WIDTH  256// panjang led matrix
+//#define WIDTH  256// panjang led matrix
+#define WIDTH  64// panjang led matrix
 #define HEIGHT 16 // tinggi led matrix
 
 HUB08SPI display;
@@ -42,7 +43,7 @@ String isya = jdwlkonversi("999");
 
 char* running1;
 String mn_mosque;
-char* runnings;
+const char* runnings = NULL;
 
 //char* Text1 = "KLMN";
 char prm[260];
@@ -50,6 +51,13 @@ char msg[100];
 char text[200];
 char text1[100];
 char mosque_name[50];
+String text_200;
+String text_100;
+
+
+
+
+int pj_text = 200;
 
 int text_add = 51;
 int text1_add = 251;
@@ -77,8 +85,18 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  runningText(runnings);
-  //  Serial.print(jdwlkonversi("804"));
+
+//  int i = 0;
+//
+//  while (i < 10) {
+//    i++;
+//    Serial.println (i);
+//    readChar[i] = EEPROM.read(addrs + 1 + i);
+    //    readChar[addrs] = EEPROM.read(addrs);
+
+//  }
+  runningText(text_200);
+//    Serial.print(readeeps);
 
   //  delay(5000);
 
@@ -94,8 +112,8 @@ void loop() {
 
   //  Serial.println(name_mosque);
   //  delay(5000);
-  StaticTxt(1);
-  to_jadwal(data_jadwal);
+//  StaticTxt(1);
+//  to_jadwal(data_jadwal);
 
 
   //ronn.setFont(B_STD);
