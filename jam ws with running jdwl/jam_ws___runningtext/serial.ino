@@ -1,76 +1,80 @@
-void serialEvent() {
+void serialEvent(){
+  char prm[200];
   int chr_idx = 0;
   char rchar;
+  String text_srl;
 
-  rchar = Serial.peek();
-  if (rchar == 'S' ) {
-    while ((rchar != '\n') and (chr_idx < 201)) {
-      if (Serial.available()) {
-        rchar = (char)Serial.read();
-        //        Serial.print(rchar);
-        prm[chr_idx] = rchar;
-        chr_idx ++;
-      }
-    }
-
-    prm[chr_idx - 1] = '\0';
-    saveState();
+  //  rchar = Serial.peek();
+  //  if (rchar == 'S' ) {
+  //    while ((rchar != '\n') and (chr_idx < 305)) {
+  if (Serial.available()) {
+    text_srl = Serial.readString();
+    //      rchar = (char)Serial.read();
+    Serial.println(text_srl);
+    //      prm[chr_idx] = rchar;
+    //      chr_idx ++;
+    //    }
   }
 
-  else if (rchar == 'J') {
-//    data_jadwal = "0";
-    //    Serial.println(data_jadwal);
-  }
-  //  Serial.println(msg);
-  delay (1000);
+  //    prm[chr_idx - 1] = '\0';
+  //    saveState();
+
+  //    int addres;
+  //    String msges;
+  //
+  //    if (text_srl.substring(0,1) == 'S') {
+  //      if (text_srl.substring(1,2) == 'N' and text_srl.substring(2,3) == 'M') {
+  //        addres = mn_add;
+  //      }
+  //      else if (text_srl.substring(1,2) == 'T' and text_srl.substring(2,3) == 'X') {
+  //        addres = text_add;
+  //      }
+  //      //    else if (prm[1] == 'T' and prm[2] == '1') {
+  //      //
+  //      ////      addres = text1_add;
+  //      //    }
+  ////      text_srl
+  //      msges = text_srl.substring(3, text_srl.length());
+  //
+  //      delay(100);
+  //      Write_text(msges, addres);
+  //      delay (200);
+  //
+  //
+  //    }
+  //    text_250 = read_Text(text_add);
+  //    Serial.println (text_250);
+  //  }
+
+  //  else if (rchar == 'J') {
+  //    //    data_jadwal = "0";
+  //    //    Serial.println(data_jadwal);
+  //  }
+  //  //  Serial.println(msg);
+  //  delay (1000);
 }
 
 void saveState() {
-  String text_srl;
-  int addres;
-  String msges;
 
-  if (prm[0] == 'S') {
-    if (prm[1] == 'N' and prm[2] == 'M') {
-      addres = mn_add;
-    }
-    else if (prm[1] == 'T' and prm[2] == 'X') {
-      addres = text_add;
-    }
-    else if (prm[1] == 'T' and prm[2] == '1') {
-
-      addres = text1_add;
-    }
-    text_srl = String(prm);
-    msges = text_srl.substring(3, text_srl.length());
-
-    delay(100);
-    Write_text(msges, addres);
-    delay (200);
-    text_200 = read_Text(text_add);
-
-  }
 }
 
 void Write_text(String msg, int addrs) {
-  Serial.println(msg);
-  Serial.print("panjang: ");
-  Serial.println(msg.length());
-  Serial.print("Address: ");
-  Serial.println(addrs);
+  //  Serial.println(msg);
+  //  Serial.print("panjang: ");
+  //  Serial.println(msg.length());
+  //  Serial.print("Address: ");
+  //  Serial.println(addrs);
 
   for (int index = 0; index < msg.length() - 1; index++) {
     EEPROM.update(addrs, msg[index]);
-
     delay(10);
-
-    Serial.print("Writing ");
-    Serial.print(msg[index]);
-    Serial.print(" in address ");
-    Serial.println(addrs);
+    //    Serial.print("Writing ");
+    //    Serial.print(msg[index]);
+    //    Serial.print(" in address ");
+    //    Serial.println(addrs);
     addrs++;
   }
-  EEPROM.write(addrs, '\0');
+  EEPROM.update(addrs, '\0');
   EEPROM.read(addrs);
 }
 
@@ -94,9 +98,9 @@ String read_Text(int addrs) {
 //  data_jadwal = message;
 //}
 
-void setTanggal(String message) {
-  dates = message;
-}
+//void setTanggal(String message) {
+////  dates = message;
+//}
 
 void ping() {
   Serial.write("Ping");

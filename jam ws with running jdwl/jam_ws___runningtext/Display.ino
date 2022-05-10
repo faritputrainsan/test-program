@@ -8,8 +8,8 @@ void runningText(String TEXT) {
 }
 
 void StaticTxt(byte state) {
-  String TEXT = "Masjid Yasmin III Nur Al-Fattah";
-  int pjg = TEXT.length() + 1;
+  String TEXT = "32 SEPTEMBER 2022";
+//  int pjg = TEXT.length() + 1;
   //  char TEXT.toCharArray
   ronn.setFont(B_STD);
   ronn.clear_D();
@@ -18,7 +18,14 @@ void StaticTxt(byte state) {
   //  ronn.clear_D();
 }
 
-void jadwal(String imsak, String subuh, String dhuhur, String asar, String maghrib, String isya ) {
+void jadwal() {
+
+String imsak = jdwlkonversi("555") ;
+String subuh = jdwlkonversi("555");
+String dhuhur = jdwlkonversi("555");
+String asar = jdwlkonversi("555");
+String maghrib = jdwlkonversi("555");
+String isya = jdwlkonversi("555");
 
   ronn.clear_D();
   ronn.setFont(font_NEW);

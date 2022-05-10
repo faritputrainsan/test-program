@@ -6,12 +6,12 @@ HUB08SPI::HUB08SPI(){
   
 }
 
-void HUB08SPI::begin(uint8_t *displaybuf, uint16_t width, uint16_t height)
-{
+void HUB08SPI::begin(uint8_t *displaybuf, uint16_t width, uint16_t height){
     this->displaybuf = displaybuf;
     this->width = width;
     this->height = height;
-    DDRD |= 0xFC; // BIN = 0b11111100 ==> SET PIN 7,6,5,4,3,2 = OUTPUT ==> pin 1,0 = not change
+    DDRC |= 0xF4;
+    DDRD |= 0x08; // BIN = 0b11111100 ==> SET PIN 7,6,5,4,3,2 = OUTPUT ==> pin 1,0 = not change
     TCCR2B = TCCR2B & 0b11111000 | 0x01;  //32khz pwm on pin 3 & 11
     SPI.begin();
     analogWrite(3,128); // default brightness
@@ -57,7 +57,7 @@ void HUB08SPI::scan()
         for (uint8_t byte = 0; byte < (width / 8); byte++)
         {
             //CHANGE THIS IF DISPLAY INVERT
-            //SPI.transfer(~*ptr);
+//            SPI.transfer(~*ptr);
             SPI.transfer(*ptr);
             ptr++;
         }
@@ -65,10 +65,10 @@ void HUB08SPI::scan()
     
     uint16_t r = -2000;  //timeout. If something is wrong with the connection, we do not want to wait forever. This value is incremented each cycle of the blocking wait - while loop to bail out evantually, when OE never goes HIGH.
     while (!(PIND & (1<<3)) && ++r); // Wait for OE to go HIGH or Timeout (r == 0)
-    uint8_t t = (PIND & 0x0F) | (row <<4); //?? Select row by binary? e.g. 1 -> A or 3 -> A,B or 5 -> A,C? yes, exactly. I shift row by 4 and or it to the output to make row appear on the upper half of Port D. the lower half must remain the same.
-    PORTD = t;
-    PIND = 1<<2;  //toggle latch. It's a lesser known feature of the atmega controllers. Writing to PINx toggles the output in only one processor cycle
-    PIND = 1<<2;
+    uint8_t t = (PINC & 0x0F) | (row <<4); //?? Select row by binary? e.g. 1 -> A or 3 -> A,B or 5 -> A,C? yes, exactly. I shift row by 4 and or it to the output to make row appear on the upper half of Port D. the lower half must remain the same.
+    PORTC = t;
+    PINC = 1<<2;  //toggle latch. It's a lesser known feature of the atmega controllers. Writing to PINx toggles the output in only one processor cycle
+    PINC = 1<<2;
     row = (row + 1) & 0x0F; // Everytime this function is called, it scans the next line. Lines only range from 0 to 15. "& 0xF" equals "% 16", so it wraps back to 0 after reaching 15.
   
 

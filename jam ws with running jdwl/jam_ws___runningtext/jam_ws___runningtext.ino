@@ -32,60 +32,35 @@ void refresh() {
   display.scan();
 }
 
-//String data_jadwal = "";
-//String imsak = jdwlkonversi("804");
-//String subuh = jdwlkonversi("100");
-//String dhuhur = jdwlkonversi("360");
-//String asar = jdwlkonversi("230");
-//String maghrib  = jdwlkonversi("1000");
-//String isya = jdwlkonversi("999");
+int pin_interupt;
 
 String mn_mosque;
 
 //char* Text1 = "KLMN";
-char prm[260];
-
-String text_200;
-String text_100;
 
 
+String text_250;
 
-
-int pj_text = 200;
 
 int text_add = 51;
-int text1_add = 251;
 int mn_add = 0;
 
-String dates = "";
-//String test_text = "Tes ini disini kenapa annoying bangeet epprom e";
+//String dates = "";
 
   
 void setup() {
-
-  Serial.begin(9600);
+  Serial.begin(115200);
   display.begin(displaybuf, WIDTH, HEIGHT);
   Timer1.initialize(250);
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
-//  delay(100);
-//  read_text(text_add);
-//  delay(1000);
-  //  EEPROM.get(adds_mosque, Text);
-
 }
 
-
 void loop() {
-  // put your main code here, to run repeatedly:
-
-  runningText(text_200);
+//  runningText("TEST HAHAHAHAH");
 //    Serial.print(readeeps);
-
   //  delay(5000);
-
-
   //  EEPROM.get(0,Text);
 
   //  Serial.println("this loop");
@@ -94,11 +69,10 @@ void loop() {
   //  Serial.println(Text);
   //  StaticTxt(Text); delay(1000);
   //  Serial.println(Text);
-
   //  Serial.println(name_mosque);
   //  delay(5000);
 //  StaticTxt(1);
-//  to_jadwal(data_jadwal);
+//  jadwal();
 
 
   //ronn.setFont(B_STD);

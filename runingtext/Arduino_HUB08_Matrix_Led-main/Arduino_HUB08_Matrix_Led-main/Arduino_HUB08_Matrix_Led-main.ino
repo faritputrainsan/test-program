@@ -322,20 +322,20 @@ void animationDemo() {
 //    changeTitle("Speed");
 //    ronn.scrollText_LR("Ronn Animation Demo",0,9,64,30);delay(500);
  
-//  changeTitle("Custom");
-//    changeTitle("Position");
-//    buff.rect(0,9,15,7,1);
-//    buff.rect(49,9,15,7,1);
-//    for(int i=0;i<2;i++)//run 3x
-//    ronn.scrollText_LR("Ronn Animation Demo - RONN ANIMATION DEMO",16,9,32,40);delay(500);
+  changeTitle("Custom");
+    changeTitle("Position");
+    buff.rect(0,9,15,7,1);
+    buff.rect(49,9,15,7,1);
+    for(int i=0;i<2;i++)//run 3x
+    ronn.scrollText_LR("Ronn Animation Demo - RONN ANIMATION DEMO",16,9,32,40);delay(500);
   //
   //  Scroll Down
 
 
-  //  changeTitle("Scroll Down");
-  //  ronn.scrollText_D("Animation Demo", 0, 9, 64); delay(500);
-  //  ronn.scrollText_D("Animation", 0, 9, 43); delay(500);
-  //  ronn.scrollText_D("Demo", 43, 9, 64 - 43); delay(500);
+    changeTitle("Scroll Down");
+    ronn.scrollText_D("Animation Demo", 0, 9, 64); delay(500);
+    ronn.scrollText_D("Animation", 0, 9, 43); delay(500);
+    ronn.scrollText_D("Demo", 43, 9, 64 - 43); delay(500);
 
 
   //
