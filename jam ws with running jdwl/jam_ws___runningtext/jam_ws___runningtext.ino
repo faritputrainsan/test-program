@@ -36,48 +36,69 @@ int pin_interupt;
 
 String mn_mosque;
 
-//char* Text1 = "KLMN";
-
-
 String text_250;
+
+byte pin_stat = A3;
 
 
 int text_add = 51;
 int mn_add = 0;
 
+byte Stat = 0;
+byte read_stat;
+
 //String dates = "";
 
-  
+
 void setup() {
   Serial.begin(115200);
   display.begin(displaybuf, WIDTH, HEIGHT);
   Timer1.initialize(250);
+  pinMode(pin_stat, INPUT);
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
 }
 
 void loop() {
-//  runningText("TEST HAHAHAHAH");
-//    Serial.print(readeeps);
-  //  delay(5000);
-  //  EEPROM.get(0,Text);
 
-  //  Serial.println("this loop");
-  //   Text;
+  if (Stat == 1) {
+    serial();
+  }
+  else {
+    read_stat = digitalRead(pin_stat);
+    if (read_stat == HIGH) {
+      Stat = 1;
+    }
+    runningText("TEST HAHAHAHAH");
+    
+    read_stat = digitalRead(pin_stat);
+    if (read_stat == HIGH) {
+      Stat = 1;
+    }
 
-  //  Serial.println(Text);
-  //  StaticTxt(Text); delay(1000);
-  //  Serial.println(Text);
-  //  Serial.println(name_mosque);
-  //  delay(5000);
-//  StaticTxt(1);
-//  jadwal();
+    runningText("TEST HAHAHAHAH");
+    
+    read_stat = digitalRead(pin_stat);
+    if (read_stat == HIGH) {
+      Stat = 1;
+    }
 
+    runningText("TEST HAHAHAHAH");
+    
+    read_stat = digitalRead(pin_stat);
+    if (read_stat == HIGH) {
+      Stat = 1;
+    }
 
-  //ronn.setFont(B_STD);
-  // ronn.printText("Animation Demo",0,0);delay(500);
-  // ronn.clearSlice_R(0,8,64,16);
+    runningText("TEST HAHAHAHAH");
+    
+    if (read_stat == HIGH) {
+      Stat = 1;
+    }
+
+  }
+
 }
 
 String jdwlkonversi(String data) {
