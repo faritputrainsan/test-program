@@ -92,13 +92,12 @@ void loop() {
     }
 
     runningText("TEST HAHAHAHAH");
-    
+    read_stat = digitalRead(pin_stat);
+
     if (read_stat == HIGH) {
       Stat = 1;
     }
-
   }
-
 }
 
 String jdwlkonversi(String data) {
@@ -126,3 +125,33 @@ String jdwlkonversi(String data) {
   str = str_jam + ":" + str_mnt;
   return (str);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

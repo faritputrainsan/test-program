@@ -66,19 +66,19 @@ void saveState() {
 }
 
 void Write_text(String msg, int addrs) {
-  //  Serial.println(msg);
-  //  Serial.print("panjang: ");
-  //  Serial.println(msg.length());
-  //  Serial.print("Address: ");
-  //  Serial.println(addrs);
+    Serial.println(msg);
+    Serial.print("panjang: ");
+    Serial.println(msg.length());
+    Serial.print("Address: ");
+    Serial.println(addrs);
 
   for (int index = 0; index < msg.length() - 1; index++) {
     EEPROM.update(addrs, msg[index]);
     delay(10);
-    //    Serial.print("Writing ");
-    //    Serial.print(msg[index]);
-    //    Serial.print(" in address ");
-    //    Serial.println(addrs);
+        Serial.print("Writing ");
+        Serial.print(msg[index]);
+        Serial.print(" in address ");
+        Serial.println(addrs);
     addrs++;
   }
   EEPROM.update(addrs, '\0');

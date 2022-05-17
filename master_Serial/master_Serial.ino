@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
 
-SoftwareSerial serials(2,3);
+SoftwareSerial serials(2, 3);
 
 byte pin_stat = A3;
 String text ;
@@ -19,14 +19,14 @@ void setup() {
 
 void loop() {
 
-  if (Serial.available()){
+  if (Serial.available()) {
     text = Serial.readString();
     delay(1000);
-    digitalWrite(pin_stat,HIGH);
-    delay(1000);
+    digitalWrite(pin_stat, HIGH);
+    //    delay(1000);
     serials.write(text.c_str());
-      
+    delay(1000);
+    digitalWrite(pin_stat, LOW);
+    delay(1000);
   }
-  // put your main code here, to run repeatedly:
-
 }
