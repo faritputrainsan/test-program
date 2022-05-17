@@ -1,11 +1,12 @@
 #include "HUB08SPI.h"
 #include "Arduino.h"
 
-HUB08SPI::HUB08SPI(){
-  
+HUB08SPI::HUB08SPI()
+{
 }
 
-void HUB08SPI::begin(uint8_t *displaybuf, uint16_t width, uint16_t height){
+void HUB08SPI::begin(uint8_t *displaybuf, uint16_t width, uint16_t height)
+{
     this->displaybuf = displaybuf;
     this->width = width;
     this->height = height;
@@ -55,7 +56,7 @@ void HUB08SPI::scan()
         for (uint8_t byte = 0; byte < (width / 8); byte++)
         {
             //CHANGE THIS IF DISPLAY INVERT
-//            SPI.transfer(~*ptr);
+            //SPI.transfer(~*ptr);
             SPI.transfer(*ptr);
             ptr++;
         }

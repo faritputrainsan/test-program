@@ -51,13 +51,14 @@ byte read_stat;
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   display.begin(displaybuf, WIDTH, HEIGHT);
   Timer1.initialize(250);
-  pinMode(pin_stat, INPUT);
+  
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
+  pinMode(pin_stat, INPUT);
 }
 
 void loop() {
@@ -70,28 +71,28 @@ void loop() {
     if (read_stat == HIGH) {
       Stat = 1;
     }
-    runningText("TEST HAHAHAHAH");
+    runningText("TEST HAHAHAHAH halhdldsdskjgsudgsdsdhijhekjdshdaduhdakshdsudhrejksdhsuudkasjdhdkasj");
     
     read_stat = digitalRead(pin_stat);
     if (read_stat == HIGH) {
       Stat = 1;
     }
 
-    runningText("TEST HAHAHAHAH");
+    runningText("TEST HAHAHAHAH jhdtsdjfgtsdsatgsdsdhgsdksytedsjkdagsjkdgasjdh");
     
     read_stat = digitalRead(pin_stat);
     if (read_stat == HIGH) {
       Stat = 1;
     }
 
-    runningText("TEST HAHAHAHAH");
+    runningText("TEST HAHAHAHAH klshadsusyds,lkjhdshxmjshd kjhdalhjasdklkjsadh");
     
     read_stat = digitalRead(pin_stat);
     if (read_stat == HIGH) {
       Stat = 1;
     }
 
-    runningText("TEST HAHAHAHAH");
+    runningText("TEST HAHAHAHAH kisydsadyaksdhjgdsiuy7tdkjhgdasuydtajksdjhagsdakjsdugtk");
     read_stat = digitalRead(pin_stat);
 
     if (read_stat == HIGH) {

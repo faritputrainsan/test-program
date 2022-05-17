@@ -11,7 +11,7 @@ void serial() {
     //    while ((rchar != '\n') and (chr_idx < 305)) {
     while (Serial.available()) {
       text_srl = Serial.readString();
-      delay(1090);
+      delay(1000);
       //      rchar = (char)Serial.read();
       Serial.println(text_srl);
       delay(1000);
