@@ -1,6 +1,6 @@
 /*-------------------------------------------------------------------------------------------------
 //    *** Change Log / Version history ***
-//
+
 // 0.1 -  A basic Graphics library for buffers,
 //        made to use it with any low res (up to 256 x 256 pix) monochrome LCD
 //        The LCD must have a width which is divisible by 8 and

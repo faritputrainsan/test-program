@@ -19,7 +19,6 @@ void StaticTxt(byte state) {
 }
 
 void jadwal() {
-
 String imsak = jdwlkonversi("555") ;
 String subuh = jdwlkonversi("555");
 String dhuhur = jdwlkonversi("555");

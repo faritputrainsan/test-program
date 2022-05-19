@@ -40,65 +40,65 @@ class ronnAnimation {
       }
     }
 
-//    void printChar(byte chr, int y , int s, int m) { //char,Y,speed,mode(0:none;1:cursor;2:scan)
-//      //if( chr < min_font || chr > max_font || x_pos > WIDTH)return; //already check in buff.setPixel
-//      int pos_font = getFontPosition(chr);
-//      int pos_font_big = getFontPosition(chr + 128);
-//      int charWidth = pgm_read_byte_near(_fontData + pos_font);
-//      int charWidthBig = pgm_read_byte_near(_fontData + pos_font_big);
-//      pos_font++;
-//      pos_font_big++;
-//      //Serial.println(big_font);
-//      //write char dari kiri --> kolom 1 (atas ke bawah), kolom 2 (atas ke bawah) dst...
-//      for (uint16_t col = 0; col < charWidth; col++) {
-//        if (m == 1)buff.fillRect(x_pos, y, 2, height_font, 1);
-//        if (m == 2)buff.fillRect(x_pos - 1, y, 1, height_font, 0);
-//        if (big_font) {
-//          writeByte(x_pos, y, pgm_read_byte_near(_fontData + pos_font_big + col), 0);
-//          writeByte(x_pos++, y + 8, pgm_read_byte_near(_fontData + pos_font + col), 0);
-//        }
-//        else
-//          writeByte(x_pos++, y, pgm_read_byte_near(_fontData + pos_font + col), 0);
-//
-//        delay(s);
-//      }
+    //    void printChar(byte chr, int y , int s, int m) { //char,Y,speed,mode(0:none;1:cursor;2:scan)
+    //      //if( chr < min_font || chr > max_font || x_pos > WIDTH)return; //already check in buff.setPixel
+    //      int pos_font = getFontPosition(chr);
+    //      int pos_font_big = getFontPosition(chr + 128);
+    //      int charWidth = pgm_read_byte_near(_fontData + pos_font);
+    //      int charWidthBig = pgm_read_byte_near(_fontData + pos_font_big);
+    //      pos_font++;
+    //      pos_font_big++;
+    //      //Serial.println(big_font);
+    //      //write char dari kiri --> kolom 1 (atas ke bawah), kolom 2 (atas ke bawah) dst...
+    //      for (uint16_t col = 0; col < charWidth; col++) {
+    //        if (m == 1)buff.fillRect(x_pos, y, 2, height_font, 1);
+    //        if (m == 2)buff.fillRect(x_pos - 1, y, 1, height_font, 0);
+    //        if (big_font) {
+    //          writeByte(x_pos, y, pgm_read_byte_near(_fontData + pos_font_big + col), 0);
+    //          writeByte(x_pos++, y + 8, pgm_read_byte_near(_fontData + pos_font + col), 0);
+    //        }
+    //        else
+    //          writeByte(x_pos++, y, pgm_read_byte_near(_fontData + pos_font + col), 0);
+    //
+    //        delay(s);
+    //      }
 
-      //print space betwen char
-//      if (m == 2)buff.fillRect(x_pos - 1, y, 1, height_font, 0);
-//      buff.lineDown(x_pos, y, height_font, 0);
-//      x_pos++;
-//    }
-//    int getLastPositionText(char* string) { // X position last text
-//      int x = 0;
-//      int pos_font;
-//      for (int i = 0; i < strlen(string); i++) {
-//        pos_font = getFontPosition(string[i]);
-//        x += pgm_read_byte_near(_fontData + pos_font) + 1;
-//      }
-//      return x - 1;
-//    }
-//    void printCharLeft(byte chr, int y , int s, int m) { //char,Y,speed,mode(0:none;1:cursor;2:scan)
-//      int pos_font = getFontPosition(chr);
-//      int pos_font_big = getFontPosition(chr + 128);
-//      int charWidth = pgm_read_byte_near(_fontData + pos_font);
-//      int charWidthBig = pgm_read_byte_near(_fontData + pos_font_big);
-//      pos_font++;
-//      pos_font_big++;
-//      for (uint16_t col = charWidth; col > 0; col--) {
-//        if (m == 1)buff.fillRect(x_pos - 1, y, 2, height_font, 1);
-//        if (big_font) {
-//          writeByte(x_pos, y, pgm_read_byte_near(_fontData + pos_font_big + col - 1), 0);
-//          writeByte(x_pos--, y + 8, pgm_read_byte_near(_fontData + pos_font + col - 1), 0);
-//        }
-//        else
-//          writeByte(x_pos--, y, pgm_read_byte_near(_fontData + pos_font + col - 1), 0);
-//        if (x_pos < WIDTH) delay(s); //outside already check in buff.setPixel, but delay still execute.
-//        if (m == 2)buff.fillRect(x_pos + 1, y, 1, height_font, 0);
-//      }
-//      buff.lineDown(x_pos, y, height_font, 0);
-//      x_pos--;
-//      if (x_pos < WIDTH) delay(s); //outside already check in buff.setPixel, but delay still execute.
-//    }
+    //print space betwen char
+    //      if (m == 2)buff.fillRect(x_pos - 1, y, 1, height_font, 0);
+    //      buff.lineDown(x_pos, y, height_font, 0);
+    //      x_pos++;
+    //    }
+    //    int getLastPositionText(char* string) { // X position last text
+    //      int x = 0;
+    //      int pos_font;
+    //      for (int i = 0; i < strlen(string); i++) {
+    //        pos_font = getFontPosition(string[i]);
+    //        x += pgm_read_byte_near(_fontData + pos_font) + 1;
+    //      }
+    //      return x - 1;
+    //    }
+    //    void printCharLeft(byte chr, int y , int s, int m) { //char,Y,speed,mode(0:none;1:cursor;2:scan)
+    //      int pos_font = getFontPosition(chr);
+    //      int pos_font_big = getFontPosition(chr + 128);
+    //      int charWidth = pgm_read_byte_near(_fontData + pos_font);
+    //      int charWidthBig = pgm_read_byte_near(_fontData + pos_font_big);
+    //      pos_font++;
+    //      pos_font_big++;
+    //      for (uint16_t col = charWidth; col > 0; col--) {
+    //        if (m == 1)buff.fillRect(x_pos - 1, y, 2, height_font, 1);
+    //        if (big_font) {
+    //          writeByte(x_pos, y, pgm_read_byte_near(_fontData + pos_font_big + col - 1), 0);
+    //          writeByte(x_pos--, y + 8, pgm_read_byte_near(_fontData + pos_font + col - 1), 0);
+    //        }
+    //        else
+    //          writeByte(x_pos--, y, pgm_read_byte_near(_fontData + pos_font + col - 1), 0);
+    //        if (x_pos < WIDTH) delay(s); //outside already check in buff.setPixel, but delay still execute.
+    //        if (m == 2)buff.fillRect(x_pos + 1, y, 1, height_font, 0);
+    //      }
+    //      buff.lineDown(x_pos, y, height_font, 0);
+    //      x_pos--;
+    //      if (x_pos < WIDTH) delay(s); //outside already check in buff.setPixel, but delay still execute.
+    //    }
 
     /* *******************************************************************************************************************
        VERTICAL SCROLL
@@ -114,6 +114,7 @@ class ronnAnimation {
       pos_font_big++;
       for (uint16_t col = 0; col < charWidth; col++) {
         if (x_pos + col - x < w) {
+
           int buff_chr = big_font && row < 8 ?
                          buff_chr = pgm_read_byte_near(_fontData + pos_font_big + col) :
                                     buff_chr = pgm_read_byte_near(_fontData + pos_font + col);
@@ -179,31 +180,28 @@ class ronnAnimation {
       x_pos--;
     }
 
-
-
-
     /* *******************************************************************************************************************
        MOVE
      * *******************************************************************************************************************
     */
-//    bool checkMove(char* str, int sp, int x, int y, int w, int h) {
-//      char k[5];//key (move to)
-//      char b[5];//buffer just for check format --> :
-//      int st = 0;//step
-//      sscanf(str, "%1s%1s%d", k, b, &st);
-//      //Serial.println(String(str) + " = " + String(k) + "-" + String(b) + " => " + String(st));
-//      if (b[0] != ':' || st < 1 || st == NULL || k[0] == 'E') return false;
-//      else if (k[0] == 'U') move_U(st, sp, x, y, w, h); //Move up
-//      else if (k[0] == 'R') move_R(st, sp, x, y, w, h); //Move right
-//      else if (k[0] == 'D') move_D(st, sp, x, y, w, h); //Move down
-//      else if (k[0] == 'L') move_L(st, sp, x, y, w, h); //Move left
-//      else if (k[0] == 'P') delay(st); //parking(delay)
-//      else if (k[0] == 'E') return false; //End Move
-//      else return false;
-//      return true;
-//    }
+    //bool checkMove(char* str, int sp, int x, int y, int w, int h) {
+    //  char k[5];//key (move to)
+    //  char b[5];//buffer just for check format --> :
+    //  int st = 0;//step
+    //  sscanf(str, "%1s%1s%d", k, b, &st);
+    //  //Serial.println(String(str) + " = " + String(k) + "-" + String(b) + " => " + String(st));
+    //  if (b[0] != ':' || st < 1 || st == NULL || k[0] == 'E') return false;
+    //  else if (k[0] == 'U') move_U(st, sp, x, y, w, h); //Move up
+    //  else if (k[0] == 'R') move_R(st, sp, x, y, w, h); //Move right
+    //  else if (k[0] == 'D') move_D(st, sp, x, y, w, h); //Move down
+    //  else if (k[0] == 'L') move_L(st, sp, x, y, w, h); //Move left
+    //  else if (k[0] == 'P') delay(st); //parking(delay)
+    //  else if (k[0] == 'E') return false; //End Move
+    //  else return false;
+    //  return true;
+    //}
 
-    //PUBLIC CLASS ///////////////////////////////////////////////////////////////
+    //////////////////PUBLIC CLASS ///////////////////////////////////////////////////////////////
   public:
     ronnAnimation() {
       setFont();
@@ -238,15 +236,13 @@ class ronnAnimation {
        Big font (16x16) use from HUB08SPI library, check on function printBigText(string,X)
      * *******************************************************************************************************************
 
-    /* *******************************************************************************************************************
+      /* *******************************************************************************************************************
        VERTICAL SCROLL
      * *******************************************************************************************************************
           scrollText_U(String string, int x, int y, int w, int s=20)    //String,X,Y,width,speed --> scroll text up
           scrollText_D(String string, int x, int y, int w, int s=20)    //String,X,Y,width,speed --> scroll text down
      * *******************************************************************************************************************
     */
-
-   
 
     //scroll down
     void scrollText_D(String string, int x = 0, int y = 0, int w = WIDTH, int s = 20) { //String,X,Y,width,speed
@@ -281,6 +277,7 @@ class ronnAnimation {
     */
 
     //running left sampai right character
+
     void scrollText_LR(char* string, int x = 0, int y = 0, int w = WIDTH, int s = 20) { //String,X,Y,width,speed (height auto from font height)
       if (x < 0) return;
       while (*string != '\0') {
@@ -293,7 +290,9 @@ class ronnAnimation {
         delay(s);
       }
     }
+
     
+
 
     /* *******************************************************************************************************************
        BIG FONT PRINT
@@ -363,7 +362,7 @@ class ronnAnimation {
     //random flash
 
 
-   
+
 
 
     /* ***********************************************************************************************************************************
@@ -385,52 +384,52 @@ class ronnAnimation {
      * ***********************************************************************************************************************************
     */
     //geser kiri
-//    void move_L(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
-//      //x_pos = x;
-//      for (int i = 0; i < st; i++) {
-//        buff.scrollLeft(x - 1 - i, y, w + 1, h); //Serial.println(String(x_pos) + ", " + String(y_pos));
-//        x_pos--;
-//        delay(sp);
-//      }
-//    }
+    //    void move_L(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
+    //      //x_pos = x;
+    //      for (int i = 0; i < st; i++) {
+    //        buff.scrollLeft(x - 1 - i, y, w + 1, h); //Serial.println(String(x_pos) + ", " + String(y_pos));
+    //        x_pos--;
+    //        delay(sp);
+    //      }
+    //    }
     //geser kanan
-//    void move_R(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
-//      //x_pos = x;
-//      for (int i = 0; i < st; i++) {
-//        buff.scrollRight(x + i, y, w + 1, h); //Serial.println(String(x_pos) + ", " + String(y_pos));
-//        x_pos++;
-//        delay(sp);
-//      }
-//    }
+    //    void move_R(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
+    //      //x_pos = x;
+    //      for (int i = 0; i < st; i++) {
+    //        buff.scrollRight(x + i, y, w + 1, h); //Serial.println(String(x_pos) + ", " + String(y_pos));
+    //        x_pos++;
+    //        delay(sp);
+    //      }
+    //    }
     //geser bawah
-//    void move_D(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
-//      //y_pos = y;
-//      //SOMTHING WRONG IN buff.scrollDown
-//      //Some location move_D error ^___^
-//      for (int i = 0; i < st; i++) {
-//        buff.scrollDown(x, y + i, w, h + 1);
-//        buff.line(x, y + i, x + w, y + i, 0); //Serial.println(String(x_pos) + ", " + String(y_pos));
-//        y_pos++;
-//        delay(sp);
-//      }
-//    }
+    //    void move_D(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
+    //      //y_pos = y;
+    //      //SOMTHING WRONG IN buff.scrollDown
+    //      //Some location move_D error ^___^
+    //      for (int i = 0; i < st; i++) {
+    //        buff.scrollDown(x, y + i, w, h + 1);
+    //        buff.line(x, y + i, x + w, y + i, 0); //Serial.println(String(x_pos) + ", " + String(y_pos));
+    //        y_pos++;
+    //        delay(sp);
+    //      }
+    //    }
     //geser atas
-//    void move_U(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
-//      //y_pos = y;
-//      for (int i = 0; i < st; i++) {
-//        buff.scrollUp(x, y - i - 1, w, h + 1);
-//        buff.line(x, y + h - i - 1, x + w, y + h - i - 1, 0); //Serial.println(String(x_pos) + ", " + String(y_pos));
-//        y_pos--;
-//        delay(sp);
-//      }
-//    }
+    //    void move_U(int st = 1, int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //step,speed,X,Y,width,height
+    //      //y_pos = y;
+    //      for (int i = 0; i < st; i++) {
+    //        buff.scrollUp(x, y - i - 1, w, h + 1);
+    //        buff.line(x, y + h - i - 1, x + w, y + h - i - 1, 0); //Serial.println(String(x_pos) + ", " + String(y_pos));
+    //        y_pos--;
+    //        delay(sp);
+    //      }
+    //    }
     // custom move
-//    void moveTo(char* moving[], int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //array direction & step,speed,X,Y,width,height
-//      int i = 0;
-//      x_pos = x;
-//      y_pos = y;
-//      while (checkMove(moving[i], sp, x_pos, y_pos, w, h)) i++;
-//    }
+    //    void moveTo(char* moving[], int sp = 35, int x = 0, int y = 0, int w = WIDTH, int h = HEIGHT) { //array direction & step,speed,X,Y,width,height
+    //      int i = 0;
+    //      x_pos = x;
+    //      y_pos = y;
+    //      while (checkMove(moving[i], sp, x_pos, y_pos, w, h)) i++;
+    //    }
     //END CLASS ///////////////////////////////////////////////////////////////
 };
 
