@@ -7,10 +7,13 @@
 SoftwareSerial mySerial(2, 3);
 ///////////////////////(RX,TX)
 
+
+
+
 DS3231  rtc(SDA, SCL);
 Time  t;
 
-#define I2C_add = 0x57;
+#define I2C_add 0x57
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////variable EEPROM////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,9 +76,9 @@ void setup() {
   Serial.begin(9600);
   mySerial.begin(9600);
 
-    rtc.begin();
-    rtc.setOutput (OUTPUT_SQW);
-    rtc.setSQWRate (SQW_RATE_1);
+  rtc.begin();
+  rtc.setOutput (OUTPUT_SQW);
+  rtc.setSQWRate (SQW_RATE_1);
 
   pinMode( strobePin , OUTPUT);
   pinMode( dataPin    , OUTPUT);
@@ -86,17 +89,53 @@ void setup() {
 void loop() {
 
   //  serial();
-//  jdwl();
+  //  jdwl();
 
   sendData("String message", 1);
 
-delay (3000);
+  delay (3000);
   sendData("Message for iqomah", 2);
   delay(3000);
 
-//  jam_mtr();
-//  tepat();
+  //  jam_mtr();
+  //  tepat();
 }
+
+void writeData(unsigned int address , byte data) {
+  Wire.beginTransmission(I2C_add);
+  Wire.write((int)address >> 8);
+  Wire.write((int)address & 0xFF);
+  Wire.write(data);
+
+  Serial.print("Write Data :");
+  Serial.println(data);
+  Wire.endTransmission();
+  delay(1);
+
+}
+
+byte readData(byte address) {
+  byte data = NULL;
+
+  Wire.beginTransmission (I2C_add);
+  Wire.write((int)address >> 8);
+  Wire.write((int)address & 0xFF);
+  Wire.endTransmission();
+
+  Wire.requestFrom(I2C_add, 1);
+
+  delay(1);
+
+  while (Wire.available()) {
+    Serial.print("read data : ");
+    data = Wire.read();
+    Serial.print(data);
+    delay(1);
+  }
+  return data;
+}
+
+
 
 void data() {
   t = rtc.getTime();

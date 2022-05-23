@@ -4,13 +4,13 @@
 
 #define ADD_I2C 0x57
 
-#define pinSDA D5
-#define pinSCL D6
+//#define pinSDA D5
+//#define pinSCL D6
 
 void setup() {
 
   Serial.begin(9600);
-  Wire.begin(pinSDA, pinSCL);
+  Wire.begin();
   delay(100);
   writeData(1, 12);
   Serial.println(readData( 1));

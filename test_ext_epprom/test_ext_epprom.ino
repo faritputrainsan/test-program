@@ -4,13 +4,11 @@
 
 #define ADD_I2C 0x57
 
-#define pinSDA D5
-#define pinSCL D6
 
 void setup() {
 
   Serial.begin(9600);
-  Wire.begin(pinSDA, pinSCL);
+  Wire.begin();
   delay(100);
   writeData(1, 12);
   Serial.println(readData( 1));
@@ -23,24 +21,17 @@ void loop() {
 
 }
 
-void serialEvent() {
-  char data;
-  int index = 0;
+void serialEvent(){
+   char data;
 
-  data = Serial.peek();
+   data = Serial.peek();
+   while(data == 'T'){
+    Serial.println(data);
+   }
 
-  if (data == 'T') {
-    while (data != '\n' and (index <= 255)) {
-      if(Serial.available()){
-        data = '1';
-      }
-    }
-    Serial.print(data);
-  }
+   
 
-
-
-
+   
 }
 
 void writeData(byte address, byte data) {
@@ -56,7 +47,7 @@ void writeData(byte address, byte data) {
 }
 
 byte readData(byte address) {
-
+  
   byte data ;
   Wire.beginTransmission(ADD_I2C);
   Wire.write((int)(address >> 8));   //MSB
