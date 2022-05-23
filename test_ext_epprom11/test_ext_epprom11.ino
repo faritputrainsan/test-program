@@ -23,24 +23,22 @@ void loop() {
 
 }
 
+Ch_prm[250];
 void serialEvent() {
   char data;
   int index = 0;
 
   data = Serial.peek();
-
   if (data == 'T') {
     while (data != '\n' and (index <= 255)) {
       if(Serial.available()){
-        data = '1';
+        data = (char) Serial.read();
+        Ch_prm[index] = data;
+        index ++;
       }
     }
     Serial.print(data);
   }
-
-
-
-
 }
 
 void writeData(byte address, byte data) {
