@@ -45,6 +45,7 @@ int text_add = 51;
 int mn_add = 0;
 
 byte Stat = 0;
+
 byte read_stat;
 
 //String dates = "";
@@ -63,42 +64,44 @@ void setup() {
 
 void loop() {
 
-  if (Stat == 1) {
-    serial();
-  }
-  else {
-    read_stat = digitalRead(pin_stat);
-    if (read_stat == HIGH) {
-      Stat = 1;
-    }
-    runningText("TEST HAHAHAHAH halhdldsdskjgsudgsdsdhijhekjdshdaduhdakshdsudhrejksdhsuudkasjdhdkasj");
-    
-    read_stat = digitalRead(pin_stat);
-    if (read_stat == HIGH) {
-      Stat = 1;
-    }
+  jadwal();
 
-    runningText("TEST HAHAHAHAH jhdtsdjfgtsdsatgsdsdhgsdksytedsjkdagsjkdgasjdh");
-    
-    read_stat = digitalRead(pin_stat);
-    if (read_stat == HIGH) {
-      Stat = 1;
-    }
-
-    runningText("TEST HAHAHAHAH klshadsusyds,lkjhdshxmjshd kjhdalhjasdklkjsadh");
-    
-    read_stat = digitalRead(pin_stat);
-    if (read_stat == HIGH) {
-      Stat = 1;
-    }
-
-    runningText("TEST HAHAHAHAH kisydsadyaksdhjgdsiuy7tdkjhgdasuydtajksdjhagsdakjsdugtk");
-    read_stat = digitalRead(pin_stat);
-
-    if (read_stat == HIGH) {
-      Stat = 1;
-    }
-  }
+  
+//  Stat = Stat1;
+//  if (Stat == 1) {
+//    serial();
+//  }
+//  else {
+//    
+//    
+//    runningText("TEST HAHAHAHAH halhdldsdskjgsudgsdsdhijhekjdshdaduhdakshdsudhrejksdhsuudkasjdhdkasj");
+//    
+//    read_stat = digitalRead(pin_stat);
+//    if (read_stat == HIGH) {
+//      Stat = 1;
+//    }
+//
+//    runningText("TEST HAHAHAHAH jhdtsdjfgtsdsatgsdsdhgsdksytedsjkdagsjkdgasjdh");
+//    
+//    read_stat = digitalRead(pin_stat);
+//    if (read_stat == HIGH) {
+//      Stat = 1;
+//    }
+//
+//    runningText("TEST HAHAHAHAH klshadsusyds,lkjhdshxmjshd kjhdalhjasdklkjsadh");
+//    
+//    read_stat = digitalRead(pin_stat);
+//    if (read_stat == HIGH) {
+//      Stat = 1;
+//    }
+//
+//    runningText("TEST HAHAHAHAH kisydsadyaksdhjgdsiuy7tdkjhgdasuydtajksdjhagsdakjsdugtk");
+//    read_stat = digitalRead(pin_stat);
+//
+//    if (read_stat == HIGH) {
+//      Stat = 1;
+//    }
+//  }
 }
 
 String jdwlkonversi(String data) {

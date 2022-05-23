@@ -7,7 +7,7 @@
  *  Modified April 2012 by Paul Stoffregen
  *  Modified again, June 2014 by Paul Stoffregen
  *  Modified July 2017 by Stoyko Dimitrov - added support for ATTiny85 except for the PWM functionality
- *
+ *  
  *  This is free software. You can redistribute it and/or modify it under
  *  the terms of Creative Commons Attribution 3.0 United States License. 
  *  To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/us/ 

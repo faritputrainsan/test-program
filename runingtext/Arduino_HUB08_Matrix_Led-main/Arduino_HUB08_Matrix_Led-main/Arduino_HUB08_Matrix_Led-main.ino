@@ -31,6 +31,9 @@
 #define WIDTH   64 // width of led matrix (pixel)
 #define HEIGHT  16 // height of led matrix
 
+#define USART_BAUDRATE 9600
+#define MYUBRR (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
+
 HUB08SPI display;
 uint8_t displaybuf[WIDTH * HEIGHT / 8];
 Buffer buff(displaybuf, WIDTH, 16);
@@ -62,7 +65,19 @@ void changeTitle(String text) {
 }
 
 void setup() {
-  Serial.begin(9600);
+//    Serial.begin(9600);
+  UCSR0B = (1 << RXEN0) | (1 << TXEN0);   // Turn on the transmission and reception circuitry
+  UCSR0C = (1 << UCSZ00) | (1 << UCSZ01); // Use 8-bit character sizes
+//
+  UBRR0H = (MYUBRR >> 8); // Load upper 8-bits of the baud rate value into the high byte of the UBRR register
+  UBRR0L = MYUBRR; // Load lower 8-bits of the baud rate value into the low byte of the UBRR register
+//
+  UCSR0B |= (1 << RXCIE0); // Enable the USART Recieve Complete interrupt (USART_RXC)
+
+  sei(); // Enable the Global Interrupt Enable flag so that interrupts can be processed
+
+
+
   display.begin(displaybuf, WIDTH, HEIGHT);
   Timer1.initialize(250);  //800 us -> refresh rate 1250 Hz per line / 16 = 78 fps
   Timer1.attachInterrupt(refresh);
@@ -71,13 +86,20 @@ void setup() {
 }
 
 void loop() {
-//    clearDemo();
-  //  showFont();
-  //moveDemo();
+  clearDemo();
+  showFont();
+  moveDemo();
   animationDemo();
-  //  ronn.setFont(B_7SEGMENT);
-  //  ronn.printText("Animation Demo",0,0);
+  //    ronn.setFont(B_7SEGMENT);
+  //    ronn.printText("Animation Demo",0,0);
   //  jam();
+}
+
+ISR (USART_RX_vect){
+  char ReceivedByte;
+  ReceivedByte = UDR0; // Fetch the received byte value into the variable "ByteReceived"
+  UDR0 = ReceivedByte; // Echo back the received byte back to the computer
+  
 }
 
 /*
@@ -122,9 +144,9 @@ void clearDemo() {
   //  ronn.printText("Animation Demo",0,9);delay(500);
   //  ronn.clear_D(0,8,64,8,SCROLL);
   //
-    changeTitle("Slice Left");
-    ronn.printText("Animation Demo",0,9);delay(500);
-    ronn.clearSlice_L(0,8,64,8);
+  changeTitle("Slice Left");
+  ronn.printText("Animation Demo", 0, 9); delay(500);
+  ronn.clearSlice_L(0, 8, 64, 8);
   //
   //  changeTitle("Slice Right");
   //  ronn.printText("Animation Demo",0,9);delay(500);
@@ -247,31 +269,31 @@ void animationDemo() {
   //    ronn.printText_R("Animation Demo",0,9);delay(500);
   //    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
 
-//    changeTitle("Custom");
-//    changeTitle("Speed");
-//    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
-//    ronn.printText_R("Animation Demo",0,9,50);delay(500);
-  
-//    changeTitle("With Cursor");
-//    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
-//    ronn.printText_RC("Animation Demo",0,9);delay(500);
-    
-//    changeTitle("Custom");
-//    changeTitle("Speed");
-//    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
-//    ronn.printText_RC("Animation Demo",0,9,50);delay(500);
-  
-//    changeTitle("Big Font");
-//    ronn.clear_L(CLEAR);delay(300);
-//    ronn.setFont(B_STD);
-//    ronn.printText_RC("Example",0,0);delay(1000);
-//    ronn.clear_L();
+  //    changeTitle("Custom");
+  //    changeTitle("Speed");
+  //    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
+  //    ronn.printText_R("Animation Demo",0,9,50);delay(500);
+
+  //    changeTitle("With Cursor");
+  //    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
+  //    ronn.printText_RC("Animation Demo",0,9);delay(500);
+
+  //    changeTitle("Custom");
+  //    changeTitle("Speed");
+  //    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
+  //    ronn.printText_RC("Animation Demo",0,9,50);delay(500);
+
+  //    changeTitle("Big Font");
+  //    ronn.clear_L(CLEAR);delay(300);
+  //    ronn.setFont(B_STD);
+  //    ronn.printText_RC("Example",0,0);delay(1000);
+  //    ronn.clear_L();
   //
   //  //Print Left
-//    showTitle("1","Print Left");
-//    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
-//    ronn.printText_L("Animation Demo",0,9);delay(500);
-  
+  //    showTitle("1","Print Left");
+  //    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
+  //    ronn.printText_L("Animation Demo",0,9);delay(500);
+
   //  changeTitle("With Cursor");
   //  ronn.clear_D(0,8,64,8,CLEAR);delay(300);
   //  ronn.printText_LC("Animation Demo",0,9);delay(500);
@@ -282,21 +304,21 @@ void animationDemo() {
   //  ronn.clear_R();
   //
   //  //Scan Left
-//    showTitle("1","Scan Left");
-//    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
-//    ronn.scanText_L("Animation Demo",0,9);delay(500);
+  //    showTitle("1","Scan Left");
+  //    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
+  //    ronn.scanText_L("Animation Demo",0,9);delay(500);
 
   //  changeTitle("Custom");
   //  changeTitle("Speed");
   //  ronn.clear_L(0,8,64,8,CLEAR);delay(300);
   //  ronn.scanText_L("Animation Demo",0,9,50);delay(500);
-  
-//    changeTitle("Big Font");
-//    ronn.clear_R(CLEAR);delay(300);
-//    ronn.setFont(B_STD);
-//    ronn.scanText_L("Example",0,0);delay(1000);
-//    ronn.clear_L(CLEAR);
-    
+
+  //    changeTitle("Big Font");
+  //    ronn.clear_R(CLEAR);delay(300);
+  //    ronn.setFont(B_STD);
+  //    ronn.scanText_L("Example",0,0);delay(1000);
+  //    ronn.clear_L(CLEAR);
+
   //
   //  //Scan Right
   //  showTitle("1","Scan Right");
@@ -309,44 +331,44 @@ void animationDemo() {
   //  ronn.clear_R(CLEAR);
 
   //Scroll text
-//    showTitle("1","Scroll Left");
-//    ronn.scrollText_LL("Animation",0,9,64);delay(500);
+  //    showTitle("1","Scroll Left");
+  //    ronn.scrollText_LL("Animation",0,9,64);delay(500);
 
 
   //
-//    changeTitle("Run Text");
-//    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
-//    ronn.scrollText_LR("Ronn Animation Demo",0,9,64);delay(500);
+  //    changeTitle("Run Text");
+  //    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
+  //    ronn.scrollText_LR("Ronn Animation Demo",0,9,64);delay(500);
 
-//    changeTitle("Custom");
-//    changeTitle("Speed");
-//    ronn.scrollText_LR("Ronn Animation Demo",0,9,64,30);delay(500);
- 
+  //    changeTitle("Custom");
+  //    changeTitle("Speed");
+  //    ronn.scrollText_LR("Ronn Animation Demo",0,9,64,30);delay(500);
+
   changeTitle("Custom");
-    changeTitle("Position");
-    buff.rect(0,9,15,7,1);
-    buff.rect(49,9,15,7,1);
-    for(int i=0;i<2;i++)//run 3x
-    ronn.scrollText_LR("Ronn Animation Demo - RONN ANIMATION DEMO",16,9,32,40);delay(500);
+  changeTitle("Position");
+  buff.rect(0, 9, 15, 7, 1);
+  buff.rect(49, 9, 15, 7, 1);
+  for (int i = 0; i < 2; i++) //run 3x
+    ronn.scrollText_LR("Ronn Animation Demo - RONN ANIMATION DEMO", 16, 9, 32, 40); delay(500);
   //
   //  Scroll Down
 
 
-    changeTitle("Scroll Down");
-    ronn.scrollText_D("Animation Demo", 0, 9, 64); delay(500);
-    ronn.scrollText_D("Animation", 0, 9, 43); delay(500);
-    ronn.scrollText_D("Demo", 43, 9, 64 - 43); delay(500);
+  changeTitle("Scroll Down");
+  ronn.scrollText_D("Animation Demo", 0, 9, 64); delay(500);
+  ronn.scrollText_D("Animation", 0, 9, 43); delay(500);
+  ronn.scrollText_D("Demo", 43, 9, 64 - 43); delay(500);
 
 
   //
-    changeTitle("Clock Demo");
-    ronn.clear_D(0,8,64,8,CLEAR);delay(300);
-    ronn.scrollText_D("06:30:55",11,8,64-11);
-    delay(1000-160);
-    for(int i=6;i<=9;i++){
-      ronn.scrollText_D(String(i),36+11,8,5);
-      delay(1000-160);//animatioan delay = 20ms * 8 step =160ms
-    }
+  changeTitle("Clock Demo");
+  ronn.clear_D(0, 8, 64, 8, CLEAR); delay(300);
+  ronn.scrollText_D("06:30:55", 11, 8, 64 - 11);
+  delay(1000 - 160);
+  for (int i = 6; i <= 9; i++) {
+    ronn.scrollText_D(String(i), 36 + 11, 8, 5);
+    delay(1000 - 160); //animatioan delay = 20ms * 8 step =160ms
+  }
   //
   //  ronn.scrollText_D("00",30+11,8,11);
   //  ronn.scrollText_D("1",21+11,8,5);
