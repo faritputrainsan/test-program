@@ -23,7 +23,8 @@ void loop() {
 
 }
 
-Ch_prm[250];
+char Ch_prm[250];
+
 void serialEvent() {
   char data;
   int index = 0;
@@ -39,7 +40,9 @@ void serialEvent() {
     }
     Serial.print(data);
   }
+  
 }
+
 
 void writeData(byte address, byte data) {
 
