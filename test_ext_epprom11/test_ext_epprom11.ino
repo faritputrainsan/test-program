@@ -13,9 +13,7 @@ void setup() {
   Wire.begin();
   delay(100);
   writeData(1, 12);
-  Serial.println(readData( 1));
-  // put your setup code here, to run once:
-
+  Serial.println(readData(1));
 }
 
 void loop() {
@@ -28,23 +26,41 @@ char Ch_prm[250];
 void serialEvent() {
   char data;
   int index = 0;
-
-  data = Serial.peek();
-  if (data == 'T') {
-    while (data != '\n' and (index <= 255)) {
-      if(Serial.available()){
-        data = (char) Serial.read();
-        Ch_prm[index] = data;
-        index ++;
-      }
-    }
-    Serial.print(data);
+  String textSerial;
+  if(Serial.available()){
+    textSerial = Serial.readString();
+    
   }
+  if (textSerial.substring(0,1) == "T"){
+   writetxt(0, textSerial); 
+  }
+
+
+
+//  data = Serial.peek();
+//  if (data == 'T') {
+//    while (data != '\n' and (index <= 255)) {
+//      if(Serial.available()){
+//        data = (char) Serial.read();
+//        Ch_prm[index] = data;
+//        index ++;
+//      }
+//    }
+//    Serial.print(data);
+//  }
+}
+
+void writetxt(unsigned int addres, String text){
+//  String text;
   
+  for(int i; i < text.length(); i++ ){
+    writeData(addres,text[i]);
+    addres++;
+  }
 }
 
 
-void writeData(byte address, byte data) {
+void writeData(unsigned int address, byte data) {
 
   Wire.beginTransmission(ADD_I2C);
   Wire.write((int)(address >> 8));   //MSB
