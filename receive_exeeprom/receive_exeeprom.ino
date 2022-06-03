@@ -26,7 +26,7 @@ void loop() {
   r_input = digitalRead(input);
 
   if (r_input == LOW) {
-    writeData(1, random(0,100));
+    writetxt(1, textData);
     
 //    Serial.println(readData(1));
     delay(500);
@@ -51,23 +51,24 @@ void serialEvent() {
 void writetxt(unsigned int addres, String text) {
   //  String text;
 
-  for (int i; i < text.length(); i++ ) {
-    writeData(addres, text[i]);
+  for (int i = 0; i < text.length(); i++ ) {
+    writeEEprom(addres, text[i]);
+    Serial.println(text[i]);
     addres++;
-    delay(2);
+    delay(100);
   }
-  writeData(addres, '\n');
+  writeEEprom(addres, '\n');
   delay(5);
 
 }
 
 
-void writeData(unsigned int address, int data) {
+void writeEEprom(unsigned int address, int data) {
 
   wireTransmission(address);
   Wire.write(data);
   Serial.print("write Data  ");
-  Serial.println(data);
+  Serial.println(data,HEX);
   Wire.endTransmission();
   delay(5);
 }
@@ -78,7 +79,7 @@ void  wireTransmission(unsigned int address) {
   Wire.write((int)(address & 0xFF)); //LSB
 }
 
-byte readData(unsigned int address) {
+int readEEprom(unsigned int address) {
 
   byte data ;
   wireTransmission(address);
@@ -92,4 +93,16 @@ byte readData(unsigned int address) {
     delay(5);
   }
   return data;
+}
+
+
+String readText(int addrss){
+  int strLen = readEEprom(addrss);
+
+  char readTxt[strLen];
+  int i = 0;
+//  while();
+  readEEprom(1);
+  
+  
 }
