@@ -8,6 +8,8 @@ int input = 9;
 byte r_input;
 
 String textData = "Test external eeprom";
+String TEXT_ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+String textSerial;
 
 //#define pinSDA D5
 //#define pinSCL D6
@@ -26,26 +28,33 @@ void loop() {
   r_input = digitalRead(input);
 
   if (r_input == LOW) {
-    writetxt(1, textData);
+    writetxt(1, TEXT_ABC);
     
 //    Serial.println(readData(1));
     delay(500);
+
+    Serial.print(readText(1));
+    delay (500);
   }
 }
 
 char Ch_prm[250];
 
 void serialEvent() {
-  //  char data;
-  //  int index = 0;
-  //  String textSerial;
-  //  if(Serial.available()){
-  //    textSerial = Serial.readString();
-  //
-  //  }
-  //  if (textSerial.substring(0,1) == "T"){
-  //   writetxt(0, textSerial);
-  //  }
+    char data;
+    int index = 0;
+    
+    if(Serial.available()){
+      textSerial = Serial.readString();
+      delay(100);
+      writetxt(0, textSerial);
+    }
+
+    delay(1000);
+    Serial.print(readText(1));
+//    if (textSerial.substring(0,1) == "T"){
+//     
+//    }
 }
 
 void writetxt(unsigned int addres, String text) {
@@ -62,13 +71,12 @@ void writetxt(unsigned int addres, String text) {
 
 }
 
-
 void writeEEprom(unsigned int address, int data) {
-
   wireTransmission(address);
   Wire.write(data);
   Serial.print("write Data  ");
-  Serial.println(data,HEX);
+//  Serial.println(data,HEX);
+  Serial.println(data);
   Wire.endTransmission();
   delay(5);
 }
@@ -80,29 +88,30 @@ void  wireTransmission(unsigned int address) {
 }
 
 int readEEprom(unsigned int address) {
-
   byte data ;
   wireTransmission(address);
   Wire.endTransmission();
   Wire.requestFrom(ADD_I2C, 1);
   delay(5);
   if (Wire.available()) {
-    Serial.print("read data : ");
     data = Wire.read();
+    Serial.print("read data : ");
     Serial.println(data);
     delay(5);
   }
   return data;
 }
 
-
 String readText(int addrss){
   int strLen = readEEprom(addrss);
-
   char readTxt[strLen];
   int i = 0;
-//  while();
-  readEEprom(1);
-  
-  
+  while(i < strLen){
+    readTxt[i] = readEEprom(addrss + i);
+    i++;
+    if (readEEprom(addrss + i) == '\n'){
+      break;
+    }
+  }
+  return String (readTxt);
 }
