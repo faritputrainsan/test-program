@@ -11,15 +11,26 @@
 ******************************/
 
 #include <SPI.h>
-#include <EEPROM.h>
+#include <Wire.h>
+#include <I2C_eeprom.h>
 #include <avr/pgmspace.h>
 #include "HUB08SPI.h"
 #include "TimerOne.h"
 #include "Buffer.h"
 
 //#define WIDTH  256// panjang led matrix
-#define WIDTH  64// panjang led matrix
+#define WIDTH  256// panjang led matrix
 #define HEIGHT 16 // tinggi led matrix
+
+#define ADD_I2C 0x57
+
+I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
+
+int len_mosName = 60;
+int lenText1 = 300;
+
+int mosName_add = 0;
+int Text_add = 61;
 
 HUB08SPI display;
 
@@ -36,20 +47,6 @@ int pin_interupt;
 
 String mn_mosque;
 
-String text_250;
-
-byte pin_stat = A3;
-
-
-int text_add = 51;
-int mn_add = 0;
-
-byte Stat = 0;
-
-byte read_stat;
-
-//String dates = "";
-
 
 void setup() {
   Serial.begin(9600);
@@ -59,7 +56,7 @@ void setup() {
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
-  pinMode(pin_stat, INPUT);
+//  pinMode(pin_stat, INPUT);
 }
 
 void loop() {
