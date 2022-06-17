@@ -21,9 +21,9 @@ void WriteText(unsigned int address,String text, int length){
   
 }
 
-String text_read(unsigned int length){
+String text_read(unsigned int length, unsigned int address){
   char data[length];
-  for (int i = 0; i < length; i++) {
+  for (int i = address; i < address + length; i++) {
     //    if (i % 10 == 0 ) SERIAL_OUT.println();
     //    SERIAL_OUT.print(' ');
     data[i] = eeprom.readByte(i);

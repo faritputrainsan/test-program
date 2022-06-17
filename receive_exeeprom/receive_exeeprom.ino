@@ -10,12 +10,21 @@
 //Device identifier
 I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 
+int len_mosName = 60;
+int len_text = 300;
+
+int mosName_add = 0;
+int text_add = 61;
+
+
 int input = 9;
 byte r_input;
 
 int lenText = 256;
 
 String textSerial;
+
+String Texts = "Contoh text pengumuman untuk 300 character di test untuk Write to eeprom and read on another mcu for running text";
 
 //#define pinSDA D5
 //#define pinSCL D6
