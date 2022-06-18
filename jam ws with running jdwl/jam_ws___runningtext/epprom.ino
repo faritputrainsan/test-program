@@ -12,7 +12,6 @@ void WriteText(unsigned int address,String text, int length){
   
   ////////////////////////////////////////
 
-
   /////////////////(address,    data                ,   length text)
   eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
   //////////////////////////////////////////////////////////////////

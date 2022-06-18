@@ -19,12 +19,7 @@ void StaticTxt(byte state) {
 }
 
 void jadwal() {
-String imsak = jdwlkonversi("555") ;
-String subuh = jdwlkonversi("555");
-String dhuhur = jdwlkonversi("555");
-String asar = jdwlkonversi("555");
-String maghrib = jdwlkonversi("555");
-String isya = jdwlkonversi("555");
+
 
   ronn.clear_D();
   ronn.setFont(font_NEW);

@@ -16,7 +16,6 @@ int len_text = 300;
 int mosName_add = 0;
 int text_add = 61;
 
-byte output = A3;
 
 int input = 9;
 byte r_input;
@@ -33,6 +32,7 @@ String Texts = "Contoh text pengumuman untuk 300 character di test untuk Write t
 void setup() {
 
   Serial.begin(9600);
+
   eeprom.begin();
   if (!eeprom.isConnected()) {
     Serial.print("ERROR: can't find eeprom\nstoped");
@@ -40,26 +40,35 @@ void setup() {
   }
   //  Wire.begin();
   delay(100);
-  pinMode (output, OUTPUT);
+
   pinMode (input, INPUT);
 }
 
 void loop() {
+  // put your main code here, to run repeatedly:
+  r_input = digitalRead(input);
 
+  if (r_input == LOW) {
+    //    writetxt(1, TEXT_ABC);
+
+    //    Serial.println(readData(1));
+    delay(500);
+
+    //    Serial.print(readText(1));
+    delay (500);
+  }
 }
 
 char Ch_prm[250];
 
 void serialEvent() {
+
   if (Serial.available()) {
-    digitalWrite(output, LOW);
-    delay (50);
     textSerial = Serial.readString();
     delay(100);
     writetxt(0,    textSerial,      lenText);
     /////(address, text data, panjang arrays)
     delay(1000);
-    digitalWrite(output, HIGH);
   }
 }
 
@@ -79,6 +88,7 @@ void writetxt(unsigned int addres, String text, int length) {
   //  char to read data array from eeprom
   char data[length];
   ////////////////////////////////////////
+
 
   /////////////////(address,    data                ,   length text)
   eeprom.writeBlock(addres      , (uint8_t *) &data2, sizeof(data2));

@@ -32,6 +32,16 @@ int lenText1 = 300;
 int mosName_add = 0;
 int Text_add = 61;
 
+String mosName;
+String Texts;
+
+String imsak ;
+String subuh ;
+String dhuhur ;
+String asar ;
+String maghrib ;
+String isya ;
+
 HUB08SPI display;
 
 uint8_t displaybuf[WIDTH * HEIGHT / 8];
@@ -43,62 +53,33 @@ void refresh() {
   display.scan();
 }
 
-int pin_interupt;
-
-String mn_mosque;
-
-
 void setup() {
   Serial.begin(9600);
   display.begin(displaybuf, WIDTH, HEIGHT);
   Timer1.initialize(250);
-  
+
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
-//  pinMode(pin_stat, INPUT);
+
+  while (1) {
+//    ping();
+    if (Serial.available()){
+      serial();
+    }
+    delay(100);
+    mosName = text_read(len_mosName, mosName_add);
+    delay (100);
+    Texts = text_read(len_mosName, mosName_add);
+    delay(100);
+//    break;
+  }
 }
 
 void loop() {
 
   jadwal();
-
-  
-//  Stat = Stat1;
-//  if (Stat == 1) {
-//    serial();
-//  }
-//  else {
-//    
-//    
-//    runningText("TEST HAHAHAHAH halhdldsdskjgsudgsdsdhijhekjdshdaduhdakshdsudhrejksdhsuudkasjdhdkasj");
-//    
-//    read_stat = digitalRead(pin_stat);
-//    if (read_stat == HIGH) {
-//      Stat = 1;
-//    }
-//
-//    runningText("TEST HAHAHAHAH jhdtsdjfgtsdsatgsdsdhgsdksytedsjkdagsjkdgasjdh");
-//    
-//    read_stat = digitalRead(pin_stat);
-//    if (read_stat == HIGH) {
-//      Stat = 1;
-//    }
-//
-//    runningText("TEST HAHAHAHAH klshadsusyds,lkjhdshxmjshd kjhdalhjasdklkjsadh");
-//    
-//    read_stat = digitalRead(pin_stat);
-//    if (read_stat == HIGH) {
-//      Stat = 1;
-//    }
-//
-//    runningText("TEST HAHAHAHAH kisydsadyaksdhjgdsiuy7tdkjhgdasuydtajksdjhagsdakjsdugtk");
-//    read_stat = digitalRead(pin_stat);
-//
-//    if (read_stat == HIGH) {
-//      Stat = 1;
-//    }
-//  }
+  runningText(mosName);
 }
 
 String jdwlkonversi(String data) {
@@ -126,33 +107,3 @@ String jdwlkonversi(String data) {
   str = str_jam + ":" + str_mnt;
   return (str);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
