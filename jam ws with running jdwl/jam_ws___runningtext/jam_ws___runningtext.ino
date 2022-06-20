@@ -27,7 +27,7 @@
 I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 
 int len_mosName = 60;
-int lenText1 = 300;
+int lenText = 300;
 
 int mosName_add = 0;
 int Text_add = 61;
@@ -55,6 +55,7 @@ void refresh() {
 
 void setup() {
   Serial.begin(9600);
+  eeprom.begin();
   display.begin(displaybuf, WIDTH, HEIGHT);
   Timer1.initialize(250);
 
@@ -63,23 +64,25 @@ void setup() {
   buff.clear();
 
   while (1) {
-//    ping();
-    if (Serial.available()){
-      serial();
+    //    ping();
+    if (Serial.available()) {
+      //      serial();
     }
     delay(100);
-    mosName = text_read(len_mosName, mosName_add);
+    //    mosName = text_read(len_mosName, mosName_add);
     delay (100);
-    Texts = text_read(len_mosName, mosName_add);
+    Texts = text_read(lenText, Text_add);
+    Serial.println(Texts);
     delay(100);
-//    break;
+    break;
   }
 }
 
 void loop() {
 
-  jadwal();
-  runningText(mosName);
+  runningText(Texts);
+  //  jadwal();
+  //  runningText(mosName);
 }
 
 String jdwlkonversi(String data) {

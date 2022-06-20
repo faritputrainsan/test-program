@@ -4,7 +4,7 @@ void runningText(String TEXT) {
 //  String TextEep = read_Text(addres);
   readeep = TEXT.c_str();
   ronn.setFont(B_STD);
-//  ronn.scrollText_LR(readeep, 0, 0, WIDTH, 20);
+  ronn.scrollText_LR(readeep, 0, 0, WIDTH, 20);
 }
 
 void StaticTxt(byte state) {
