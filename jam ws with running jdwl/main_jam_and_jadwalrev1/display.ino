@@ -62,8 +62,6 @@ void tunggu(byte i) {
   else if (i == 3) tggu = EEPROM.read(addmaghrib);
   else if (i == 4)tggu = EEPROM.read(addisya);
 
-
-
   while (1) {
     if (iqdtk < 0) {
       if (tggu <= 0 ) {

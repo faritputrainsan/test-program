@@ -1,19 +1,18 @@
-#include <Wire.h>
 #include <DS3231.h>
 #include <EEPROM.h>
+#include <I2C_eeprom.h>
+
 #include "PrayerTimes.h"
 #include <SoftwareSerial.h>
 
 SoftwareSerial mySerial(2, 3);
 ///////////////////////(RX,TX)
 
-
-
-
 DS3231  rtc(SDA, SCL);
 Time  t;
 
-#define I2C_add 0x57
+#define ADD_I2C 0x57
+I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////variable EEPROM////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +45,9 @@ unsigned long interval2 = 500;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////variable baca serial//////////////////////
-byte ampli = A3;
+byte ampli = A1;
+byte res = A3;
+
 String blutot;
 char dchar [51];
 int x;
@@ -63,7 +64,6 @@ char jwl [40];
 
 int segChar[] = {0xbf, 0x0a, 0xdd, 0x5f, 0x6b, 0x77, 0xf7, 0x1a, 0xff, 0x7f};
 
-
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////variable data jam//////////////////////////////////////
 int iqdtk;
@@ -72,8 +72,9 @@ int j_ims, m_ims, j_sub, m_sub, j_dzu, m_dzu, j_ash, m_ash, j_mag, m_mag, j_isy,
 int m_imsak, j_imsak, m_subuh, j_subuh, m_dzuhur, j_dzuhur, m_ashar, j_ashar, m_maghrib, j_maghrib, m_isya, j_isya;
 
 void setup() {
-  Wire.begin();
+
   Serial.begin(9600);
+  eeprom.begin();
   mySerial.begin(9600);
 
   rtc.begin();
@@ -84,58 +85,28 @@ void setup() {
   pinMode( dataPin    , OUTPUT);
   pinMode( clockPin   , OUTPUT);
   pinMode( ampli   , OUTPUT);
+  pinMode( res   , OUTPUT);
+  digitalWrite(res, HIGH);
+  
 }
 
 void loop() {
 
   //  serial();
+  data();
+
+
+  Serial.print(t.hour);
+  Serial.print(" : ");
+  Serial.print(t.min);
+  Serial.print(" : ");
+  Serial.println(t.sec);
+  delay(1000);
+
+  jam_mtr();
   //  jdwl();
 
-  sendData("String message", 1);
-
-  delay (3000);
-  sendData("Message for iqomah", 2);
-  delay(3000);
-
-  //  jam_mtr();
-  //  tepat();
 }
-
-void writeData(unsigned int address , byte data) {
-  Wire.beginTransmission(I2C_add);
-  Wire.write((int)address >> 8);
-  Wire.write((int)address & 0xFF);
-  Wire.write(data);
-
-  Serial.print("Write Data :");
-  Serial.println(data);
-  Wire.endTransmission();
-  delay(1);
-
-}
-
-byte readData(byte address) {
-  byte data = NULL;
-
-  Wire.beginTransmission (I2C_add);
-  Wire.write((int)address >> 8);
-  Wire.write((int)address & 0xFF);
-  Wire.endTransmission();
-
-  Wire.requestFrom(I2C_add, 1);
-
-  delay(1);
-
-  while (Wire.available()) {
-    Serial.print("read data : ");
-    data = Wire.read();
-    Serial.print(data);
-    delay(1);
-  }
-  return data;
-}
-
-
 
 void data() {
   t = rtc.getTime();

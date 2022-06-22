@@ -1,10 +1,9 @@
 void serialEvent() {
   char bcar;
   int idx = 0;
-
   bcar = Serial.peek();
   if ((bcar == 'T') or (bcar == 'L')) {
-    while ((bcar != '\n') and (idx < 250)) {
+    while ((bcar != '\n') and (idx < 350)) {
       if (Serial.available()) {
         bcar = (char)Serial.read();
         dchar [idx] = bcar;
@@ -47,46 +46,6 @@ void serialEvent() {
   }
 }
 
-void sendData(String message, byte state) {
-
-  if (state == 1) {
-    sprintf(text, "SJW\n%s", message.c_str());
-    Serial.write(text);
-    delay(2000);
-  }
-
-  //set iqomah
-  else if (state == 2) {
-    sprintf(iqmn, "SIQ\n%s", message.c_str());
-    Serial.write(iqmn);
-    delay(2000);
-  }
-
-  //set tunggu
-  else if (state == 3) {
-    sprintf(text, "STG\n%s", message.c_str());
-    Serial.write("");
-  }
-
-  //send data running text
-  else if (state == 4) {
-    sprintf(text, "STX\n%s", message.c_str());
-    Serial.write("TXT");
-  }
-
-  // send data running text1
-  else if (state == 5) {
-    sprintf(text, "ST1\n%s", message.c_str());
-    Serial.write(text);
-  }
-
-  // send state iqomah
-  else if (state == 6) {
-    sprintf(text, "ST1\n%s", message.c_str());
-    Serial.write(text);
-  }
-}
-
 //void uji() {
 //  rtc.setTime(blutot.substring (3, 5).toInt(), blutot.substring (5, 7).toInt(), 00);
 //}
@@ -101,7 +60,6 @@ void gmt() {
 
   EEPROM.write(addgmt, blutot.substring (3, 4).toInt());
   gmti = EEPROM.read(addgmt);
-
 }
 
 void Siqomah() {
@@ -119,7 +77,6 @@ void Siqomah() {
   ias = EEPROM.read(addasr);
   img = EEPROM.read(addmgr);
   iis = EEPROM.read(addisy);
-
 }
 
 void Stunggu() {
@@ -137,7 +94,6 @@ void Stunggu() {
   ias = EEPROM.read(addashar);
   img = EEPROM.read(addmaghrib);
   iis = EEPROM.read(addisya);
-
 }
 
 void koreksi() {
