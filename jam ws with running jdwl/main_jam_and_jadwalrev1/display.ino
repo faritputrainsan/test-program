@@ -1,4 +1,3 @@
-
 void iqm(byte islt) {
   //  char tiq [3];
   //  char diq [3];

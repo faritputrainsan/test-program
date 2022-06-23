@@ -43,10 +43,15 @@ unsigned long interval2 = 500;
 #define clockPin  10
 // Init DS3231
 
-///////////////////////////////////////////////////////////////////////////////////////
-////////////////variable baca serial//////////////////////
 byte ampli = A1;
 byte res = A3;
+
+int input = 9;
+byte r_input;
+
+///////////////////////////////////////////////////////////////////////////////////////
+////////////////variable baca serial//////////////////////
+
 
 String blutot;
 char dchar [51];
@@ -69,7 +74,7 @@ int segChar[] = {0xbf, 0x0a, 0xdd, 0x5f, 0x6b, 0x77, 0xf7, 0x1a, 0xff, 0x7f};
 int iqdtk;
 
 int j_ims, m_ims, j_sub, m_sub, j_dzu, m_dzu, j_ash, m_ash, j_mag, m_mag, j_isy, m_isy;
-int m_imsak, j_imsak, m_subuh, j_subuh, m_dzuhur, j_dzuhur, m_ashar, j_ashar, m_maghrib, j_maghrib, m_isya, j_isya;
+int j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya;
 
 void setup() {
 
@@ -87,24 +92,34 @@ void setup() {
   pinMode( ampli   , OUTPUT);
   pinMode( res   , OUTPUT);
   digitalWrite(res, HIGH);
-  
+
+  pinMode (input, INPUT);
+
 }
 
 void loop() {
 
-  //  serial();
   data();
+  jdwl();
+
+  r_input = digitalRead(input);
+
+  if (r_input == LOW) {
+    sendJadwal();
+    delay (1000);
+  }
 
 
-  Serial.print(t.hour);
-  Serial.print(" : ");
-  Serial.print(t.min);
-  Serial.print(" : ");
-  Serial.println(t.sec);
-  delay(1000);
+  //
+  //  Serial.print(t.hour);
+  //  Serial.print(" : ");
+  //  Serial.print(t.min);
+  //  Serial.print(" : ");
+  //  Serial.println(t.sec);
+  //  delay(1000);
+  //
+  //  jam_mtr();
 
-  jam_mtr();
-  //  jdwl();
 
 }
 
@@ -114,9 +129,13 @@ void data() {
 
 void jdwl() {
 
-  EEPROM.get (addltg, lintang);  //Latitude
-  EEPROM.get (addbjr, bujur);   //Longitude
-  gmti = EEPROM.read(addgmt);                   //Zona Waktu GMT WIB biasanya 7
+  //  EEPROM.get (addltg, lintang);  //Latitude
+  //  EEPROM.get (addbjr, bujur);   //Longitude
+  //  gmti = EEPROM.read(addgmt);                   //Zona Waktu GMT WIB biasanya 7
+  
+  gmti = 7 ;
+  lintang = -7, 45; //Latitude
+  bujur = 110, 21 ; //Longitude
 
   EEPROM.get(addksbh, ksbh);
   EEPROM.get(addkzhr, kzhr);
@@ -316,5 +335,4 @@ int combine(byte cjam, byte cmin) {
   int result;
   result = (cjam * 60) + cmin;
   return result;
-
 }

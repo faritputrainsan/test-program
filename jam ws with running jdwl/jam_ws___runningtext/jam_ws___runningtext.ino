@@ -11,7 +11,6 @@
 ******************************/
 
 #include <SPI.h>
-#include <Wire.h>
 #include <I2C_eeprom.h>
 #include <avr/pgmspace.h>
 #include "HUB08SPI.h"
@@ -25,6 +24,8 @@
 #define ADD_I2C 0x57
 
 I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
+
+char dchar[300];
 
 int len_mosName = 60;
 int lenText = 300;
@@ -66,21 +67,24 @@ void setup() {
   while (1) {
     //    ping();
     if (Serial.available()) {
-      //      serial();
+      //    serial();
     }
-    delay(100);
-    //    mosName = text_read(len_mosName, mosName_add);
-    delay (100);
-    Texts = text_read(lenText, Text_add);
-    Serial.println(Texts);
-    delay(100);
-    break;
+    else {
+      delay(100);
+      //    mosName = text_read(len_mosName, mosName_add);
+      delay (100);
+      Texts = text_read(lenText, Text_add);
+      Serial.println(Texts);
+      delay(100);
+      //    break;
+    }
+
   }
 }
 
 void loop() {
-
-  runningText(Texts);
+  //   serial();
+  //  runningText(Texts);
   //  jadwal();
   //  runningText(mosName);
 }

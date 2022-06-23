@@ -110,3 +110,10 @@ void koreksi() {
   EEPROM.get(addkmgr, kmgr);
   EEPROM.get(addkisy, kisy);
 }
+
+void sendJadwal(){
+  char buffer[40];
+  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n",j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
+  mySerial.print(buffer);
+  Serial.print(buffer);
+}
