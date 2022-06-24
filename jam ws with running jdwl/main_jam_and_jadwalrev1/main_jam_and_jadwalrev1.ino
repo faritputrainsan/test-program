@@ -94,21 +94,23 @@ void setup() {
   digitalWrite(res, HIGH);
 
   pinMode (input, INPUT);
-
 }
-
+String Serials ;
 void loop() {
 
-  data();
+  jam_mtr();
   jdwl();
 
+  if(mySerial.available()){
+    Serials = mySerial.readString();
+    sendJadwal();
+  }
   r_input = digitalRead(input);
 
   if (r_input == LOW) {
-    sendJadwal();
+    
     delay (1000);
   }
-
 
   //
   //  Serial.print(t.hour);

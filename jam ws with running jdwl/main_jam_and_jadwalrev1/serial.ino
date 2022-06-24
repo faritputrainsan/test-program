@@ -11,7 +11,7 @@ void serialEvent() {
       }
     }
     dchar [idx - 1] = '\0';
-    if (dchar[0] == 'L'){
+    if (dchar[0] == 'L') {
       blutot = String(dchar);
       if (blutot.substring(1, 3).equals("AT"))       {
         EEPROM.put(addltg, blutot.substring(3, blutot.length()).toFloat());
@@ -45,10 +45,6 @@ void serialEvent() {
     }
   }
 }
-
-//void uji() {
-//  rtc.setTime(blutot.substring (3, 5).toInt(), blutot.substring (5, 7).toInt(), 00);
-//}
 
 void set_jam() {
   rtc.setTime(blutot.substring (3, 5).toInt(), blutot.substring (5, 7).toInt(), blutot.substring (7, 9).toInt());     // Set the time to 12:00:00 (24hr format)
@@ -111,9 +107,16 @@ void koreksi() {
   EEPROM.get(addkisy, kisy);
 }
 
-void sendJadwal(){
+void sendJadwal() {
+
   char buffer[40];
-  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n",j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
-  mySerial.print(buffer);
-  Serial.print(buffer);
+  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
+  while (1) {
+    if ( Serials.substring(0, 4) == "Ping") {
+      Serial.println("OK");
+      Serials = '\0';
+      mySerial.print(buffer); 
+    }
+    break;
+  }
 }

@@ -50,6 +50,8 @@ Buffer buff(displaybuf, WIDTH, 16);
 
 #include "ronnAnimation.h"
 
+String dataSerial;
+
 void refresh() {
   display.scan();
 }
@@ -63,28 +65,28 @@ void setup() {
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
-
+  int state = 0;
   while (1) {
-    //    ping();
+    if (state == 0) {
+      state = 1;
+      ping();
+    }
     if (Serial.available()) {
-      //    serial();
-    }
-    else {
+      serial();
       delay(100);
-      //    mosName = text_read(len_mosName, mosName_add);
-      delay (100);
+////          mosName = text_read(len_mosName, mosName_add);
+////      delay (100);
       Texts = text_read(lenText, Text_add);
-      Serial.println(Texts);
-      delay(100);
-      //    break;
+////      Serial.println(Texts);
+//      delay(100);
+    break;
     }
-
   }
 }
 
 void loop() {
   //   serial();
-  //  runningText(Texts);
+  runningText(Texts);
   //  jadwal();
   //  runningText(mosName);
 }
