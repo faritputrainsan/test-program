@@ -43,6 +43,11 @@ String asar ;
 String maghrib ;
 String isya ;
 
+
+
+       
+
+
 HUB08SPI display;
 
 uint8_t displaybuf[WIDTH * HEIGHT / 8];
@@ -74,19 +79,22 @@ void setup() {
     if (Serial.available()) {
       serial();
       delay(100);
-////          mosName = text_read(len_mosName, mosName_add);
-////      delay (100);
+      ////          mosName = text_read(len_mosName, mosName_add);
+      ////      delay (100);
       Texts = text_read(lenText, Text_add);
-////      Serial.println(Texts);
-//      delay(100);
-    break;
+      ////      Serial.println(Texts);
+      //      delay(100);
+      break;
     }
   }
 }
 
 void loop() {
   //   serial();
-  runningText(Texts);
+  tgl();
+  jadwal();
+//  runningText(Texts);+
+  StaticTxt(1);
   //  jadwal();
   //  runningText(mosName);
 }
@@ -99,6 +107,8 @@ String jdwlkonversi(String data) {
   String str;
   String str_jam;
   String str_mnt;
+
+//  char buffer[];
 
   kon_jam = data.toInt() / 60;
   kon_mnt = data.toInt() % 60;
