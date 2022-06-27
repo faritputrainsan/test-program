@@ -4,6 +4,7 @@
 
 #include "PrayerTimes.h"
 #include <SoftwareSerial.h>
+#include "avr/pgmspace.h"
 
 SoftwareSerial mySerial(2, 3);
 ///////////////////////(RX,TX)
@@ -46,8 +47,6 @@ unsigned long interval2 = 500;
 byte ampli = A1;
 byte res = A3;
 
-int input = 9;
-byte r_input;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////variable baca serial//////////////////////
@@ -69,12 +68,15 @@ char jwl [40];
 
 int segChar[] = {0xbf, 0x0a, 0xdd, 0x5f, 0x6b, 0x77, 0xf7, 0x1a, 0xff, 0x7f};
 
+//const String hari[] = {"SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU","AHAD"};
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////variable data jam//////////////////////////////////////
 int iqdtk;
 
 int j_ims, m_ims, j_sub, m_sub, j_dzu, m_dzu, j_ash, m_ash, j_mag, m_mag, j_isy, m_isy;
 int j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya;
+
 
 void setup() {
 
@@ -91,9 +93,10 @@ void setup() {
   pinMode( clockPin   , OUTPUT);
   pinMode( ampli   , OUTPUT);
   pinMode( res   , OUTPUT);
+  digitalWrite(res, LOW);
+  delay(500);
   digitalWrite(res, HIGH);
 
-  pinMode (input, INPUT);
 }
 String Serials ;
 void loop() {
@@ -103,13 +106,7 @@ void loop() {
 
   if(mySerial.available()){
     Serials = mySerial.readString();
-    sendJadwal();
-  }
-  r_input = digitalRead(input);
-
-  if (r_input == LOW) {
-    
-    delay (1000);
+    sendData();
   }
 
   //

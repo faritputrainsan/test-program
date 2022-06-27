@@ -107,16 +107,29 @@ void koreksi() {
   EEPROM.get(addkisy, kisy);
 }
 
-void sendJadwal() {
 
+
+void sendData() {
   char buffer[40];
   sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
   while (1) {
     if ( Serials.substring(0, 4) == "Ping") {
-      Serial.println("OK");
       Serials = '\0';
-      mySerial.print(buffer); 
+      mySerial.print(buffer);
+      sendJadwal();
+      
     }
     break;
   }
+}
+
+void sendJadwal(){
+  
+  
+}
+
+void sendTanggal(){
+  char buffer[30];
+//  sprintf(buffer,"DTE%s\n",hari[t.dow]);
+  mySerial.print(buffer);
 }

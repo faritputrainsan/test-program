@@ -36,17 +36,7 @@ int Text_add = 61;
 String mosName;
 String Texts;
 
-String imsak ;
-String subuh ;
-String dhuhur ;
-String asar ;
-String maghrib ;
-String isya ;
-
-
-
-       
-
+int imsak , subuh ,dhuhur ,asar ,maghrib ,isya ;
 
 HUB08SPI display;
 
@@ -91,15 +81,15 @@ void setup() {
 
 void loop() {
   //   serial();
-  tgl();
+//  tgl();
   jadwal();
 //  runningText(Texts);+
-  StaticTxt(1);
+//  StaticTxt(1);
   //  jadwal();
   //  runningText(mosName);
 }
 
-String jdwlkonversi(String data) {
+String jdwlkonversi(int data) {
 
   int kon_jam;
   int kon_mnt;
@@ -110,8 +100,8 @@ String jdwlkonversi(String data) {
 
 //  char buffer[];
 
-  kon_jam = data.toInt() / 60;
-  kon_mnt = data.toInt() % 60;
+  kon_jam = data / 60;
+  kon_mnt = data % 60;
 
   if (kon_jam < 10) {
     str_jam = "0" + String(kon_jam);
