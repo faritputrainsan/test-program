@@ -1,6 +1,6 @@
 void WriteText(unsigned int address, String text, int length) {
   /////////////////////////////////////
-  eeprom.setBlock(address, 0, length);
+  eeprom.setBlock(address, '\0', length);
   /////////////////////////////////////
 
   ////////////////////////////////
@@ -20,8 +20,10 @@ void WriteText(unsigned int address, String text, int length) {
 String text_read( int length,  int address) {
 
   char data[length];
+
+  
   for (int i = 0; i <  length; i++) {
-    data[i] = eeprom.readByte( address + i  );
+    data[i] = (char)eeprom.readByte( address + i  ); 
   }
   ////////////////////////////////////////
   // kembalikan String

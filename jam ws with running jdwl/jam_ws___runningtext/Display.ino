@@ -5,6 +5,7 @@ void runningText(String TEXT) {
   readeep = TEXT.c_str();
   ronn.setFont(B_STD);
   ronn.scrollText_LR(readeep, 0, 0, WIDTH, 20);
+  delay(1000);
 }
 
 void StaticTxt(String TEXT) {
@@ -19,23 +20,25 @@ void StaticTxt(String TEXT) {
 }
 
 void jadwal() {
-  ronn.clear_D();
   ronn.setFont(font_NEW);
+  ronn.clear_D();
 
-  char buffer[50];
+  char buffer[51];
   sprintf(buffer, "%s    %s    %s    %s    %s    %s",
           jdwlkonversi(subuh - 10).c_str(), jdwlkonversi(subuh).c_str(),
           jdwlkonversi(dhuhur).c_str(), jdwlkonversi(asar).c_str(),
           jdwlkonversi(maghrib).c_str(), jdwlkonversi(isya).c_str()) ;
 
   ronn.scrollText_D(buffer , 1, 1 );
+//  Serial.println(buffer);
   buff.fillRect(41, 0, 1, 16, 1);
   buff.fillRect(84, 0, 1, 16, 1);
   buff.fillRect(127, 0, 1, 16, 1);
   buff.fillRect(170, 0, 1, 16, 1);
   buff.fillRect(213, 0, 1, 16, 1);
   delay (5000);
-  ronn.clear_D(); delay(1000);
+  ronn.clear_D(); 
+  delay(1000);
 }
 
 void tgl() {

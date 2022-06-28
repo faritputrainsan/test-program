@@ -28,15 +28,16 @@ I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 char dchar[300];
 
 int len_mosName = 60;
-int lenText = 300;
+int lenText = 255;
 
 int mosName_add = 0;
 int Text_add = 61;
 
 String mosName;
-String Texts;
+String dataTexts;
 
-int imsak , subuh ,dhuhur ,asar ,maghrib ,isya ;
+int subuh  , dhuhur , asar  , maghrib , isya  ;
+byte exits = 0;
 
 HUB08SPI display;
 
@@ -60,31 +61,36 @@ void setup() {
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
-  int state = 0;
-  while (1) {
+
+    int state = 0;
     if (state == 0) {
       state = 1;
       ping();
     }
-    if (Serial.available()) {
-      serial();
-      delay(100);
-      ////          mosName = text_read(len_mosName, mosName_add);
-      ////      delay (100);
-      Texts = text_read(lenText, Text_add);
-      ////      Serial.println(Texts);
-      //      delay(100);
-      break;
+    while (1) {
+      if (Serial.available()) {
+        serial();
+
+        if (exits != 0){
+          break;
+        }
+        
+      }
     }
-  }
+
+  ////          mosName = text_read(len_mosName, mosName_add);
+  ////      delay (100);
+
+  dataTexts = text_read(lenText, Text_add);
 }
 
 void loop() {
   //   serial();
-//  tgl();
+  //  tgl();
   jadwal();
-//  runningText(Texts);+
-//  StaticTxt(1);
+  runningText(dataTexts);
+
+  //  StaticTxt(1);
   //  jadwal();
   //  runningText(mosName);
 }
@@ -93,12 +99,12 @@ String jdwlkonversi(int data) {
 
   int kon_jam;
   int kon_mnt;
-
-  String str;
+//  char buffer[6];
+    String str;
   String str_jam;
   String str_mnt;
 
-//  char buffer[];
+  //  char buffer[];
 
   kon_jam = data / 60;
   kon_mnt = data % 60;
@@ -113,6 +119,8 @@ String jdwlkonversi(int data) {
   } else {
     str_mnt = String(kon_mnt);
   }
-  str = str_jam + ":" + str_mnt;
+
+//  sprintf (buffer, "%s:%s", str_jam.c_str(), str_mnt.c_str());
+    str = str_jam + ":" + str_mnt;
   return (str);
 }

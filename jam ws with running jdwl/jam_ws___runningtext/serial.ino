@@ -13,7 +13,7 @@ void serial() {
     }
     dchar [idx - 1] = '\0';
     data(dchar);
-//    Serial.print((String)dchar);
+    //    Serial.print((String)dchar);
   }
 }
 
@@ -23,27 +23,28 @@ void data(String dataSrl) {
     if (dchar [1] == 'S' and dchar [2] == 'B') {
       subuh = dataSrl.substring(3, dataSrl.length()).toInt();
       delay (5);
-//      Serial.println("subuh oke");
+      //      Serial.println("subuh oke");
     }
     else if (dchar [1] == 'D' and dchar [2] == 'H') {
       dhuhur = dataSrl.substring(3, dataSrl.length()).toInt();
       delay (5);
-//      Serial.println("dhuzur oke");
+      //      Serial.println("dhuzur oke");
     }
     else if (dchar [1] == 'A' and dchar [2] == 'S') {
       asar = dataSrl.substring(3, dataSrl.length()).toInt();
       delay (5);
-//      Serial.println("asar oke");
+      //      Serial.println("asar oke");
     }
     else if (dchar [1] == 'M' and dchar [2] == 'G') {
       maghrib = dataSrl.substring(3, dataSrl.length()).toInt();
       delay (5);
-//      Serial.println("magrib oke");
+      //      Serial.println("magrib oke");
     }
     else if (dchar [1] == 'I' and dchar [2] == 'S') {
       isya = dataSrl.substring(3, dataSrl.length()).toInt();
       delay (5);
-//      Serial.println("isya oke");
+      //      Serial.println("isya oke");
+      exits = 1;
     }
   }
 }
