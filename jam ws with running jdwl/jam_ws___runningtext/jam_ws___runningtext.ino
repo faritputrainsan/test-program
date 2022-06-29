@@ -25,16 +25,15 @@
 
 I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 
-char dchar[300];
+char dchar[301];
 
-int len_mosName = 60;
-int lenText = 255;
+#define lenMosName  60
+#define lenText  300
 
-int mosName_add = 0;
-int Text_add = 61;
+#define mosName_add  0
+#define Text_add  61
 
-String mosName;
-String dataTexts;
+String mosName, dataTexts, dayDate; 
 
 int subuh  , dhuhur , asar  , maghrib , isya  ;
 byte exits = 0;
@@ -46,7 +45,6 @@ Buffer buff(displaybuf, WIDTH, 16);
 
 #include "ronnAnimation.h"
 
-String dataSerial;
 
 void refresh() {
   display.scan();
@@ -74,25 +72,17 @@ void setup() {
         if (exits != 0){
           break;
         }
-        
       }
     }
-
-  ////          mosName = text_read(len_mosName, mosName_add);
-  ////      delay (100);
-
+  mosName = text_read(lenMosName, mosName_add);
   dataTexts = text_read(lenText, Text_add);
 }
 
 void loop() {
-  //   serial();
-  //  tgl();
+  StaticTxt(dayDate);
   jadwal();
+  runningText( mosName);
   runningText(dataTexts);
-
-  //  StaticTxt(1);
-  //  jadwal();
-  //  runningText(mosName);
 }
 
 String jdwlkonversi(int data) {

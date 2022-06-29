@@ -1,5 +1,4 @@
 void runningText(String TEXT) {
-
   const char* readeep;
   //  String TextEep = read_Text(addres);
   readeep = TEXT.c_str();
@@ -9,7 +8,7 @@ void runningText(String TEXT) {
 }
 
 void StaticTxt(String TEXT) {
-//  String TEXT = "12:12    22:22    13:13    14:14    15:15    16:16";
+  //  String TEXT = "12:12    22:22    13:13    14:14    15:15    16:16";
   //  int pjg = TEXT.length() + 1;
   //  char TEXT.toCharArray
   ronn.setFont(B_STD);
@@ -30,20 +29,13 @@ void jadwal() {
           jdwlkonversi(maghrib).c_str(), jdwlkonversi(isya).c_str()) ;
 
   ronn.scrollText_D(buffer , 1, 1 );
-//  Serial.println(buffer);
+  //  Serial.println(buffer);
   buff.fillRect(41, 0, 1, 16, 1);
   buff.fillRect(84, 0, 1, 16, 1);
   buff.fillRect(127, 0, 1, 16, 1);
   buff.fillRect(170, 0, 1, 16, 1);
   buff.fillRect(213, 0, 1, 16, 1);
   delay (5000);
-  ronn.clear_D(); 
+  ronn.clear_D();
   delay(1000);
-}
-
-void tgl() {
-  const String bulan [] PROGMEM = {"JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI",
-                                   "JUNI", "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER",
-                                   "NOVEMBER", "DESEMBER"
-                                  };
 }

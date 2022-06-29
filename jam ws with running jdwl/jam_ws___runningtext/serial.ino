@@ -4,7 +4,7 @@ void serial() {
 
   bcar = Serial.peek();
   if ((bcar == 'J') or (bcar == 'D')) {
-    while ((bcar != '\n') and (idx < 380)) {
+    while ((bcar != '\n') and (idx < 310)) {
       if (Serial.available()) {
         bcar = (char)Serial.read();
         dchar [idx] = bcar;
@@ -13,7 +13,7 @@ void serial() {
     }
     dchar [idx - 1] = '\0';
     data(dchar);
-    //    Serial.print((String)dchar);
+    //        Serial.print((String)dchar);
   }
 }
 
@@ -44,26 +44,14 @@ void data(String dataSrl) {
       isya = dataSrl.substring(3, dataSrl.length()).toInt();
       delay (5);
       //      Serial.println("isya oke");
-      exits = 1;
+      //      exits = 1;
     }
   }
-}
-
-void saveState() {
-
-}
-
-void setJadwal(String message) {
-  //  = jdwlkonversi("555");
-  //  = jdwlkonversi("555");
-  //  = jdwlkonversi("555");
-  //  = jdwlkonversi("555");
-  //  = jdwlkonversi("555");
-  //  = jdwlkonversi("555");
-}
-
-void setTanggal(String message) {
-
+  else if (dchar[0] == 'D' and dchar [1] == 'T' and dchar [2] == 'E') {
+    dayDate = dataSrl.substring(3, dataSrl.length());
+    delay (5);
+    exits = 1;
+  }
 }
 
 void ping() {

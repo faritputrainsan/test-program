@@ -110,26 +110,28 @@ void koreksi() {
 
 
 void sendData() {
-  char buffer[40];
-  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
   while (1) {
     if ( Serials.substring(0, 4) == "Ping") {
       Serials = '\0';
-      mySerial.print(buffer);
       sendJadwal();
-      
+      delay(100);
+      sendTanggal();
     }
     break;
   }
 }
 
-void sendJadwal(){
-  
-  
+void sendJadwal() {
+  char buffer[40];
+  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
+  mySerial.print(buffer);
 }
 
-void sendTanggal(){
+void sendTanggal() {
+  const String hari [] PROGMEM = { "", "AHAD", "SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", "SABTU"};
+  const String bulan [] PROGMEM = { "", "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI",
+                                   "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"};
   char buffer[30];
-//  sprintf(buffer,"DTE%s\n",hari[t.dow]);
+  sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(),t.date, bulan[t.mon].c_str(), t.year);
   mySerial.print(buffer);
 }
