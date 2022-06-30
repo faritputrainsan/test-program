@@ -1,8 +1,10 @@
 void serialEvent() {
+  digitalWrite(res, LOW);
+  
   char bcar;
   int idx = 0;
   bcar = Serial.peek();
-  if ((bcar == 'T') or (bcar == 'L')) {
+  if ((bcar == 'T') or (bcar == 'L') or bcar == 'M') {
     while ((bcar != '\n') and (idx < 350)) {
       if (Serial.available()) {
         bcar = (char)Serial.read();
@@ -11,6 +13,7 @@ void serialEvent() {
       }
     }
     dchar [idx - 1] = '\0';
+    
     if (dchar[0] == 'L') {
       blutot = String(dchar);
       if (blutot.substring(1, 3).equals("AT"))       {
@@ -20,8 +23,7 @@ void serialEvent() {
         EEPROM.put(addbjr, blutot.substring(3, blutot.length()).toFloat());
       }
     }
-    else if (dchar[0] == 'T')
-    {
+    else if (dchar[0] == 'M'){
       blutot = String(dchar);
       if (blutot.substring(1, 3).equals("AT"))       {
         EEPROM.put(addltg, blutot.substring(3, blutot.length()).toFloat());
@@ -30,6 +32,16 @@ void serialEvent() {
         EEPROM.put(addbjr, blutot.substring(3, blutot.length()).toFloat());
       }
     }
+    else if (dchar[0] == 'T'){
+      blutot = String(dchar);
+      if(blutot.substring(1,3).equals("XT")){
+        WriteText(Text_add, blutot.substring(3,blutot.length()), lenText);
+      }
+      else if(blutot.substring(1,3).equals("MN")){
+        WriteText(mosName_add, blutot.substring(3,blutot.length()), lenMosName);
+      }
+    }
+  digitalWrite(res, HIGH);
   }
 
   else {
@@ -45,6 +57,7 @@ void serialEvent() {
     }
   }
 }
+
 
 void set_jam() {
   rtc.setTime(blutot.substring (3, 5).toInt(), blutot.substring (5, 7).toInt(), blutot.substring (7, 9).toInt());     // Set the time to 12:00:00 (24hr format)

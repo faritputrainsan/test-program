@@ -32,6 +32,9 @@ char dchar[301];
 
 #define mosName_add  0
 #define Text_add  61
+#define input A3
+
+byte readInput;
 
 String mosName, dataTexts, dayDate; 
 
@@ -59,6 +62,8 @@ void setup() {
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
+  pinMode(input,INPUT);
+  
 
     int state = 0;
     if (state == 0) {
@@ -113,4 +118,8 @@ String jdwlkonversi(int data) {
 //  sprintf (buffer, "%s:%s", str_jam.c_str(), str_mnt.c_str());
     str = str_jam + ":" + str_mnt;
   return (str);
+}
+
+void tmbl(){
+  readInput = digitalRead(input);
 }

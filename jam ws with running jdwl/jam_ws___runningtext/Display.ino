@@ -39,3 +39,29 @@ void jadwal() {
   ronn.clear_D();
   delay(1000);
 }
+
+void displayTpt(byte state) {
+
+  int djwl [] = {0, subuh  , dhuhur , asar  , maghrib , isya};
+  const String slt[] PROGMEM = {"IMSAK", "SUBUH", "DHUHUR", "ASAR", "MAGHRIB", "ISYA'" };
+  String dslt = slt[state];
+
+  char buffer[15];
+  sprintf(buffer, "%s  %s", dslt.c_str(),  jdwlkonversi(djwl[state]).c_str());
+  while (1) {
+    tmbl();
+    runningText(buffer);
+    if (readInput != HIGH)break;
+  }
+}
+
+void iqmah() {
+  const String iqm = "IQOMAH";
+
+  while (1) {
+    tmbl();
+    runningText(iqm);
+    if (readInput != HIGH)break;
+  }
+
+}

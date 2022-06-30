@@ -44,21 +44,22 @@ unsigned long interval2 = 500;
 #define clockPin  10
 // Init DS3231
 
-byte ampli = A1;
-byte res = A3;
+#define ampli  A1
+#define res  A3
+
+#define lenMosName  60
+#define lenText  300
+
+#define mosName_add  0
+#define Text_add  61
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////variable baca serial//////////////////////
 
 String blutot;
-char dchar [51];
-int x;
-char text [200];
-char text1 [100];
-char iqmn [15];
-char tgu [15];
-char jwl [40];
+char dchar [310];
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////variable data sevensegmen/////////////////////////
