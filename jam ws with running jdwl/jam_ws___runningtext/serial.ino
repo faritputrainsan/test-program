@@ -4,7 +4,7 @@ void serial() {
 
   bcar = Serial.peek();
   if ((bcar == 'J') or (bcar == 'D')) {
-    while ((bcar != '\n') and (idx < 310)) {
+    while ((bcar != '\n') and (idx < 160)) {
       if (Serial.available()) {
         bcar = (char)Serial.read();
         dchar [idx] = bcar;

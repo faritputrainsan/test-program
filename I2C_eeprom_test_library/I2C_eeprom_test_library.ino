@@ -92,11 +92,13 @@ void setup()
 
   char data2[] = "test text 256 character untuk test block jumlah nya harus 256 char juga";
 
-  char data[length];
+  //
+
   String text;
   /////////////(address,    data ,           length)
   ee.writeBlock(0      , (uint8_t *) &data2, sizeof(data2));
-
+  
+  char data[length];
   //  dumpEEPROM(0, length);
   int i = 0;
   while ((char)ee.readByte(i) != '\0' and i < 256) {

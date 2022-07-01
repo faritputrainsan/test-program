@@ -25,10 +25,10 @@
 
 I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 
-char dchar[301];
+char dchar[160];
 
-#define lenMosName  60
-#define lenText  300
+#define lenMosName  61
+#define lenText  155
 
 #define mosName_add  0
 #define Text_add  61
@@ -36,7 +36,7 @@ char dchar[301];
 
 byte readInput;
 
-String mosName, dataTexts, dayDate; 
+String mosName, dataTexts, dayDate;
 
 int subuh  , dhuhur , asar  , maghrib , isya  ;
 byte exits = 0;
@@ -62,40 +62,44 @@ void setup() {
   Timer1.attachInterrupt(refresh);
   display.setBrightness(2000);
   buff.clear();
-  pinMode(input,INPUT);
-  
+  pinMode(input, INPUT);
 
-    int state = 0;
-    if (state == 0) {
-      state = 1;
-      ping();
-    }
-    while (1) {
-      if (Serial.available()) {
-        serial();
 
-        if (exits != 0){
-          break;
-        }
+  int state = 0;
+  if (state == 0) {
+    state = 1;
+    ping();
+  }
+  while (1) {
+    if (Serial.available()) {
+      serial();
+      dataTexts = text_read(lenText, Text_add);
+      delay(50);
+      mosName = text_read(lenMosName, mosName_add);
+      delay(50);
+      
+      if (exits != 0) {
+        break;
       }
     }
-  mosName = text_read(lenMosName, mosName_add);
-  dataTexts = text_read(lenText, Text_add);
+  }
+
 }
 
 void loop() {
+  runningText( mosName);
   StaticTxt(dayDate);
   jadwal();
-  runningText( mosName);
   runningText(dataTexts);
+  Serial.println(dataTexts);
 }
 
 String jdwlkonversi(int data) {
 
   int kon_jam;
   int kon_mnt;
-//  char buffer[6];
-    String str;
+  //  char buffer[6];
+  String str;
   String str_jam;
   String str_mnt;
 
@@ -115,11 +119,11 @@ String jdwlkonversi(int data) {
     str_mnt = String(kon_mnt);
   }
 
-//  sprintf (buffer, "%s:%s", str_jam.c_str(), str_mnt.c_str());
-    str = str_jam + ":" + str_mnt;
+  //  sprintf (buffer, "%s:%s", str_jam.c_str(), str_mnt.c_str());
+  str = str_jam + ":" + str_mnt;
   return (str);
 }
 
-void tmbl(){
+void tmbl() {
   readInput = digitalRead(input);
 }

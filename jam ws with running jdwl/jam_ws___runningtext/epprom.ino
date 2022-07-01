@@ -5,7 +5,7 @@ void WriteText(unsigned int address, String text, int length) {
 
   ////////////////////////////////
   // create String to char arrays
-  int len = text.length() + 1;
+  unsigned int len = text.length() + 1;
   char data2[len];
   text.toCharArray(data2, len);
   ////////////////////////////////
@@ -18,12 +18,9 @@ void WriteText(unsigned int address, String text, int length) {
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 String text_read( int length,  int address) {
-
   char data[length];
-
-  
   for (int i = 0; i <  length; i++) {
-    data[i] = (char)eeprom.readByte( address + i  ); 
+    data[i] = eeprom.readByte( address + i); 
   }
   ////////////////////////////////////////
   // kembalikan String

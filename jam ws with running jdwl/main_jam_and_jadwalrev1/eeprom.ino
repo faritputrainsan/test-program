@@ -1,18 +1,23 @@
-void WriteText(unsigned int address, String text, int length) {
+void WriteText(unsigned int address, String text, int lengths) {
   /////////////////////////////////////
-  eeprom.setBlock(address, 0, length);
+  Serial.println(text);
+  Serial.println(text.length());
+  
+  eeprom.setBlock(address, '\0', lengths);
   /////////////////////////////////////
-
+  //strcpy();
   ////////////////////////////////
   // create String to char arrays
-  int len = text.length() + 1;
+  unsigned int len = text.length() + 1;
   char data2[len];
   text.toCharArray(data2, len);
   ////////////////////////////////
 
   /////////////////(address      , data              , length text)
+  //  eeprom.writeBlock(address      , (uint8_t *) &text, sizeof(text));
   eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
   //////////////////////////////////////////////////////////////////
+Serial.println(text_read(lengths, address));
 }
 
 /////////////////////////////////////////////////////////////////////

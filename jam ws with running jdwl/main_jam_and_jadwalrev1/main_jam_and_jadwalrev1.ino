@@ -5,6 +5,7 @@
 #include "PrayerTimes.h"
 #include <SoftwareSerial.h>
 #include "avr/pgmspace.h"
+#include "string.h"
 
 SoftwareSerial mySerial(2, 3);
 ///////////////////////(RX,TX)
@@ -47,18 +48,18 @@ unsigned long interval2 = 500;
 #define ampli  A1
 #define res  A3
 
-#define lenMosName  60
-#define lenText  300
+unsigned int lenMosName = 61;
+unsigned int lenText  = 160;
 
-#define mosName_add  0
-#define Text_add  61
+unsigned int mosName_add = 0;
+unsigned int Text_add = 65;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////variable baca serial//////////////////////
 
 String blutot;
-char dchar [310];
+char dchar [100];
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -100,11 +101,11 @@ void setup() {
 }
 String Serials ;
 void loop() {
-
+  digitalWrite(res, HIGH);
   jam_mtr();
   jdwl();
 
-  if(mySerial.available()){
+  if (mySerial.available()) {
     Serials = mySerial.readString();
     sendData();
   }
@@ -131,7 +132,7 @@ void jdwl() {
   //  EEPROM.get (addltg, lintang);  //Latitude
   //  EEPROM.get (addbjr, bujur);   //Longitude
   //  gmti = EEPROM.read(addgmt);                   //Zona Waktu GMT WIB biasanya 7
-  
+
   gmti = 7 ;
   lintang = -7, 45; //Latitude
   bujur = 110, 21 ; //Longitude
@@ -169,7 +170,8 @@ void jdwl() {
   j_maghrib = combine(hours, minutes + kmgr);
 
   get_float_time_parts(times[6], hours, minutes);
-  j_isya = combine(hours, minutes + kisy);
+  //  + kisy
+  j_isya = combine(hours, minutes );
 }
 
 void tepat() {
