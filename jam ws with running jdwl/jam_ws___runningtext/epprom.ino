@@ -17,10 +17,11 @@ void WriteText(unsigned int address, String text, int length) {
 
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
-String text_read( int length,  int address) {
+String text_read( unsigned int length,  unsigned int address) {
+
   char data[length];
-  for (int i = 0; i <  length; i++) {
-    data[i] = eeprom.readByte( address + i); 
+  for (unsigned int i = 0; i <  length; i++) {
+    data[i] = eeprom.readByte( address + i  );
   }
   ////////////////////////////////////////
   // kembalikan String

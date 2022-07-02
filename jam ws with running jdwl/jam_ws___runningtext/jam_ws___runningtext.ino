@@ -1,4 +1,4 @@
-/****************************
+ /****************************
   HUB08 (matrix led) to ARDUINO pin connection
    LA / A    -> Digital Pin 4
    LB / B    -> Digital Pin 5
@@ -27,11 +27,11 @@ I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 
 char dchar[160];
 
-#define lenMosName  61
-#define lenText  155
+unsigned int lenMosName = 61;
+unsigned int lenText  = 160;
 
-#define mosName_add  0
-#define Text_add  61
+unsigned int mosName_add = 0;
+unsigned int Text_add = 65;
 #define input A3
 
 byte readInput;
@@ -91,7 +91,7 @@ void loop() {
   StaticTxt(dayDate);
   jadwal();
   runningText(dataTexts);
-  Serial.println(dataTexts);
+//  Serial.println(dataTexts);
 }
 
 String jdwlkonversi(int data) {
