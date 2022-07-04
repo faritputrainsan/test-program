@@ -90,7 +90,7 @@ void setup()
   int length = 256;
   ee.setBlock(0, 0, length);
 
-  char data2[] = "test text 256 character untuk test block jumlah nya harus 256 char juga";
+  char data2[] = "test text 256 character untuk test block jumlah nya harus 256 char juga test dengan text yang lebih panjang dari 60 karakter apakah akan over load lagi hahahahahaha";
 
   //
 
@@ -99,14 +99,13 @@ void setup()
   ee.writeBlock(0      , (uint8_t *) &data2, sizeof(data2));
   
   char data[length];
-  //  dumpEEPROM(0, length);
-  int i = 0;
-  while ((char)ee.readByte(i) != '\0' and i < 256) {
-    data[i] = (char)ee.readByte(i);
-    SERIAL_OUT.print((String)data[i]);
-    i++;
-
-  }
+//  //  dumpEEPROM(0, length);
+//  int i = 0;
+//  while ((char)ee.readByte(i) != '\0' and i < 256) {
+//    data[i] = (char)ee.readByte(i);
+//    SERIAL_OUT.print((String)data[i]);
+//    i++;
+//  }
 
 
   for (int x = 0; x < 256; x++) {
@@ -258,5 +257,4 @@ void dumpEEPROM(uint16_t memoryAddress, uint16_t length)
   }
   SERIAL_OUT.println();
 }
-
 // END OF FILE
