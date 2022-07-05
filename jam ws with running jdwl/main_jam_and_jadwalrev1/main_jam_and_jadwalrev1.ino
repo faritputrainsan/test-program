@@ -54,13 +54,11 @@ unsigned int lenText  = 160;
 unsigned int mosName_add = 0;
 unsigned int Text_add = 65;
 
-
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////variable baca serial//////////////////////
 
 String blutot;
 char dchar [100];
-
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////variable data sevensegmen/////////////////////////
@@ -77,7 +75,6 @@ int iqdtk;
 
 int j_ims, m_ims, j_sub, m_sub, j_dzu, m_dzu, j_ash, m_ash, j_mag, m_mag, j_isy, m_isy;
 int j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya;
-
 
 void setup() {
 
@@ -97,8 +94,8 @@ void setup() {
   digitalWrite(res, LOW);
   delay(500);
   digitalWrite(res, HIGH);
-
 }
+
 String Serials ;
 void loop() {
   digitalWrite(res, HIGH);
@@ -109,18 +106,6 @@ void loop() {
     Serials = mySerial.readString();
     sendData();
   }
-
-  //
-  //  Serial.print(t.hour);
-  //  Serial.print(" : ");
-  //  Serial.print(t.min);
-  //  Serial.print(" : ");
-  //  Serial.println(t.sec);
-  //  delay(1000);
-  //
-  //  jam_mtr();
-
-
 }
 
 void data() {

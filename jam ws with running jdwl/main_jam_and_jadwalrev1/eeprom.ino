@@ -1,28 +1,28 @@
 void WriteText(unsigned int address, String text, unsigned int lengths) {
   /////////////////////////////////////
-//  Serial.println(text);
-//  Serial.println(text.length());
+  //  Serial.println(text);
+  //  Serial.println(text.length());
 
   eeprom.setBlock(address, '\0', lengths);
   /////////////////////////////////////
   //strcpy();
   ////////////////////////////////
   // create String to char arrays
-
-
-
   ////////////////////////////////
 
-  unsigned  int Tlength = text.length() + 1;
-
+  unsigned int Tlength = text.length() + 1;
+  unsigned int lengthMax = 60;
+  String splitText ;
+  int x = 0;
+  int y = 0;
   for (unsigned int i =  0; i  < Tlength ; i++) {
-    if (Tlength % 60 == 0){
-      
+    if (Tlength % lengthMax == 0) {
+      splitText = text.substring(x, lengthMax * y);
     }
     unsigned int len = text.length() + 1;
     char data2[len];
     text.toCharArray(data2, len);
-//    Serial.println(len);
+    //    Serial.println(len);
     /////////////////(address      , data              , length text)
     eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
 
