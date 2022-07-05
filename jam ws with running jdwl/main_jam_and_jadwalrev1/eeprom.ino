@@ -14,19 +14,25 @@ void WriteText(unsigned int address, String text, unsigned int lengths) {
   unsigned int lengthMax = 60;
   String splitText ;
   int x = 0;
-  int y = 0;
+  int y = 1;
   for (unsigned int i =  0; i  < Tlength ; i++) {
-    if (Tlength % lengthMax == 0) {
+    if (Tlength / lengthMax == 0) {
       splitText = text.substring(x, lengthMax * y);
+      unsigned int len = text.length() + 1;
+      char data2[len];
+      text.toCharArray(data2, len);
+      eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
     }
-    unsigned int len = text.length() + 1;
-    char data2[len];
-    text.toCharArray(data2, len);
+    else if (Tlength % lengthMax == 0) {
+      splitText = text.substring(x, lengthMax * y);
+      unsigned int len = text.length() + 1;
+      char data2[len];
+      text.toCharArray(data2, len);
+      /////////////////(address      , data              , length text)
+      eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
+    }
     //    Serial.println(len);
-    /////////////////(address      , data              , length text)
-    eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
-
-  }
+      }
   //  eeprom.writeBlock(address      , (uint8_t *) &text, sizeof(text));
   //////////////////////////////////////////////////////////////////
   Serial.println(text_read(lengths, address));

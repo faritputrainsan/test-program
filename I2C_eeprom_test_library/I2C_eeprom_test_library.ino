@@ -97,15 +97,15 @@ void setup()
   String text;
   /////////////(address,    data ,           length)
   ee.writeBlock(0      , (uint8_t *) &data2, sizeof(data2));
-  
+
   char data[length];
-//  //  dumpEEPROM(0, length);
-//  int i = 0;
-//  while ((char)ee.readByte(i) != '\0' and i < 256) {
-//    data[i] = (char)ee.readByte(i);
-//    SERIAL_OUT.print((String)data[i]);
-//    i++;
-//  }
+  //  //  dumpEEPROM(0, length);
+  //  int i = 0;
+  //  while ((char)ee.readByte(i) != '\0' and i < 256) {
+  //    data[i] = (char)ee.readByte(i);
+  //    SERIAL_OUT.print((String)data[i]);
+  //    i++;
+  //  }
 
 
   for (int x = 0; x < 256; x++) {
@@ -238,9 +238,16 @@ void dumpEEPROM(uint16_t memoryAddress, uint16_t length)
   SERIAL_OUT.println();
 
   // block to defined length
-  memoryAddress = memoryAddress / BLOCK_TO_LENGTH * BLOCK_TO_LENGTH;
-  length = (length + BLOCK_TO_LENGTH - 1) / BLOCK_TO_LENGTH * BLOCK_TO_LENGTH;
 
+  memoryAddress = memoryAddress / BLOCK_TO_LENGTH * BLOCK_TO_LENGTH;
+//                  0/10*10
+//                  0
+
+  length = (length + BLOCK_TO_LENGTH - 1) / BLOCK_TO_LENGTH * BLOCK_TO_LENGTH;
+  //          (101+10-1)/10*10;
+  //          (110)/10*10
+  //          11*10;
+  //          110
   byte b = ee.readByte(memoryAddress);
   for (unsigned int i = 0; i < length; i++) {
     char buf[6];
