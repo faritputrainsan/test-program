@@ -22,34 +22,16 @@ void loop() {
   for (int i = 0; i < lenSplitTxt+1; i++) {
 //    reset string untuk di isi lagi
     String splitText = " ";
-    x = 60 * y;
+    x = MaxText * y;
     y ++;
     //    x = 60;
-    int xx = 60 * y;
-    Serial.print("y = ");
-    Serial.println(y);
-    Serial.print("x = ");
-    Serial.println(x);
+    int xx = MaxText * y;
+
     splitText = texts.substring(x, xx);
     Serial.println(splitText);
     delay(1000);
-    
-    Serial.print("xx = ");
-    Serial.println(xx);
-    Serial.println(" ");
-    Serial.println(" ");
-    delay(1000);
   }
 
-
-  //  for (unsigned int i = 0; i < TextLength; i++){
-  //    if (TextLength){
-  //
-  //    }
-  //}
-  //
-  //  Serial.println(lenSplitTxt);
-  //  Serial.println(texts.length());
   delay(2000);
 }
 
