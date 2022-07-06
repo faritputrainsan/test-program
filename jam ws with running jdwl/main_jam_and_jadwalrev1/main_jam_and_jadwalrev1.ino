@@ -67,7 +67,7 @@ char dchar [100];
 
 int segChar[] = {0xbf, 0x0a, 0xdd, 0x5f, 0x6b, 0x77, 0xf7, 0x1a, 0xff, 0x7f};
 
-//const String hari[] = {"SENIN","SELASA","RABU","KAMIS","JUM'AT","SABTU","AHAD"};
+ty s5cfuhbynml ,csj k gf hbju vn 8o  ,m
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////variable data jam//////////////////////////////////////
@@ -114,13 +114,13 @@ void data() {
 
 void jdwl() {
 
-  //  EEPROM.get (addltg, lintang);  //Latitude
-  //  EEPROM.get (addbjr, bujur);   //Longitude
-  //  gmti = EEPROM.read(addgmt);                   //Zona Waktu GMT WIB biasanya 7
+    EEPROM.get (addltg, lintang);  //Latitude
+    EEPROM.get (addbjr, bujur);   //Longitude
+    gmti = EEPROM.read(addgmt);                   //Zona Waktu GMT WIB biasanya 7
 
-  gmti = 7 ;
-  lintang = -7, 45; //Latitude
-  bujur = 110, 21 ; //Longitude
+//  gmti = 7 ;
+//  lintang = -7, 45; //Latitude
+//  bujur = 110, 21 ; //Longitude
 
   EEPROM.get(addksbh, ksbh);
   EEPROM.get(addkzhr, kzhr);

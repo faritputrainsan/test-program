@@ -1,60 +1,26 @@
-void WriteText(unsigned int address, String text, unsigned int lengths) {
-  /////////////////////////////////////
-  //  Serial.println(text);
-  //  Serial.println(text.length());
-
-  eeprom.setBlock(address, '\0', lengths);
-  /////////////////////////////////////
-  //strcpy();
-  ////////////////////////////////
-  // create String to char arrays
-  ////////////////////////////////
-
-
+void WriteText(unsigned int address,  unsigned int lengths) {
+  
+  String text = blutot.substring(3, blutot.length());
   unsigned int TextLength = text.length();
   unsigned int MaxText = 60;
   int lenSplitTxt = TextLength / MaxText;
-  int x = 0, y = 0;
 
-  for (int i = 0; i < lenSplitTxt; i++) {
+  int x = 0, y = 0;
+  for (int i = 0; i < lenSplitTxt + 1; i++) {
+    //    reset string untuk di isi lagi
     String splitText = " ";
     x = MaxText * y;
-    y++;
+    y ++;
+    //    x = 60;
     int xx = MaxText * y;
+
     splitText = text.substring(x, xx);
-    unsigned int len = splitText.length() + 1;
-    char data2[len];
-    splitText.toCharArray(data2, len);
-    eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
-    delay(100);
+     delay(1000);
+    Serial.println(splitText);
+   
   }
 
-  //  unsigned int Tlength = text.length() + 1;
-  //  unsigned int lengthMax = 60;
-  //  String splitText ;
-  //  int x = 0;
-  //  int y = 1;
-  //  for (unsigned int i =  0; i  < Tlength ; i++) {
-  //    if (Tlength / lengthMax == 0) {
-  //      splitText = text.substring(x, lengthMax * y);
-  //      unsigned int len = text.length() + 1;
-  //      char data2[len];
-  //      text.toCharArray(data2, len);
-  //      eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
-  //    }
-  //    else if (Tlength % lengthMax == 0) {
-  //      splitText = text.substring(x, lengthMax * y);
-  //      unsigned int len = text.length() + 1;
-  //      char data2[len];
-  //      text.toCharArray(data2, len);
-  //      /////////////////(address      , data              , length text)
-  //      eeprom.writeBlock(address      , (uint8_t *) &data2, sizeof(data2));
-  //    }
-  //    //    Serial.println(len);
-  //  }
-  //  eeprom.writeBlock(address      , (uint8_t *) &text, sizeof(text));
-  //////////////////////////////////////////////////////////////////
-  Serial.println(text_read(lengths, address));
+  delay(2000);
 }
 
 /////////////////////////////////////////////////////////////////////

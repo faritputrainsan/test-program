@@ -2,6 +2,17 @@ void serialEvent() {
   digitalWrite(res, LOW);
   char bcar;
   int idx = 0;
+
+  blutot = Serial.readString();
+  //      Serial.println(blutot);
+  if (blutot.substring (0, 3) == "SJM")set_jam();
+  else if (blutot.substring (0, 3) == "SGM")gmt();
+  else if (blutot.substring (0, 3) == "SIQ")Siqomah();
+  else if (blutot.substring (0, 3) == "STG")Stunggu();
+  else if (blutot.substring (0, 3) == "SKS")koreksi();
+  else if (blutot.substring (0, 3) == "TXS")WriteText(Text_add,  lenText);
+  else if (blutot.substring (0, 3) == "TMN")WriteText(mosName_add, lenMosName);
+
   bcar = Serial.peek();
   if ((bcar == 'L') or bcar == 'M') {
     while ((bcar != '\n') and (idx < 165)) {
@@ -12,7 +23,6 @@ void serialEvent() {
       }
     }
     dchar [idx - 1] = '\0';
-
     if (dchar[0] == 'L') {
       blutot = String(dchar);
       if (blutot.substring(1, 3).equals("AT"))       {
@@ -31,39 +41,6 @@ void serialEvent() {
         EEPROM.put(addbjr, blutot.substring(3, blutot.length()).toFloat());
       }
     }
-    //    else if (dchar[0] == 'T') {
-    //      blutot = String(dchar);
-    //
-    //      if (blutot.substring(1, 3).equals("XS")) {
-    //                WriteText(Text_add, blutot.substring(3, blutot.length()), lenText);
-    ////        unsigned len = text.length() + 1;
-    ////        //  char data2[len];
-    ////        //  text.toCharArray(data2, len);
-    ////        WriteText(Text_add, dchar, lenText);
-    //
-    //      }
-    //      else if (blutot.substring(1, 3).equals("MN")) {
-    //                WriteText(mosName_add, blutot.substring(3, blutot.length()), lenMosName);
-    ////        WriteText(mosName_add, dchar, lenMosName);
-    //      }
-    //
-    //    }
-  }
-
-  else {
-    //    display.clear();
-    if (Serial.available()) {
-      blutot = Serial.readString();
-      if (blutot.substring (0, 3) == "SJM")set_jam();
-      else if (blutot.substring (0, 3) == "SGM")gmt();
-      else if (blutot.substring (0, 3) == "SIQ")Siqomah();
-      else if (blutot.substring (0, 3) == "STG")Stunggu();
-      else if (blutot.substring (0, 3) == "SKS")koreksi();
-      else if (blutot.substring (0, 3) == "TXS")WriteText(Text_add, blutot.substring(3, blutot.length()), lenText);
-      else if (blutot.substring (0, 3) == "TMN")WriteText(mosName_add, blutot.substring(3, blutot.length()), lenMosName);
-
-      //      else if (blutot.substring (0, 3) == "SSS")uji();
-    }
   }
 }
 
@@ -75,7 +52,6 @@ void set_jam() {
 }
 
 void gmt() {
-
   EEPROM.write(addgmt, blutot.substring (3, 4).toInt());
   gmti = EEPROM.read(addgmt);
 }
@@ -144,17 +120,17 @@ void sendData() {
 }
 
 void sendJadwal() {
-  char buffer[40];
-  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
-  mySerial.print(buffer);
+//  char buffer[40];
+//  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
+//  mySerial.print(buffer);
 }
 
 void sendTanggal() {
-  const String hari [] PROGMEM = { "", "AHAD", "SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", "SABTU"};
-  const String bulan [] PROGMEM = { "", "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI",
-                                    "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"
-                                  };
-  char buffer[30];
-  sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
-  mySerial.print(buffer);
+//  const String hari [] PROGMEM = { "", "AHAD", "SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", "SABTU"};
+//  const String bulan [] PROGMEM = { "", "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI",
+//                                    "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"
+//                                  };
+//  char buffer[30];
+//  sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
+//  mySerial.print(buffer);
 }
