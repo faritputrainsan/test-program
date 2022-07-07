@@ -1,12 +1,16 @@
 void iqm(byte islt) {
   //  char tiq [3];
   //  char diq [3];
-  iqdtk = 0;
-  if (islt == 0)iqmah = EEPROM.read(addsbh);
-  else if (islt == 1) iqmah = EEPROM.read(addlhr);
-  else if (islt == 2)iqmah = EEPROM.read(addasr);
-  else if (islt == 3) iqmah = EEPROM.read(addmgr);
-  else if (islt == 4)iqmah = EEPROM.read(addisy);
+  int iqmah[] = {EEPROM.read(addsbh), EEPROM.read(addlhr), EEPROM.read(addasr),
+                 EEPROM.read(addmgr), EEPROM.read(addisy)
+                };
+  int iqdtk = 0;
+  byte dtiqm = iqmah[islt];
+  //  if (islt == 0)iqmah = EEPROM.read(addsbh);
+  //  else if (islt == 1) iqmah = EEPROM.read(addlhr);
+  //  else if (islt == 2)iqmah = EEPROM.read(addasr);
+  //  else if (islt == 3) iqmah = EEPROM.read(addmgr);
+  //  else if (islt == 4)iqmah = EEPROM.read(addisy);
 
   while (1) {
     digitalWrite(strobePin, LOW);
@@ -28,20 +32,20 @@ void iqm(byte islt) {
 
     }
 
-    shiftOut(dataPin, clockPin, MSBFIRST, segChar[iqmah / 10]);
-    shiftOut(dataPin, clockPin, MSBFIRST, segChar[iqmah % 10]);
-    shiftOut(dataPin, clockPin, MSBFIRST, segChar[iqdtk / 10]);
-    shiftOut(dataPin, clockPin, MSBFIRST, segChar[iqdtk % 10]);
+    shiftOut(dataPin, clockPin, MSBFIRST, segChar[dtiqm / 10]);
+    shiftOut(dataPin, clockPin, MSBFIRST, segChar[dtiqm % 10]);
+    shiftOut(dataPin, clockPin, MSBFIRST, segChar[dtiqm / 10]);
+    shiftOut(dataPin, clockPin, MSBFIRST, segChar[dtiqm % 10]);
     digitalWrite(strobePin, HIGH);
 
 
     if (iqdtk < 0)
     {
-      if (iqmah <= 0 ) {
+      if (dtiqm <= 0 ) {
         break;
       }
       else {
-        iqmah --;
+        dtiqm --;
         iqdtk = 59;
       }
     }
@@ -52,22 +56,26 @@ void iqm(byte islt) {
 
 
 void tunggu(byte i) {
-  iqdtk = 0;
+  int iqdtk = 0;
+  byte   tggu[] = {EEPROM.read(addsubuh), EEPROM.read(addzuhur ),
+                   EEPROM.read(addashar),EEPROM.read(addmaghrib),
+                   EEPROM.read(addisya)
+                  };
   digitalWrite(strobePin, LOW);
-
-  if (i == 0)tggu = EEPROM.read(addsubuh);
-  else if (i == 1) tggu = EEPROM.read(addzuhur );
-  else if (i == 2)tggu = EEPROM.read(addashar);
-  else if (i == 3) tggu = EEPROM.read(addmaghrib);
-  else if (i == 4)tggu = EEPROM.read(addisya);
+  byte dttg = tggu[i];
+  //  if (i == 0)tggu = EEPROM.read(addsubuh);
+  //  else if (i == 1) tggu = EEPROM.read(addzuhur );
+  //  else if (i == 2)tggu = EEPROM.read(addashar);
+  //  else if (i == 3) tggu = EEPROM.read(addmaghrib);
+  //  else if (i == 4)tggu = EEPROM.read(addisya);
 
   while (1) {
     if (iqdtk < 0) {
-      if (tggu <= 0 ) {
+      if (dttg <= 0 ) {
         break;
       }
       else {
-        tggu --;
+        dttg --;
         iqdtk = 59;
       }
     }
@@ -81,8 +89,8 @@ void jam_mtr() {
   run();
 }
 
-int interval = 10;
-unsigned long previusMillis = 0;
+//int interval = 10;
+//unsigned long previusMillis = 0;
 void run() {
   //  unsigned long currenMillis = millis();
   //  if (currenMillis - previusMillis >= interval) {
@@ -103,7 +111,7 @@ void data_jam() {
 
 void display_tepat (int a) {
   int stlh = 5;
-  iqdtk = 0;
+  int iqdtk = 0;
   while (1) {
     data();
     if (iqdtk < 0)

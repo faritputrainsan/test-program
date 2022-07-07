@@ -20,10 +20,10 @@ I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 ///////////////////////////////////////////////////////////////////////////variable EEPROM////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 double lintang, addltg = 0 , bujur, addbjr = 4;
-byte iqmah, addsbh = 8 , addlhr = 9 , addasr = 10 , addmgr = 11 , addisy = 12;
+byte addsbh = 8 , addlhr = 9 , addasr = 10 , addmgr = 11 , addisy = 12;
 byte gmti, addgmt = 13;
 
-byte   tggu, addsubuh = 14,  addzuhur = 15 ,   addashar = 16,  addmaghrib = 17, addisya = 18;
+byte addsubuh = 14,  addzuhur = 15 ,   addashar = 16,  addmaghrib = 17, addisya = 18;
 
 int  ksbh, kzhr, kasr, kmgr, kisy, addksbh = 19, addkzhr = 21, addkasr = 23, addkmgr = 25, addkisy = 27;
 
@@ -58,7 +58,6 @@ unsigned int Text_add = 65;
 ////////////////variable baca serial//////////////////////
 
 String blutot;
-char dchar [100];
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////variable data sevensegmen/////////////////////////
@@ -67,13 +66,9 @@ char dchar [100];
 
 int segChar[] = {0xbf, 0x0a, 0xdd, 0x5f, 0x6b, 0x77, 0xf7, 0x1a, 0xff, 0x7f};
 
-ty s5cfuhbynml ,csj k gf hbju vn 8o  ,m
-
 ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////variable data jam//////////////////////////////////////
-int iqdtk;
 
-int j_ims, m_ims, j_sub, m_sub, j_dzu, m_dzu, j_ash, m_ash, j_mag, m_mag, j_isy, m_isy;
 int j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya;
 
 void setup() {
@@ -96,14 +91,14 @@ void setup() {
   digitalWrite(res, HIGH);
 }
 
-String Serials ;
+
 void loop() {
   digitalWrite(res, HIGH);
   jam_mtr();
   jdwl();
 
   if (mySerial.available()) {
-    Serials = mySerial.readString();
+    
     sendData();
   }
 }
@@ -114,13 +109,13 @@ void data() {
 
 void jdwl() {
 
-    EEPROM.get (addltg, lintang);  //Latitude
-    EEPROM.get (addbjr, bujur);   //Longitude
-    gmti = EEPROM.read(addgmt);                   //Zona Waktu GMT WIB biasanya 7
+  EEPROM.get (addltg, lintang);  //Latitude
+  EEPROM.get (addbjr, bujur);   //Longitude
+  gmti = EEPROM.read(addgmt);                   //Zona Waktu GMT WIB biasanya 7
 
-//  gmti = 7 ;
-//  lintang = -7, 45; //Latitude
-//  bujur = 110, 21 ; //Longitude
+  //  gmti = 7 ;
+  //  lintang = -7, 45; //Latitude
+  //  bujur = 110, 21 ; //Longitude
 
   EEPROM.get(addksbh, ksbh);
   EEPROM.get(addkzhr, kzhr);
@@ -160,8 +155,7 @@ void jdwl() {
 }
 
 void tepat() {
-  if (j_subuh == combine(t.hour, t.min))
-  {
+  if (j_subuh == combine(t.hour, t.min)) {
     beep();
     display_tepat(0);
 
@@ -169,8 +163,7 @@ void tepat() {
     beep1();
     tunggu(0);
   }
-  else if (j_dzuhur == combine(t.hour, t.min))
-  {
+  else if (j_dzuhur == combine(t.hour, t.min)) {
     beep();
     display_tepat(1);
 
@@ -178,8 +171,7 @@ void tepat() {
     beep1();
     tunggu(1);
   }
-  else if (j_ashar == combine(t.hour, t.min))
-  {
+  else if (j_ashar == combine(t.hour, t.min)) {
     beep();
     display_tepat(2);
 
@@ -187,8 +179,7 @@ void tepat() {
     beep1();
     tunggu(2);
   }
-  else if (j_maghrib == combine(t.hour, t.min))
-  {
+  else if (j_maghrib == combine(t.hour, t.min)) {
     beep();
     display_tepat(3);
 
@@ -196,8 +187,7 @@ void tepat() {
     beep1();
     tunggu(3);
   }
-  else if (j_isya == combine(t.hour, t.min))
-  {
+  else if (j_isya == combine(t.hour, t.min)) {
     beep();
     display_tepat(4);
 
@@ -209,96 +199,96 @@ void tepat() {
 
 void beep() {
 
-  int beb = 2000;
-  while (1) {
-    digitalWrite(strobePin, HIGH);
-    digitalWrite(ampli, 0);
-    delay(beb);
-    digitalWrite(ampli, 1);
-    delay(beb);
-    beb = beb - 200;
-    if (beb == 0)
-    {
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(100);
-      digitalWrite(ampli, 1);
-      delay(100);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      delay(50);
-      digitalWrite(ampli, 1);
-      delay(50);
-      digitalWrite(ampli, 0);
-      break;
-    }
-  }
+  //  int beb = 2000;
+  //  while (1) {
+  //    digitalWrite(strobePin, HIGH);
+  //    digitalWrite(ampli, 0);
+  //    delay(beb);
+  //    digitalWrite(ampli, 1);
+  //    delay(beb);
+  //    beb = beb - 200;
+  //    if (beb == 0)
+  //    {
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(100);
+  //      digitalWrite(ampli, 1);
+  //      delay(100);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      delay(50);
+  //      digitalWrite(ampli, 1);
+  //      delay(50);
+  //      digitalWrite(ampli, 0);
+  //      break;
+  //    }
+  //  }
 }
 
 void beep1() {

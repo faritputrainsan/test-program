@@ -1,5 +1,6 @@
 void serialEvent() {
   digitalWrite(res, LOW);
+  char dchar [300];
   char bcar;
   int idx = 0;
 
@@ -57,7 +58,6 @@ void gmt() {
 }
 
 void Siqomah() {
-
   EEPROM.write(addsbh, blutot.substring (3, 5).toInt());
   EEPROM.write(addlhr, blutot.substring (5, 7).toInt());
   EEPROM.write(addasr, blutot.substring (7, 9).toInt());
@@ -108,7 +108,9 @@ void koreksi() {
 
 
 void sendData() {
+  String Serials ;
   while (1) {
+    Serials = mySerial.readString();
     if ( Serials.substring(0, 4) == "Ping") {
       Serials = '\0';
       sendJadwal();
@@ -120,17 +122,17 @@ void sendData() {
 }
 
 void sendJadwal() {
-//  char buffer[40];
-//  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
-//  mySerial.print(buffer);
+  //  char buffer[40];
+  //  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
+  //  mySerial.print(buffer);
 }
 
 void sendTanggal() {
-//  const String hari [] PROGMEM = { "", "AHAD", "SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", "SABTU"};
-//  const String bulan [] PROGMEM = { "", "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI",
-//                                    "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"
-//                                  };
-//  char buffer[30];
-//  sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
-//  mySerial.print(buffer);
+  //  const String hari [] PROGMEM = { "", "AHAD", "SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", "SABTU"};
+  //  const String bulan [] PROGMEM = { "", "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI",
+  //                                    "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"
+  //                                  };
+  //  char buffer[30];
+  //  sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
+  //  mySerial.print(buffer);
 }
