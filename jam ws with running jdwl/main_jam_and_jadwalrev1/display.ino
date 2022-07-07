@@ -14,23 +14,23 @@ void iqm(byte islt) {
 
   while (1) {
     digitalWrite(strobePin, LOW);
-    if (islt == 0) {
-
-
-    }
-    else if (islt == 1) {
-
-    }
-    else if (islt == 2) {
-
-    }
-
-    else if (islt == 3) {
-
-    }
-    else if (islt == 4) {
-
-    }
+//    if (islt == 0) {
+//
+//
+//    }
+//    else if (islt == 1) {
+//
+//    }
+//    else if (islt == 2) {
+//
+//    }
+//
+//    else if (islt == 3) {
+//
+//    }
+//    else if (islt == 4) {
+//
+//    }
 
     shiftOut(dataPin, clockPin, MSBFIRST, segChar[dtiqm / 10]);
     shiftOut(dataPin, clockPin, MSBFIRST, segChar[dtiqm % 10]);
@@ -89,15 +89,8 @@ void jam_mtr() {
   run();
 }
 
-//int interval = 10;
-//unsigned long previusMillis = 0;
 void run() {
-  //  unsigned long currenMillis = millis();
-  //  if (currenMillis - previusMillis >= interval) {
-  //    previusMillis = currenMillis;
   data_jam();
-
-  //  }
 }
 
 void data_jam() {

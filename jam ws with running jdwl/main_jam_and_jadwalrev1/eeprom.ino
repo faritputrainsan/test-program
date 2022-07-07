@@ -1,6 +1,8 @@
-void WriteText(unsigned int address,  unsigned int lengths) {
-  
-  String text = blutot.substring(3, blutot.length());
+void WriteText(unsigned int address, String text,  unsigned int lengths) {
+
+  //  String text = blutot.substring(3, blutot.length());
+  //  String text ;
+  Serial.println(text);
   unsigned int TextLength = text.length();
   unsigned int MaxText = 60;
   int lenSplitTxt = TextLength / MaxText;
@@ -15,9 +17,8 @@ void WriteText(unsigned int address,  unsigned int lengths) {
     int xx = MaxText * y;
 
     splitText = text.substring(x, xx);
-     delay(1000);
+    delay(1000);
     Serial.println(splitText);
-   
   }
 
   delay(2000);

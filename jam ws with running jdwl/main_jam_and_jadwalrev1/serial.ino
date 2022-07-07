@@ -1,18 +1,11 @@
 void serialEvent() {
   digitalWrite(res, LOW);
-  char dchar [300];
+  String blutot;
+  char dchar [70];
   char bcar;
   int idx = 0;
 
-  blutot = Serial.readString();
   //      Serial.println(blutot);
-  if (blutot.substring (0, 3) == "SJM")set_jam();
-  else if (blutot.substring (0, 3) == "SGM")gmt();
-  else if (blutot.substring (0, 3) == "SIQ")Siqomah();
-  else if (blutot.substring (0, 3) == "STG")Stunggu();
-  else if (blutot.substring (0, 3) == "SKS")koreksi();
-  else if (blutot.substring (0, 3) == "TXS")WriteText(Text_add,  lenText);
-  else if (blutot.substring (0, 3) == "TMN")WriteText(mosName_add, lenMosName);
 
   bcar = Serial.peek();
   if ((bcar == 'L') or bcar == 'M') {
@@ -43,96 +36,83 @@ void serialEvent() {
       }
     }
   }
-}
-
-
-void set_jam() {
-  rtc.setTime(blutot.substring (3, 5).toInt(), blutot.substring (5, 7).toInt(), blutot.substring (7, 9).toInt());     // Set the time to 12:00:00 (24hr format)
-  rtc.setDate(blutot.substring (9, 11).toInt(), blutot.substring (11, 13).toInt(), blutot.substring (13, 17).toInt());     // Set the time to 12:00:00 (24hr format)
-  rtc.setDOW(blutot.substring (17, 18).toInt());
-}
-
-void gmt() {
-  EEPROM.write(addgmt, blutot.substring (3, 4).toInt());
-  gmti = EEPROM.read(addgmt);
-}
-
-void Siqomah() {
-  EEPROM.write(addsbh, blutot.substring (3, 5).toInt());
-  EEPROM.write(addlhr, blutot.substring (5, 7).toInt());
-  EEPROM.write(addasr, blutot.substring (7, 9).toInt());
-  EEPROM.write(addmgr, blutot.substring (9, 11).toInt());
-  EEPROM.write(addisy, blutot.substring (11, 13).toInt());
-
-  byte isb, ilh, ias, img, iis;
-
-  isb = EEPROM.read(addsbh);
-  ilh = EEPROM.read(addlhr);
-  ias = EEPROM.read(addasr);
-  img = EEPROM.read(addmgr);
-  iis = EEPROM.read(addisy);
-}
-
-void Stunggu() {
-
-  EEPROM.write(addsubuh, blutot.substring (3, 5).toInt());
-  EEPROM.write(addzuhur, blutot.substring (5, 7).toInt());
-  EEPROM.write(addashar, blutot.substring (7, 9).toInt());
-  EEPROM.write(addmaghrib, blutot.substring (9, 11).toInt());
-  EEPROM.write(addisya, blutot.substring (11, 13).toInt());
-
-  byte isb, ilh, ias, img, iis;
-
-  isb = EEPROM.read(addsubuh);
-  ilh = EEPROM.read(addzuhur);
-  ias = EEPROM.read(addashar);
-  img = EEPROM.read(addmaghrib);
-  iis = EEPROM.read(addisya);
-}
-
-void koreksi() {
-
-  EEPROM.put(addksbh, blutot.substring (3, 5).toInt());
-  EEPROM.put(addkzhr, blutot.substring (5, 7).toInt());
-  EEPROM.put(addkasr, blutot.substring (7, 9).toInt());
-  EEPROM.put(addkmgr, blutot.substring (9, 11).toInt());
-  EEPROM.put(addkisy, blutot.substring (11, 13).toInt());
-
-  EEPROM.get(addksbh, ksbh);
-  EEPROM.get(addkzhr, kzhr);
-  EEPROM.get(addkasr, kasr);
-  EEPROM.get(addkmgr, kmgr);
-  EEPROM.get(addkisy, kisy);
-}
-
-
-
-void sendData() {
-  String Serials ;
-  while (1) {
-    Serials = mySerial.readString();
-    if ( Serials.substring(0, 4) == "Ping") {
-      Serials = '\0';
-      sendJadwal();
-      delay(100);
-      sendTanggal();
-    }
-    break;
+  else {
+//    Serial.println(Serial.readString());
+    saveData(Serial.readString());
+    
   }
 }
 
+void saveData(String data) {
+
+  // setting jam
+  if (data.substring (0, 3) == "SJM") {
+    rtc.setTime(data.substring (3, 5).toInt(), data.substring (5, 7).toInt(), data.substring (7, 9).toInt());     // Set the time to 12:00:00 (24hr format)
+    rtc.setDate(data.substring (9, 11).toInt(), data.substring (11, 13).toInt(), data.substring (13, 17).toInt());    // Set the time to 12:00:00 (24hr format)
+    rtc.setDOW(data.substring (17, 18).toInt());
+  }
+  // setting GMT
+  else if (data.substring (0, 3) == "SGM") {
+    EEPROM.write(addgmt, data.substring (3, 4).toInt());
+    gmti = EEPROM.read(addgmt);
+  }
+  //  timer iqomah
+  else if (data.substring (0, 3) == "SIQ") {
+    EEPROM.write(addsbh, data.substring (3, 5).toInt());
+    EEPROM.write(addlhr, data.substring (5, 7).toInt());
+    EEPROM.write(addasr, data.substring (7, 9).toInt());
+    EEPROM.write(addmgr, data.substring (9, 11).toInt());
+    EEPROM.write(addisy, data.substring (11, 13).toInt());
+  }
+  //  timer tunggu
+  else if (data.substring (0, 3) == "STG") {
+    EEPROM.write(addsubuh, data.substring (3, 5).toInt());
+    EEPROM.write(addzuhur, data.substring (5, 7).toInt());
+    EEPROM.write(addashar, data.substring (7, 9).toInt());
+    EEPROM.write(addmaghrib, data.substring (9, 11).toInt());
+    EEPROM.write(addisya, data.substring (11, 13).toInt());
+  }
+  //  seting koreksi jadwal
+  else if (data.substring (0, 3) == "SKS") {
+    EEPROM.put(addksbh, data.substring (3, 5).toInt());
+    EEPROM.put(addkzhr, data.substring (5, 7).toInt());
+    EEPROM.put(addkasr, data.substring (7, 9).toInt());
+    EEPROM.put(addkmgr, data.substring (9, 11).toInt());
+    EEPROM.put(addkisy, data.substring (11, 13).toInt());
+  }
+  //  simpan texts ke external eeprom
+  else if (data.substring (0, 3) == "TXS")WriteText(Text_add, data.substring(3, data.length()),  lenText);
+  //  simpan nama majid ke external eeprom
+  else if (data.substring (0, 3) == "TMN")WriteText(mosName_add, data.substring(3, data.length()), lenMosName);
+  // send data ke mcu running text
+//  else if (data.substring (0, 3) == "PNG")sendData();
+
+}
+
+void sendData() {
+  //  String Serials ;
+
+    //    Serials = mySerial.readString();
+//    Serials = '\0';
+    sendJadwal();
+    delay(100);
+    sendTanggal();
+    delay(100);
+
+}
+
 void sendJadwal() {
-  //  char buffer[40];
-  //  sprintf(buffer, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
+  char buffers[40];
+//  sprintf(buffers, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
   //  mySerial.print(buffer);
 }
 
 void sendTanggal() {
-  //  const String hari [] PROGMEM = { "", "AHAD", "SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", "SABTU"};
-  //  const String bulan [] PROGMEM = { "", "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI",
-  //                                    "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"
-  //                                  };
-  //  char buffer[30];
-  //  sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
+  const String hari []  = { "", "AHAD", "SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", "SABTU"};
+  const String bulan []  = { "", "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI",
+                             "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"};
+  char buffers[30];
+  //    sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow], t.date, bulan[t.mon], t.year)
+//  sprintf(buffers, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
   //  mySerial.print(buffer);
 }
