@@ -39,7 +39,6 @@ void serialEvent() {
   else {
 //    Serial.println(Serial.readString());
     saveData(Serial.readString());
-    
   }
 }
 
@@ -85,15 +84,11 @@ void saveData(String data) {
   //  simpan nama majid ke external eeprom
   else if (data.substring (0, 3) == "TMN")WriteText(mosName_add, data.substring(3, data.length()), lenMosName);
   // send data ke mcu running text
-//  else if (data.substring (0, 3) == "PNG")sendData();
+  else if (data.substring (0, 3) == "PNG")sendData();
 
 }
 
 void sendData() {
-  //  String Serials ;
-
-    //    Serials = mySerial.readString();
-//    Serials = '\0';
     sendJadwal();
     delay(100);
     sendTanggal();
@@ -103,8 +98,8 @@ void sendData() {
 
 void sendJadwal() {
   char buffers[40];
-//  sprintf(buffers, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
-  //  mySerial.print(buffer);
+  sprintf(buffers, "JSB%d\nJDH%d\nJAS%d\nJMG%d\nJIS%d\n", j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya);
+    Serial.print(buffers);
 }
 
 void sendTanggal() {
@@ -113,6 +108,6 @@ void sendTanggal() {
                              "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"};
   char buffers[30];
   //    sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow], t.date, bulan[t.mon], t.year)
-//  sprintf(buffers, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
-  //  mySerial.print(buffer);
+  sprintf(buffers, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
+   Serial.print(buffers);
 }

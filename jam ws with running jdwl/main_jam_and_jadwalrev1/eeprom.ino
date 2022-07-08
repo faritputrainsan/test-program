@@ -1,24 +1,30 @@
-void WriteText(unsigned int address, String text,  unsigned int lengths) {
+void WriteText(unsigned int address, const String text,  unsigned int lengths) {
 
-  //  String text = blutot.substring(3, blutot.length());
-  //  String text ;
+  eeprom.setBlock(address, 0, lengths);
   Serial.println(text);
   unsigned int TextLength = text.length();
   unsigned int MaxText = 60;
   int lenSplitTxt = TextLength / MaxText;
 
-  int x = 0, y = 0;
+  int x = 0, y = 0, z = 0;
   for (int i = 0; i < lenSplitTxt + 1; i++) {
     //    reset string untuk di isi lagi
     String splitText = " ";
     x = MaxText * y;
+    int adds = address + x;
+    z = 1;
     y ++;
     //    x = 60;
     int xx = MaxText * y;
-
     splitText = text.substring(x, xx);
-    delay(1000);
+
     Serial.println(splitText);
+    unsigned int lentxt = splitText.length();
+    char data2[lentxt] = " ";
+    splitText.toCharArray(data2, lentxt);
+    eeprom.writeBlock(adds    , (uint8_t *) &data2, sizeof(data2));
+    Serial.println(adds);
+    delay(1000);
   }
 
   delay(2000);

@@ -1,1 +1,1 @@
-Test data texts untuk serial pada jam utama apakah error nya sama dengan yang ada disini karena sangat aneh banget nggak bisa di buat substring untuk data split ini bisa lo kok yang itu nggak bisa lewat bluetooth
+TXSTest data texts untuk serial pada jam utama apakah error nya sama dengan yang ada disini karena sangat aneh banget nggak bisa di buat substring untuk data split ini bisa lo kok yang itu nggak bisa lewat bluetooth

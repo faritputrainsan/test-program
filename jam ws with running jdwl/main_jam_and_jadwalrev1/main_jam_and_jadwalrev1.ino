@@ -1,5 +1,6 @@
 #include <DS3231.h>
 #include <EEPROM.h>
+#include <Wire.h>
 #include <I2C_eeprom.h>
 
 #include "PrayerTimes.h"
@@ -86,7 +87,6 @@ void setup() {
   pinMode( res   , OUTPUT);
   digitalWrite(res, LOW);
   delay(500);
-  digitalWrite(res, HIGH);
 }
 
 void loop() {
