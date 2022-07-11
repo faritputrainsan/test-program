@@ -11,6 +11,7 @@
 ******************************/
 
 #include <SPI.h>
+#include <Wire.h>
 #include <avr/pgmspace.h>
 #include "HUB08SPI.h"
 #include "TimerOne.h"
@@ -27,8 +28,10 @@ unsigned int Text_add = 65;
 
 #define input A3
 byte readInput;
-
-String mosName, dataTexts, dayDate;
+//
+String mosName;
+String dataTexts;
+String dayDate;
 
 int subuh  , dhuhur , asar  , maghrib , isya  ;
 byte exits = 0;
@@ -47,6 +50,7 @@ void refresh() {
 
 void setup() {
   Serial.begin(9600);
+  Wire.begin();
   display.begin(displaybuf, WIDTH, HEIGHT);
   Timer1.initialize(250);
 
@@ -54,8 +58,6 @@ void setup() {
   display.setBrightness(2000);
   buff.clear();
   pinMode(input, INPUT);
-
-
   int state = 0;
   if (state == 0) {
     state = 1;
@@ -63,13 +65,12 @@ void setup() {
   }
   while (1) {
     if (Serial.available()) {
-        serial();
+      serial();
+      if (exits != 0) {
         dataTexts = text_read( Text_add);
         delay(50);
-        mosName = text_read( mosName_add);
+        mosName = text_read(mosName_add);
         delay(50);
-
-      if (exits != 0) {
         break;
       }
     }
@@ -78,22 +79,26 @@ void setup() {
 }
 
 void loop() {
-  int state;
-  if (state == 0){
-    
-  }
-  else if (state == 1){
-    
-  }
-  else if (state){
-    
-  }
+
+  runningText(mosName);
+  StaticTxt(dayDate);
+    jadwal();
+  runningText(dataTexts);
 
     
-  runningText( mosName);
-  StaticTxt(dayDate);
-  jadwal();
-  runningText(dataTexts);
+  //  runningText(dataTexts);
+  //  if (state == 0) {
+  //
+  //  }
+  //  else if (state == 1) {
+  //
+  //  }
+  //  else if (state) {
+  //
+  //  }
+
+
+
   //  Serial.println(dataTexts);
 }
 

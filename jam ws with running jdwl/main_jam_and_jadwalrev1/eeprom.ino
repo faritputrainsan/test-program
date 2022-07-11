@@ -1,18 +1,20 @@
 void wireInnit(unsigned int address) {
-  Wire.begin();
+//  Wire.begin();
   Wire.beginTransmission(ADD_I2C);
   Wire.write((int)(address >> 8));   //MSB
   Wire.write((int)(address & 0xFF));  //LSB
 }
 
-void WriteText(unsigned int address, const String text) {
+void WriteText(unsigned int address, String text) {
+  //  Serial.println(address);
   unsigned int lengths = text.length();
+  //  Serial.println(lengths);
+  //  Serial.println("");
+
   saveData(address, lengths);
   for (int i = 0; i <= lengths; i++ ) {
     saveData(address + 1 + i, text[i]);
   }
-
-  Wire.end();
 }
 
 void saveData(unsigned int address, int data) {
@@ -37,23 +39,14 @@ int readData(unsigned int address) {
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 String text_read(unsigned int address) {
-  int lengths = readData(address);
-  Serial.println(lengths);
+  int lengths = readData(address) + 1;
+  //  Serial.println(lengths);
   char readTxt[lengths];
   int i = 0;
-  while (i <= lengths) {
+  while (i < lengths) {
     readTxt[i] = readData(address + 1 + i);
     i++;
-
+    delay(10);
   }
-  Wire.end();
   return String(readTxt);
-  //  char data[length];
-  //  /for (unsigned int i = 0; i <  length; i++) {
-  //    //    data[i] = eeprom.readByte( address + i  );
-  //  }
-  //  ////////////////////////////////////////
-  //  // kembalikan String
-  //  //      merubah char ke String
-  //  return (String)data;
 }

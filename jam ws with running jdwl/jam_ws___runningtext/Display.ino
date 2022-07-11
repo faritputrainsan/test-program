@@ -1,10 +1,10 @@
 void runningText(String TEXT) {
-  const char* readeep;
-  //  String TextEep = read_Text(addres);
-  readeep = TEXT.c_str();
+//  const char* readeep;
+//    String TextEep = read_Text(addres);
+//  readeep = TEXT.c_str();
   ronn.setFont(B_STD);
-  ronn.scrollText_LR(readeep, 0, 0, WIDTH, 20);
-  delay(1000);
+  ronn.scrollText_LR(TEXT.c_str(), 0, 0, WIDTH, 20);
+  delay(3000);
 }
 
 void StaticTxt(String TEXT) {

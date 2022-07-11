@@ -68,9 +68,9 @@ int j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya;
 void setup() {
 
   Serial.begin(9600);
-//  eeprom.begin();
-//  mySerial.begin(9600);
-
+  //  eeprom.begin();
+  //  mySerial.begin(9600);
+  Wire.begin();
   rtc.begin();
   rtc.setOutput (OUTPUT_SQW);
   rtc.setSQWRate (SQW_RATE_1);
@@ -85,13 +85,10 @@ void setup() {
 }
 
 void loop() {
-    digitalWrite(res, HIGH);
-    jam_mtr();
-    jdwl();
-    tepat();
-
-    Serial.println(text_read(0));
-    
+  digitalWrite(res, HIGH);
+  jam_mtr();
+  jdwl();
+  tepat();
 }
 
 void data() {
