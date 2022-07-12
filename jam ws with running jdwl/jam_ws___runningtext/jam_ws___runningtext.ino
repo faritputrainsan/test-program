@@ -34,7 +34,8 @@ String dataTexts;
 String dayDate;
 
 int subuh  , dhuhur , asar  , maghrib , isya  ;
-byte exits = 0;
+bool exits = 0;
+byte state;
 
 HUB08SPI display;
 
@@ -75,31 +76,20 @@ void setup() {
       }
     }
   }
-
 }
 
 void loop() {
-
-  runningText(mosName);
-  StaticTxt(dayDate);
+  if (state == 0) {
+    runningText(mosName);
+    StaticTxt(dayDate);
     jadwal();
-  runningText(dataTexts);
-
-    
-  //  runningText(dataTexts);
-  //  if (state == 0) {
-  //
-  //  }
-  //  else if (state == 1) {
-  //
-  //  }
-  //  else if (state) {
-  //
-  //  }
-
-
-
-  //  Serial.println(dataTexts);
+    runningText(dataTexts);
+  }
+  else {
+    displayTpt(state);
+    iqmah();
+    tunggu();
+  }
 }
 
 String jdwlkonversi(int data) {

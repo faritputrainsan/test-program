@@ -1,16 +1,14 @@
 void wireInnit(unsigned int address) {
-//  Wire.begin();
+
   Wire.beginTransmission(ADD_I2C);
   Wire.write((int)(address >> 8));   //MSB
   Wire.write((int)(address & 0xFF));  //LSB
 }
 
 void WriteText(unsigned int address, String text) {
-  //  Serial.println(address);
-  unsigned int lengths = text.length();
-  //  Serial.println(lengths);
-  //  Serial.println("");
 
+  unsigned int lengths = text.length();
+ Serial.println(lengths);
   saveData(address, lengths);
   for (int i = 0; i <= lengths; i++ ) {
     saveData(address + 1 + i, text[i]);
@@ -40,7 +38,7 @@ int readData(unsigned int address) {
 /////////////////////////////////////////////////////////////////////
 String text_read(unsigned int address) {
   int lengths = readData(address) + 1;
-  //  Serial.println(lengths);
+  Serial.println(lengths);
   char readTxt[lengths];
   int i = 0;
   while (i < lengths) {

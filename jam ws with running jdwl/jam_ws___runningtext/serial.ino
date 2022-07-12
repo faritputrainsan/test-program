@@ -14,12 +14,10 @@ void serial() {
     }
     dchar [idx - 1] = '\0';
     data(dchar);
-    //        Serial.print((String)dchar);
   }
 }
 
 void data(String dataSrl) {
-
   if (dataSrl[0] == 'J') {
     if (dataSrl [1] == 'S' and dataSrl [2] == 'B') {
       subuh = dataSrl.substring(3, dataSrl.length()).toInt();
@@ -44,13 +42,18 @@ void data(String dataSrl) {
     else if (dataSrl [1] == 'I' and dataSrl [2] == 'S') {
       isya = dataSrl.substring(3, dataSrl.length()).toInt();
       delay (5);
-      //      Serial.println("isya oke");
-      //      exits = 1;
+      //      Serial.println("isya oke");ST
     }
   }
-  else if (dataSrl[0] == 'D' and dataSrl [1] == 'T' and dataSrl [2] == 'E') {
-    dayDate = dataSrl.substring(3, dataSrl.length());
-    delay (5);
+  else if (dataSrl[0] == 'D' ) {
+    if ( dataSrl [1] == 'T' and dataSrl [2] == 'E') {
+      dayDate = dataSrl.substring(3, dataSrl.length());
+      delay (5);
+    }
+    else if (dataSrl [1] == 'S' and dataSrl [2] == 'T'){
+      state = dataSrl.substring(3, dataSrl.length()).toInt();
+      delay (5);
+    }
     exits = 1;
   }
 }

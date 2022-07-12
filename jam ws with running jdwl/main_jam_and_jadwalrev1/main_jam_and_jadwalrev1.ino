@@ -3,10 +3,10 @@
 #include <Wire.h>
 
 #include "PrayerTimes.h"
-//#include <SoftwareSerial.h>
+#include <SoftwareSerial.h>
 #include "avr/pgmspace.h"
 
-//SoftwareSerial mySerial(2, 3);
+SoftwareSerial mySerial(2, 3);
 ///////////////////////(RX,TX)
 
 DS3231  rtc(SDA, SCL);
@@ -66,10 +66,8 @@ int segChar[] = {0xbf, 0x0a, 0xdd, 0x5f, 0x6b, 0x77, 0xf7, 0x1a, 0xff, 0x7f};
 int j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya;
 
 void setup() {
-
   Serial.begin(9600);
-  //  eeprom.begin();
-  //  mySerial.begin(9600);
+  mySerial.begin(9600);
   Wire.begin();
   rtc.begin();
   rtc.setOutput (OUTPUT_SQW);
@@ -81,14 +79,24 @@ void setup() {
   pinMode( ampli   , OUTPUT);
   pinMode( res   , OUTPUT);
   digitalWrite(res, LOW);
+  
   delay(500);
 }
 
 void loop() {
   digitalWrite(res, HIGH);
-  jam_mtr();
-  jdwl();
-  tepat();
+    jam_mtr();
+    jdwl();
+    tepat();
+  
+
+  if (mySerial.available()) {
+    String slavedt = mySerial.readString();
+    if ( slavedt.substring(0, 3) == "PNG") {
+      sendData();
+    }
+  }
+  
 }
 
 void data() {
@@ -144,41 +152,46 @@ void jdwl() {
 
 void tepat() {
   if (j_subuh == combine(t.hour, t.min)) {
+    digitalWrite(res, LOW);
+    sholat(1);
     beep();
     display_tepat(0);
-
     iqm(0);
     beep1();
     tunggu(0);
   }
   else if (j_dzuhur == combine(t.hour, t.min)) {
+    digitalWrite(res, LOW);
+    sholat(2);
     beep();
     display_tepat(1);
-
     iqm(1);
     beep1();
     tunggu(1);
   }
   else if (j_ashar == combine(t.hour, t.min)) {
+    digitalWrite(res, LOW);
+    sholat(3);
     beep();
     display_tepat(2);
-
     iqm(2);
     beep1();
     tunggu(2);
   }
   else if (j_maghrib == combine(t.hour, t.min)) {
+    digitalWrite(res, LOW);
+    sholat(4);
     beep();
     display_tepat(3);
-
     iqm(3);
     beep1();
     tunggu(3);
   }
   else if (j_isya == combine(t.hour, t.min)) {
+    digitalWrite(res, LOW);
+    sholat(5);
     beep();
     display_tepat(4);
-
     iqm(4);
     beep1();
     tunggu(4);
