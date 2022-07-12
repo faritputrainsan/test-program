@@ -80,9 +80,9 @@ void saveData(String data) {
     EEPROM.put(addkisy, data.substring (11, 13).toInt());
   }
   //  simpan texts ke external eeprom
-  else if (data.substring (0, 3) == "TXS")WriteText(Text_add, data.substring(3, data.length()),  lenText);
+  else if (data.substring (0, 3) == "TXS")WriteText(Text_add, data.substring(3, data.length()));
   //  simpan nama majid ke external eeprom
-  else if (data.substring (0, 3) == "TMN")WriteText(mosName_add, data.substring(3, data.length()), lenMosName);
+  else if (data.substring (0, 3) == "TMN")WriteText(mosName_add, data.substring(3, data.length()));
   // send data ke mcu running text
   else if (data.substring (0, 3) == "PNG")sendData();
 

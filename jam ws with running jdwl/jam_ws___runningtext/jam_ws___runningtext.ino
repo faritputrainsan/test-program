@@ -11,7 +11,6 @@
 ******************************/
 
 #include <SPI.h>
-#include <I2C_eeprom.h>
 #include <avr/pgmspace.h>
 #include "HUB08SPI.h"
 #include "TimerOne.h"
@@ -23,12 +22,8 @@
 
 #define ADD_I2C 0x57
 
-I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 
-char dchar[160];
 
-unsigned int lenMosName = 61;
-unsigned int lenText  = 160;
 
 unsigned int mosName_add = 0;
 unsigned int Text_add = 65;
@@ -55,7 +50,6 @@ void refresh() {
 
 void setup() {
   Serial.begin(9600);
-  eeprom.begin();
   display.begin(displaybuf, WIDTH, HEIGHT);
   Timer1.initialize(250);
 
@@ -73,9 +67,9 @@ void setup() {
   while (1) {
     if (Serial.available()) {
       serial();
-      dataTexts = text_read(lenText, Text_add);
+      dataTexts = text_read( Text_add);
       delay(50);
-      mosName = text_read(lenMosName, mosName_add);
+      mosName = text_read( mosName_add);
       delay(50);
       
       if (exits != 0) {

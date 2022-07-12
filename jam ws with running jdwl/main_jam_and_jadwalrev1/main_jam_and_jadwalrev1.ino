@@ -1,12 +1,10 @@
 #include <DS3231.h>
 #include <EEPROM.h>
 #include <Wire.h>
-#include <I2C_eeprom.h>
 
 #include "PrayerTimes.h"
 //#include <SoftwareSerial.h>
 #include "avr/pgmspace.h"
-#include "string.h"
 
 //SoftwareSerial mySerial(2, 3);
 ///////////////////////(RX,TX)
@@ -15,7 +13,7 @@ DS3231  rtc(SDA, SCL);
 Time  t;
 
 #define ADD_I2C 0x57
-I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
+//I2C_eeprom eeprom(ADD_I2C, I2C_DEVICESIZE_24LC32);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////variable EEPROM////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,9 +47,6 @@ int  ksbh, kzhr, kasr, kmgr, kisy, addksbh = 19, addkzhr = 21, addkasr = 23, add
 #define ampli  A1
 #define res  A3
 
-unsigned int lenMosName = 61;
-unsigned int lenText  = 160;
-
 unsigned int mosName_add = 0;
 unsigned int Text_add = 65;
 
@@ -73,7 +68,7 @@ int j_imsak, j_subuh, j_dzuhur,  j_ashar,  j_maghrib,  j_isya;
 void setup() {
 
   Serial.begin(9600);
-  eeprom.begin();
+//  eeprom.begin();
 //  mySerial.begin(9600);
 
   rtc.begin();
@@ -94,6 +89,9 @@ void loop() {
     jam_mtr();
     jdwl();
     tepat();
+
+    Serial.println(text_read(0));
+    
 }
 
 void data() {

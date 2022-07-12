@@ -1,3 +1,30 @@
+
+
+#include <Wire.h>
+
+
+#define ADD_I2C 0x57
+
+String Text = "Selamat datang di Smarttraintech Solusi digital anda silahkan berbelanja dengan senang hati anda sopan kami segan kepuasan anda adalah kebahagiaan kami kami akan selalu melayani anda dengan sepenuh hati jiwa dan raga tak akan terganti kan oleh waktu htres";
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  WriteText(0, Text);
+  delay (500);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  Serial.println(Text.length());
+  String baca = text_read(0);
+  Serial.println(baca);
+
+  delay(2000);
+
+}
+
 void wireInnit(unsigned int address) {
   Wire.begin();
   Wire.beginTransmission(ADD_I2C);
@@ -31,6 +58,7 @@ int readData(unsigned int address) {
   if (Wire.available()) {
     data = Wire.read();
   }
+
   return data;
 }
 
