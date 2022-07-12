@@ -1,13 +1,13 @@
- /****************************
+/****************************
   HUB08 (matrix led) to ARDUINO pin connection
-   LA / A    -> Digital Pin 4
-   LB / B    -> Digital Pin 5
-   LC / C    -> Digital Pin 6
-   LD / D    -> Digital Pin 7
-   S / CLK   -> Digital Pin 13
-   R1 / R    -> Digital Pin 11
-   OE / EN   -> Digital Pin 3
-   L / LAT / STB -> Digital Pin 2
+  LA / A    -> Digital Pin 4
+  LB / B    -> Digital Pin 5
+  LC / C    -> Digital Pin 6
+  LD / D    -> Digital Pin 7
+  S / CLK   -> Digital Pin 13
+  R1 / R    -> Digital Pin 11
+  OE / EN   -> Digital Pin 3
+  L / LAT / STB -> Digital Pin 2
 ******************************/
 
 #include <SPI.h>
@@ -22,13 +22,10 @@
 
 #define ADD_I2C 0x57
 
-
-
-
 unsigned int mosName_add = 0;
 unsigned int Text_add = 65;
-#define input A3
 
+#define input A3
 byte readInput;
 
 String mosName, dataTexts, dayDate;
@@ -66,12 +63,12 @@ void setup() {
   }
   while (1) {
     if (Serial.available()) {
-      serial();
-      dataTexts = text_read( Text_add);
-      delay(50);
-      mosName = text_read( mosName_add);
-      delay(50);
-      
+        serial();
+        dataTexts = text_read( Text_add);
+        delay(50);
+        mosName = text_read( mosName_add);
+        delay(50);
+
       if (exits != 0) {
         break;
       }
@@ -81,11 +78,23 @@ void setup() {
 }
 
 void loop() {
+  int state;
+  if (state == 0){
+    
+  }
+  else if (state == 1){
+    
+  }
+  else if (state){
+    
+  }
+
+    
   runningText( mosName);
   StaticTxt(dayDate);
   jadwal();
   runningText(dataTexts);
-//  Serial.println(dataTexts);
+  //  Serial.println(dataTexts);
 }
 
 String jdwlkonversi(int data) {
