@@ -51,10 +51,10 @@ void data(String dataSrl) {
       delay (5);
     }
     else if (dataSrl [1] == 'S' and dataSrl [2] == 'T'){
-      state = dataSrl.substring(3, dataSrl.length()).toInt();
+      states = dataSrl.substring(3, dataSrl.length()).toInt();
       delay (5);
+      exits = 1;
     }
-    exits = 1;
   }
 }
 

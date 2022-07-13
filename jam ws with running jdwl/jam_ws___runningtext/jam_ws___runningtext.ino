@@ -27,15 +27,15 @@ unsigned int mosName_add = 0;
 unsigned int Text_add = 65;
 
 #define input A3
-byte readInput;
-//
+
+
 String mosName;
 String dataTexts;
 String dayDate;
 
 int subuh  , dhuhur , asar  , maghrib , isya  ;
 bool exits = 0;
-byte state;
+byte states;
 
 HUB08SPI display;
 
@@ -43,7 +43,6 @@ uint8_t displaybuf[WIDTH * HEIGHT / 8];
 Buffer buff(displaybuf, WIDTH, 16);
 
 #include "ronnAnimation.h"
-
 
 void refresh() {
   display.scan();
@@ -56,7 +55,7 @@ void setup() {
   Timer1.initialize(250);
 
   Timer1.attachInterrupt(refresh);
-  display.setBrightness(2000);
+  display.setBrightness(1000);
   buff.clear();
   pinMode(input, INPUT);
   int state = 0;
@@ -79,16 +78,17 @@ void setup() {
 }
 
 void loop() {
-  if (state == 0) {
+  if (states == 0) {
     runningText(mosName);
-    StaticTxt(dayDate);
+    StaticTxt(dayDate,0,0);
     jadwal();
     runningText(dataTexts);
   }
   else {
-    displayTpt(state);
+    displayTpt(states);
     iqmah();
     tunggu();
+    states = 0;
   }
 }
 
@@ -122,6 +122,9 @@ String jdwlkonversi(int data) {
   return (str);
 }
 
-void tmbl() {
+byte tmbl() {
+  byte readInput;
   readInput = digitalRead(input);
+
+  return readInput;
 }

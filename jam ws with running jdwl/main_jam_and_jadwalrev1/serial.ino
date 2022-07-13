@@ -36,12 +36,12 @@ void serialEvent() {
         EEPROM.put(addbjr, blutot.substring(3, blutot.length()).toFloat());
       }
     }
-
   }
   else {
     //    Serial.println(Serial.readString());
     saveData(Serial.readString());
   }
+  display_OK(); 
 }
 
 void saveData(String data) {
@@ -99,14 +99,22 @@ void saveData(String data) {
     }
   }
 
+  
+
 //  Serial.println(data);
 }
 
-void sendData() {
+void sendData(byte state) {
   sendJadwal();
   delay(100);
   sendTanggal();
   delay(100);
+  sholat(state);
+  delay(100);
+}
+
+void sendIqm(){
+  
 }
 
 void sendJadwal() {
@@ -121,7 +129,6 @@ void sendTanggal() {
                              "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "JANUARI"
                            };
   char buffers[30];
-  //    sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow], t.date, bulan[t.mon], t.year)
   sprintf(buffers, "DTE%s,  %d %s %d\n", hari[t.dow].c_str(), t.date, bulan[t.mon].c_str(), t.year);
   mySerial.print(buffers);
 }
@@ -131,4 +138,5 @@ void sholat(byte i) {
   //    sprintf(buffer, "DTE%s,  %d %s %d\n", hari[t.dow], t.date, bulan[t.mon], t.year)
   sprintf(buffers, "DST%d\n", i);
   mySerial.print(buffers);
+  Serial.println(buffers);
 }

@@ -1,21 +1,14 @@
 void runningText(String TEXT) {
-  //  const char* readeep;
-  //    String TextEep = read_Text(addres);
-  //  readeep = TEXT.c_str();
   ronn.setFont(B_STD);
   ronn.scrollText_LR(TEXT.c_str(), 0, 0, WIDTH, 20);
   delay(3000);
 }
 
-void StaticTxt(String TEXT) {
-  //  String TEXT = "12:12    22:22    13:13    14:14    15:15    16:16";
-  //  int pjg = TEXT.length() + 1;
-  //  char TEXT.toCharArray
+void StaticTxt(String TEXT, int x, int y) {
   ronn.setFont(B_STD);
   ronn.clear_D();
-  ronn.scrollText_D(TEXT, 0, 1);
+  ronn.scrollText_D(TEXT, x, y);
   delay(5000);
-  //  ronn.clear_D();
 }
 
 void jadwal() {
@@ -41,30 +34,30 @@ void jadwal() {
 }
 
 void displayTpt(byte state) {
-
   int djwl [] = { 0, subuh  , dhuhur , asar  , maghrib , isya};
   const String slt[] PROGMEM = { "IMSAK", "SUBUH", "DHUHUR", "ASAR", "MAGHRIB", "ISYA'" };
-
   char buffer[15];
   sprintf(buffer, "%s  %s", slt[state].c_str(),  jdwlkonversi(djwl[state]).c_str());
-  while (1) {
-    tmbl();
-    StaticTxt(buffer);
-//    runningText(buffer);
-    if (readInput != HIGH)break;
+  StaticTxt(buffer, 0, 1);
+  while (tmbl() == LOW) {
+
   }
+  delay(1000);
 }
 
 void iqmah() {
   const String iqm = "IQOMAH";
+  StaticTxt(iqm, 96, 1);
+  while (tmbl() == LOW) {
 
-  while (1) {
-    tmbl();
-    StaticTxt(iqm);
-    if (readInput != HIGH)break;
   }
+  delay(1000);
 }
 
 void tunggu() {
+  ronn.clear_D();
+  while (tmbl() == LOW) {
 
+  }
+  delay(1000);
 }

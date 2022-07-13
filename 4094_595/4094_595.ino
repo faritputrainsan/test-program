@@ -18,7 +18,8 @@
 byte segment[] = {0xbf, 0x0a, 0xdd, 0x5f, 0x6b, 0x77, 0xf7, 0x1a, 0xff, 0x7f};
 
 byte tes[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
-
+//                   c     d      b     a    f     g      e
+// 0xC6  0xf3
 
 void setup() {
   // put your setup code here, to run once:
@@ -37,13 +38,13 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //
-  for (int i = 0 ; i < 10; i++) {
+  for (int i = 0 ; i < 8; i++) {
     digitalWrite(strobePin, LOW);
 //    digitalWrite(strobePin1, LOW);
-    shiftOut(dataPin, clockPin, LSBFIRST, segment[i]);
-    shiftOut(dataPin, clockPin, LSBFIRST, segment[i]);
-    shiftOut(dataPin, clockPin, LSBFIRST, segment[i]);
-    shiftOut(dataPin, clockPin, LSBFIRST, segment[i]);
+    shiftOut(dataPin, clockPin, LSBFIRST, 0xf3);
+//    shiftOut(dataPin, clockPin, LSBFIRST, segment[i]);
+//    shiftOut(dataPin, clockPin, LSBFIRST, segment[i]);
+//    shiftOut(dataPin, clockPin, LSBFIRST, segment[i]);
 
 //    shiftOut(dataPin1, clockPin1, LSBFIRST, segment[i]);
 //    shiftOut(dataPin1, clockPin1, LSBFIRST, segment[i]);
