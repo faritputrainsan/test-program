@@ -20,7 +20,6 @@ void jadwal() {
           jdwlkonversi(subuh - 10).c_str(), jdwlkonversi(subuh).c_str(),
           jdwlkonversi(dhuhur).c_str(), jdwlkonversi(asar).c_str(),
           jdwlkonversi(maghrib).c_str(), jdwlkonversi(isya).c_str()) ;
-
   ronn.scrollText_D(buffer , 1, 1 );
   //  Serial.println(buffer);
   buff.fillRect(41, 0, 1, 16, 1);
@@ -28,7 +27,7 @@ void jadwal() {
   buff.fillRect(127, 0, 1, 16, 1);
   buff.fillRect(170, 0, 1, 16, 1);
   buff.fillRect(213, 0, 1, 16, 1);
-  delay (5000);
+  delay (10000);
   ronn.clear_D();
   delay(1000);
 }

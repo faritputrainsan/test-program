@@ -22,8 +22,6 @@ void iqm(byte islt) {
 }
 
 void tunggu(byte i) {
-
-
   byte   tggu[] = {EEPROM.read(addsubuh), EEPROM.read(addzuhur ),
                    EEPROM.read(addashar), EEPROM.read(addmaghrib),
                    EEPROM.read(addisya)

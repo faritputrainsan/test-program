@@ -85,10 +85,8 @@ void setup() {
   pinMode( res   , OUTPUT);
   pinMode( pull   , OUTPUT);
   digitalWrite(res, LOW);
-
   data();
   dates = t.date;
-
   delay(500);
 }
 
@@ -111,6 +109,9 @@ void loop() {
   }
   else if (ok == 1) {
     dis_tpt(st);
+    delay (100);
+    st = 0;
+    ok = 0;
   }
 }
 
@@ -166,23 +167,23 @@ void jdwl() {
 }
 
 void tepat() {
-  if (j_subuh == combine(t.hour, t.min)) {
+  if (j_subuh == combine(t.hour, t.min) and st == 0) {
     digitalWrite(res, LOW);
     st = 1;
   }
-  else if (j_dzuhur == combine(t.hour, t.min)) {
+  else if (j_dzuhur == combine(t.hour, t.min) and st == 0) {
     digitalWrite(res, LOW);
     st = 2;
   }
-  else if (j_ashar == combine(t.hour, t.min)) {
+  else if (j_ashar == combine(t.hour, t.min)and st == 0) {
     digitalWrite(res, LOW);
     st = 3;
   }
-  else if (j_maghrib == combine(t.hour, t.min)) {
+  else if (j_maghrib == combine(t.hour, t.min)and st == 0) {
     digitalWrite(res, LOW);
     st = 4;
   }
-  else if (j_isya == combine(t.hour, t.min)) {
+  else if (j_isya == combine(t.hour, t.min)and st == 0) {
     digitalWrite(res, LOW);
     st = 5;
   }
@@ -202,13 +203,12 @@ void dis_tpt(byte i) {
   digitalWrite(pull, LOW);
   beep1();
   tunggu(i - 1);
-  st = 0;
+
 }
 
 void beep() {
-
   int bep = 0;
-  while (bep < 5) {
+  while (bep < 10) {
     bep ++;
     digitalWrite(ampli, 1);
     delay(1000);
@@ -218,7 +218,7 @@ void beep() {
 }
 
 void beep1() {
- int bep = 0;
+  int bep = 0;
   while (bep < 3) {
     bep ++;
     digitalWrite(ampli, 1);
