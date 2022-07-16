@@ -18,7 +18,7 @@ void serialEvent() {
     dchar [idx - 1] = '\0';
     if (dchar[0] == 'L') {
       blutot = String(dchar);
-//      Serial.println(blutot);
+      //      Serial.println(blutot);
       if (blutot.substring(1, 3).equals("AT"))       {
         EEPROM.put(addltg, blutot.substring(3, blutot.length()).toFloat());
       }
@@ -28,7 +28,7 @@ void serialEvent() {
     }
     else if (dchar[0] == 'M') {
       blutot = String(dchar);
-//      Serial.println(blutot);
+      //      Serial.println(blutot);
       if (blutot.substring(1, 3).equals("AT"))       {
         EEPROM.put(addltg, blutot.substring(3, blutot.length()).toFloat());
       }
@@ -41,7 +41,7 @@ void serialEvent() {
     //    Serial.println(Serial.readString());
     saveData(Serial.readString());
   }
-  display_OK(); 
+  display_OK();
 }
 
 void saveData(String data) {
@@ -87,7 +87,7 @@ void saveData(String data) {
       WriteText(Text_add, data.substring(3, data.length()));
       delay(10);
       //    monitoring data secara serial
-//      Serial.println(text_read(Text_add));
+      //      Serial.println(text_read(Text_add));
     }
 
     //  simpan nama majid ke external eeprom
@@ -99,9 +99,9 @@ void saveData(String data) {
     }
   }
 
-  
 
-//  Serial.println(data);
+
+  //  Serial.println(data);
 }
 
 void sendData(byte state) {
@@ -113,8 +113,8 @@ void sendData(byte state) {
   delay(100);
 }
 
-void sendIqm(){
-  
+void sendIqm() {
+
 }
 
 void sendJadwal() {

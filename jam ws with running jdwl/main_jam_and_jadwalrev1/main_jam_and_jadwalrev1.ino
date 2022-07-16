@@ -112,6 +112,7 @@ void loop() {
     delay (100);
     st = 0;
     ok = 0;
+//    digitalWrite(res, LOW);
   }
 }
 
@@ -203,7 +204,6 @@ void dis_tpt(byte i) {
   digitalWrite(pull, LOW);
   beep1();
   tunggu(i - 1);
-
 }
 
 void beep() {

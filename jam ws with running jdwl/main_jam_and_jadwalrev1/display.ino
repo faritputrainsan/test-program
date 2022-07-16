@@ -22,7 +22,7 @@ void iqm(byte islt) {
 }
 
 void tunggu(byte i) {
-  byte   tggu[] = {EEPROM.read(addsubuh), EEPROM.read(addzuhur ),
+  int   tggu[] = {EEPROM.read(addsubuh), EEPROM.read(addzuhur ),
                    EEPROM.read(addashar), EEPROM.read(addmaghrib),
                    EEPROM.read(addisya)
                   };
@@ -34,7 +34,7 @@ void tunggu(byte i) {
   shiftOut(dataPin, clockPin, LSBFIRST, 0x00);
   shiftOut(dataPin, clockPin, LSBFIRST, 0x00);
   digitalWrite(strobePin, HIGH);
-  while (dttg > 0) {
+  while (dttg >= 0) {
     digitalWrite(pull, LOW);
     dttg --;
     delay (1000);
