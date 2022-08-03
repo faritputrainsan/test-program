@@ -7,7 +7,7 @@
 #include <Wire.h>
 
 void setup() {
-    Wire.begin();
+    Wire.begin(13, 12);
     Serial.begin(115200);
     while(!Serial);
     Serial.println("#============o0o=============#");
