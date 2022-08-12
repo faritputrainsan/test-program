@@ -1,4 +1,4 @@
-/*
+ /*
  * I2C Scanner
  * Explored by Elangsakti.com
  * # Hack Your Skill!
@@ -7,7 +7,7 @@
 #include <Wire.h>
 
 void setup() {
-    Wire.begin(13, 12);
+    Wire.begin(D3, D4);
     Serial.begin(115200);
     while(!Serial);
     Serial.println("#============o0o=============#");
