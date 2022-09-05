@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+  <meta charset="utf_8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smarttraintech</title>
+  <link rel="stylesheet" href="/assets/styles/style.css">
+  <body>
+    <header>
+      <div class="Jumbotron">
+        <H1>Smarttraintech</H1>
+      </div>
+
+    </header>
+    <main>
+      <div class="ClockNDays">
+        <div class="Container_clock">
+          <p id="clock"></p>
+        </div>
+        <div class="Container_date">
+          <p id="DAY"></p>
+          <p id="Date"></p>
+        </div>
+      </div>
+      <h2>Jam</h2>
+      <div class="button-container">
+        <input class="button" type="button" id="Send_button" onclick="sendTime()" value="Syncronize" />
+      </div>
+      <p class="text" id="jam_reply">Jam</p>
+      <div class="ClockNDays">
+        <h2 id="txt_alarm">Alarm</h2>
+        <div class="containers">
+          <input type="time" id="dalarm">
+
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round">
+            </span>
+          </label>
+          <br>
+          
+          <div class="button-container">
+
+            <input class="button" type="button" id="Send_alm" onclick="sendAlm()" value="Alarm Set" />
+          </div>
+        </div>
+      </div>
+      <p class="text" id="alm_reply">Alarm</p>
+    </main>
+    <footer>
+      <p id="footer_tag">Smarttraintech</p>
+      <p>2022</p>
+    </footer>
+
+    <script src="/assets/javaScript/script.js"></script>
+  </body>
+
+</html>

@@ -1,0 +1,215 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 100%;
+  margin: 5px;
+  /* padding: 0; */
+}
+
+header {
+  background-color: #f3baaa;
+  /* padding: 5px; */
+  /* margin: 1px; */
+  border-radius: 5px 5px 10px 10px ;
+}
+
+.Jumbotron {
+  padding: 10px 20px;
+}
+
+.ClockNDays {
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  color: #51c9e8;
+  text-align: center;
+  align-content: center;
+  /* float:right; */
+}
+
+.button-container {
+  height: 40px;
+  /* position: relative; */
+}
+
+.button{
+  position: absolute;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  left: 50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  /* width:100%;   */
+  background-color: #47cebe;
+  font-size: 120%;
+}
+.text{
+  padding-top: 20px;
+  text-align: center;
+  color: rgb(12, 8, 248);
+}
+
+.containers {
+  padding: 10px;
+}
+
+.Container_clock {
+  padding: 0px 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 #fad1b0;
+}
+
+.Container_date {
+  padding: 1px 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 #fad1b0;
+}
+
+#clock {
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+#DAY,
+#Date {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+h1 {
+  font-family: "Dancing Script", cursive;
+  color: #282654;
+  font-size: 60px;
+  font-weight: 1500;
+  text-align: center;
+}
+
+main {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 #f7ba89;
+  /* display: table; */
+  padding: 0 10px 0 10px;
+  background-color: #ffeefe;
+  /* overflow: auto; */
+  padding: 20px;
+  margin: 20px 0;
+}
+
+h2 {
+  text-align: center;
+}
+
+#dalarm{
+  /* font-style: oblique; */
+  font-size: 150%;
+  font-weight: 1000;
+  padding: 15px;
+  margin: 20px;
+  color: #47cebe;
+  background-color: #ffffff;
+  box-shadow:0 4px 8px 0 #282654;
+}
+
+#txt_alarm{
+  margin: 10px;
+}
+
+input[type="button"].button:hover {
+  margin: 0;
+  position: absolute;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  left: 50%;
+  /* -ms-transform: translateX(-50%); */
+  /* transform: translateX(-50%); */
+  /* width:100%;   */
+  background-color: #cccccc;
+  font-size: 120%;
+}
+
+.switch{
+ position: relative;
+ display: inline-block;
+ width: 60px;
+ height: 34px;
+}
+
+.switch input{
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider{
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  /* content: "";
+  height: 26px;
+  width: 26px; */
+
+}
+.slider:before{
+position: absolute;
+content: "";
+height: 26px;
+width: 26px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+input:checked + .slider{
+  background-color: #51c9e8;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 5px #2b28ce;
+}
+input:checked + .slider::before{
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.slider.round{
+  border-radius: 34px;
+}
+.slider.round:before{
+  border-radius: 50%;
+}
+
+footer {
+  text-align: center;
+  background-color: #f3b7a7;
+  color: #282654;
+  font-weight: 1000;
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 10px 10px 5px 5px;
+}
+
+#footer_tag {
+  font-family: "Dancing Script", cursive;
+  font-size: 30px;
+}
+
+@media only screen and(max-width: 750px) {
+  * {
+    width: 100%;
+  }
+}
