@@ -1,10 +1,8 @@
 #include <SPI.h>
 #include <DMD3.h>
-#include <RtcDS3231.h>
+#include <DS3231.h>
 #include <Wire.h>
 #include "avr/pgmspace.h"
-#include "EEPROM.h"
-// #include "font/BigNumber.h"
 #include "font/SystemFont5x7.h"
 #include "font/Arial_bold_14.h"
 #include "font/segment.h"
@@ -14,11 +12,13 @@
 #define FontSml SystemFont5x7
 #define FontTxt Arial_bold_14
 
-RtcDS3231<TwoWire> Rtc(Wire);
-RtcDateTime now;
+RTClib RTCs;
+
+DateTime now ;
+
 DMD3 DISPLAYs(2, 1);
 
-byte select ;
+byte select;
 
 int DWidth = DISPLAYs.width();
 int DHight = DISPLAYs.height();
@@ -29,7 +29,7 @@ void setup() {
   // put your setup code here, to run once:
   Wire.begin();
   Serial.begin(9600);
-  Rtc.Begin();
+  // RTCs.Begin();
   displays_init();
 }
 
@@ -42,15 +42,15 @@ void loop() {
 void run(byte s) {
   if (s == 0) {
     display_clock(500, 30);
-    // DISPLAYs.clear();
-  } else  {
+  } else if (s == 1) {
     display_dateTime(1000, 5);
-    
+  } else {
+    display_text(50, "char bla bla ");
   }
 }
 
 void time() {
-  now = Rtc.GetDateTime();
+  now = RTCs.now();
 }
 
 void displays_init() {
