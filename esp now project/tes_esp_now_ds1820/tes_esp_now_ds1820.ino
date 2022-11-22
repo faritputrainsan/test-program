@@ -17,8 +17,8 @@
 
 // REPLACE WITH THE MAC Address of your receiver
 uint8_t broadcastAddress[] = {0x3C, 0x71, 0xBF, 0x3A, 0x50, 0x79};
-
 // Digital pin connected to the DHT sensor
+
 #define DSPIN D1
 
 OneWire oneWire(DSPIN);
@@ -56,7 +56,7 @@ receive_struct_message incomingReadings;
 
 // Callback when data is sent
 void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
-  Serial.print("Last Packet Send Status: ");
+  // Serial.print("Last Packet Send Status: ");
   if (sendStatus == 0) {
     Serial.println("Delivery success");
   }
@@ -138,13 +138,11 @@ void setup() {
 }
 
 void loop() {
-
   if (incomingReq) {
     // save the last time you updated the DHT values
 
     //Get DHT readings
     getReadings();
-
     //Set values to send
     DSReadings.temp = temperature;
     //    DHTReadings.hum = humidity;
@@ -154,8 +152,5 @@ void loop() {
     
     // Print incoming readings
     printIncomingReadings();
-
-  }
-  else {
   }
 }

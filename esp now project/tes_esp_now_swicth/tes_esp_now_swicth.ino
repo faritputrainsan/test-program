@@ -12,7 +12,6 @@
 #include <ESP8266WiFi.h>
 #include <espnow.h>
 
-
 // REPLACE WITH THE MAC Address of your receiver
 uint8_t broadcastAddress[] = {0xEC, 0xFA, 0xBC, 0x05, 0x68, 0x4E};
 
@@ -56,10 +55,10 @@ struct_recv_message incomingReadings;
 void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
 //  Serial.print("Last Packet Send Status: ");
   if (sendStatus == 0) {
-//    Serial.println("Delivery success");
+  //  Serial.println("Delivery success");
   }
   else {
-//    Serial.println("Delivery fail");
+  //  Serial.println("Delivery fail");
   }
 }
 
@@ -123,7 +122,6 @@ void setup() {
   // Init Serial Monitor
   Serial.begin(115200);
 
-
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
@@ -151,28 +149,21 @@ void setup() {
 void loop() {
   //  unsigned long currentMillis = millis();
   getReadings();
- 
-    if (incomingTemp && sts) {
+  if (incomingTemp && sts) {
   // save the last time you updated the DHT values
-  //    previousMillis = currentMillis;
-
-  //Get DHT readings
-  
-
+  // previousMillis = currentMillis;
+  // Get DHT readings
   //Set values to send
-  
   //  DHTReadings.hum = humidity;
-
   // Send message via ESP-NOW
     sts = false;
 
   // Print incoming readings
     printIncomingReadings();
-    }
+  }
 }
 
 void antiBounce() {
-
   while (readPin) {
     readPin = digitalRead(BTNPIN);
     delay(100);
