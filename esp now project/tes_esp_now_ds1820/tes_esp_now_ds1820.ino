@@ -114,6 +114,7 @@ void setup() {
   Sensors.begin();
 
   // Set device as a Wi-Fi Station
+  
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
 
@@ -140,7 +141,6 @@ void setup() {
 void loop() {
   if (incomingReq) {
     // save the last time you updated the DHT values
-
     //Get DHT readings
     getReadings();
     //Set values to send

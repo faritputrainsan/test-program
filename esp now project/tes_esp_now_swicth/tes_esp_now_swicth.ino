@@ -123,6 +123,7 @@ void setup() {
   Serial.begin(115200);
 
   // Set device as a Wi-Fi Station
+
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
 
@@ -157,7 +158,6 @@ void loop() {
   //  DHTReadings.hum = humidity;
   // Send message via ESP-NOW
     sts = false;
-
   // Print incoming readings
     printIncomingReadings();
   }
