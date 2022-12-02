@@ -25,11 +25,9 @@ Adafruit_SSD1306 displays(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  Wire.begin(D4, D3);
-  initOLED();
+  // Wire.begin(D4, D3);
+  // initOLED();
   initLora();
-  LoRa.onReceive(receive);
-  LoRa.receive();
   // initSensor();
 }
 
@@ -58,21 +56,23 @@ void initLora() {
     Serial.println("Lora failed");
     delay(1000);
   }
+  LoRa.onReceive(receive);
+  LoRa.receive();
   Serial.println("LoRa connect success");
 }
 
-void initOLED() {
-  while (!displays.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    Serial.println("OLED failed");
-    delay(1000);
-  }
-  displays.clearDisplay();
-  displays.setTextColor(WHITE);
-  displays.setCursor(0, 0);
-  displays.setTextSize(2);
-  displays.print(F("OK"));
-  displays.display();
-}
+// void initOLED() {
+//   while (!displays.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+//     Serial.println("OLED failed");
+//     delay(1000);
+//   }
+// displays.clearDisplay();
+// displays.setTextColor(WHITE);
+// displays.setCursor(0, 0);
+// displays.setTextSize(2);
+// displays.print(F("OK"));
+// displays.display();
+// }
 
 // void initSensor() {
 //   Sensors.begin();
