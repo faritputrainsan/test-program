@@ -6,8 +6,8 @@
  
 #include <Wire.h>
 
- #define sda 13
- #define scl 12
+ #define sda D4
+ #define scl D3
 void setup() {
     Wire.begin(sda,scl);
     Serial.begin(115200);
