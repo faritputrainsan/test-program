@@ -7,9 +7,9 @@
 #include <DHT.h>
 #define DHTPIN 5  //pin where the dht22 is connected
 DHT dht(DHTPIN, DHT22);
-#define ss 10
-#define rst 9
-#define dio0 2
+#define ss D8
+#define rst D0
+#define dio0 D2
 String outgoing;    // outgoing message
 byte msgCount = 0;  // count of outgoing messages
 byte MasterNode = 0xFF;
@@ -73,7 +73,7 @@ void sendMessage(String outgoing, byte MasterNode, byte Node2) {
   LoRa.write(MasterNode);         // add destination address
   LoRa.write(Node2);              // add sender address
   LoRa.write(msgCount);           // add message ID
-  LoRa.write(outgoing.length());  // add payload length
+  // LoRa.write(outgoing.length());  // add payload length
   LoRa.print(outgoing);           // add payload
   LoRa.endPacket();               // finish packet and send it
   msgCount++;                     // increment message ID
