@@ -57,7 +57,7 @@ void onReceive(int packetSize) {
     ;
     return;  // skip rest of function
   }
-  Serial.println(incoming);
+  // Serial.println(incoming);
   int Val = incoming.toInt();
   if (Val == 10) {
     Mymessage = Mymessage + soilMoistureValue + "," + soilmoisturepercent;
