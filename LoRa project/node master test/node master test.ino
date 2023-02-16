@@ -3,12 +3,13 @@
   The IoT Projects
 */
 #include <SPI.h>  // include libraries
+#include <Wire.h>
 #include <LoRa.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#define ss 15             //GPIO 15
-#define rst 16            //GPIO 16
-#define dio0 4            //GPIO 4
+#define ss D8             //GPIO 15
+#define rst D0            //GPIO 16
+#define dio0 D2            //GPIO 4
 #define SCREEN_WIDTH 128  // OLED display width, in pixels
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
@@ -35,6 +36,7 @@ int soilmoisturepercent;
 int soilMoistureValue;
 void setup() {
   Serial.begin(115200);  // initialize serial
+  Wire.begin(D4,D3);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   delay(500);
   display.clearDisplay();
@@ -58,11 +60,11 @@ void loop() {
     if (Secs >= 11) {
       Secs = 0;
     }
-    if ((Secs >= 1) && (Secs <= 5)) {
+    if (Secs <= 5) {
       String message = "10";
       sendMessage(message, MasterNode, Node1);
     }
-    if ((Secs >= 6) && (Secs <= 10)) {
+    else if (Secs <= 10) {
       String message = "20";
       sendMessage(message, MasterNode, Node2);
     }
@@ -84,22 +86,22 @@ void sendMessage(String outgoing, byte MasterNode, byte otherNode) {
 void onReceive(int packetSize) {
   if (packetSize == 0) return;  // if there's no packet, return
   // read packet header bytes:
-  int recipient = LoRa.read();  // recipient address
+  byte recipient = LoRa.read();  // recipient address / penerima 
   byte sender = LoRa.read();    // sender address
   if (sender == 0XBB)
     SenderNode = "Node1:";
   if (sender == 0XCC)
     SenderNode = "Node2:";
   byte incomingMsgId = LoRa.read();   // incoming msg ID
-  byte incomingLength = LoRa.read();  // incoming msg length
+  // byte incomingLength = LoRa.read();  // incoming msg length
   while (LoRa.available()) {
     incoming += (char)LoRa.read();
   }
-  if (incomingLength != incoming.length()) {  // check length for error
-    //Serial.println("error: message length does not match length");
-    ;
-    return;  // skip rest of function
-  }
+  // if (incomingLength != incoming.length()) {  // check length for error
+  //   //Serial.println("error: message length does not match length");
+  //   ;
+  //   return;  // skip rest of function
+  // }
   // if the recipient isn't this device or broadcast,
   if (recipient != Node1 && recipient != MasterNode) {
     // Serial.println("This message is not for me.");
@@ -107,14 +109,14 @@ void onReceive(int packetSize) {
     return;  // skip rest of function
   }
   // if message is for this device, or broadcast, print details:
-  //Serial.println("Received from: 0x" + String(sender, HEX));
-  //Serial.println("Sent to: 0x" + String(recipient, HEX));
-  //Serial.println("Message ID: " + String(incomingMsgId));
+  Serial.println("Received from: 0x" + String(sender, HEX));
+  Serial.println("Sent to: 0x" + String(recipient, HEX)); // address node master / pnerima
+  Serial.println("Message ID: " + String(incomingMsgId));
   // Serial.println("Message length: " + String(incomingLength));
-  // Serial.println("Message: " + incoming);
-  //Serial.println("RSSI: " + String(LoRa.packetRssi()));
-  // Serial.println("Snr: " + String(LoRa.packetSnr()));
-  // Serial.println();
+  Serial.println("Message: " + incoming);
+  Serial.println("RSSI: " + String(LoRa.packetRssi()));
+  Serial.println("Snr: " + String(LoRa.packetSnr()));
+  Serial.println();
   if (sender == 0XCC) {
     String t = getValue(incoming, ',', 0);  // Temperature
     String h = getValue(incoming, ',', 1);  // Humidity
