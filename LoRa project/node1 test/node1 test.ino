@@ -41,7 +41,7 @@ void onReceive(int packetSize) {
   int recipient = LoRa.read();        // recipient address
   byte sender = LoRa.read();          // sender address
   byte incomingMsgId = LoRa.read();   // incoming msg ID
-  byte incomingLength = LoRa.read();  // incoming msg length
+  byte incomingLength = LoRa.read();  // incoming msg lengthu
   String incoming = "";
   while (LoRa.available()) {
     incoming += (char)LoRa.read();
